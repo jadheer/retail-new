@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Impact Prediction and Strategic Change Management in Retail'
+  description: 'This API is designed to predict the impact of strategic changes in retail and manage them effectively. It supports the creation, retrieval, updating, and deletion of impact prediction and change management records.'
+  version: 1.0.0
+paths:
+  '/impact-prediction-records':
+    get:
+      summary: 'Retrieve a list of impact prediction records'
+      description: 'Fetches a list of all impact prediction and strategic change management records in retail.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the impact prediction record'
+                    processName:
+                      type: string
+                      description: 'Name of the process (e.g., impact prediction and change management)'
+                    predictionDate:
+                      type: string
+                      format: date
+                      description: 'Date the impact prediction was made'
+                    status:
+                      type: string
+                      description: 'Status of the prediction (e.g., active, inactive, under review)'
+                  required:
+                    - recordId
+                    - processName
+                    - predictionDate
+                    - status
+    post:
+      summary: 'Add a new impact prediction record'
+      description: 'Adds a new impact prediction and strategic change management record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., impact prediction and change management)'
+                predictionDate:
+                  type: string
+                  format: date
+                  description: 'Date the impact prediction was made'
+                status:
+                  type: string
+                  description: 'Status of the prediction (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - predictionDate
+                - status
+      responses:
+        '201':
+          description: 'Impact prediction record created successfully'
+  '/impact-prediction-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific impact prediction record'
+      description: 'Fetches details of a specific impact prediction and strategic change management record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the impact prediction record'
+                  processName:
+                    type: string
+                    description: 'Name of the process (e.g., impact prediction and change management)'
+                  predictionDate:
+                    type: string
+                    format: date
+                    description: 'Date the impact prediction was made'
+                  status:
+                    type: string
+                    description: 'Status of the prediction (e.g., active, inactive, under review)'
+                required:
+                  - recordId
+                  - processName
+                  - predictionDate
+                  - status
+    put:
+      summary: 'Update an existing impact prediction record'
+      description: 'Updates details of an existing impact prediction and strategic change management record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., impact prediction and change management)'
+                predictionDate:
+                  type: string
+                  format: date
+                  description: 'Date the impact prediction was made'
+                status:
+                  type: string
+                  description: 'Status of the prediction (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - predictionDate
+                - status
+      responses:
+        '200':
+          description: 'Impact prediction record updated successfully'
+    delete:
+      summary: 'Delete an impact prediction record'
+      description: 'Deletes an impact prediction and strategic change management record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Impact prediction record deleted successfully'

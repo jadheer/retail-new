@@ -1,0 +1,101 @@
+openapi: 3.0.0
+info:
+  title: 'Generative Store Design and Visual Merchandising'
+  version: 1.0.0
+  description: 'API for managing Generative Store Design and Visual Merchandising processes in the retail domain to enhance store layouts and product displays.'
+paths:
+  '/store-design':
+    get:
+      summary: 'Retrieve generative store designs'
+      description: 'Fetch available generative store designs and visual merchandising layouts.'
+      responses:
+        '200':
+          description: 'Successful retrieval of store designs'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 1
+                  retail_domain_category:
+                    type: string
+                    example: 'Store Operations'
+                  process_group:
+                    type: string
+                    example: 'Visual Merchandising'
+                  creation:
+                    type: string
+                    example: 'Major'
+                  automation:
+                    type: string
+                    example: 'Major'
+  '/store-design/generate':
+    post:
+      summary: 'Generate a new store design'
+      description: 'Create a new generative store design and visual merchandising layout.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store_id:
+                  type: string
+                  example: 'STORE123'
+                design_type:
+                  type: string
+                  example: 'Modern Minimalist'
+                product_focus:
+                  type: string
+                  example: 'Electronics'
+      responses:
+        '201':
+          description: 'Store design generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Store design generated successfully.'
+  '/store-design/automate':
+    post:
+      summary: 'Automate store design generation'
+      description: 'Trigger automation for generating store designs and visual merchandising layouts.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Store design automation process started successfully.'
+  '/store-design/visualize':
+    get:
+      summary: 'Visualize store design'
+      description: 'Retrieve a visual representation of the generated store design.'
+      parameters:
+        - name: 'design_id'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'DESIGN456'
+      responses:
+        '200':
+          description: 'Visualization retrieved successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  visualization_url:
+                    type: string
+                    example: 'https://example.com/store-design/DESIGN456'

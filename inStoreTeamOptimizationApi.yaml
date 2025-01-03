@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: 'In-Store Team Optimization'
+  version: 1.0.0
+  description: 'API for managing In-Store Team Optimization processes to enhance retail store operations and customer experience.'
+paths:
+  '/in-store-team-optimization':
+    get:
+      summary: 'Retrieve in-store team optimization data'
+      description: 'Fetch available in-store team optimization data and insights.'
+      responses:
+        '200':
+          description: 'Successful retrieval of in-store team optimization data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 24
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Customer Experience'
+                  process_group:
+                    type: string
+                    example: 'Develop and manage retail store channel'
+                  process_name:
+                    type: string
+                    example: 'In-Store Team Optimization'
+                  creation:
+                    type: string
+                    example: 'Minor'
+                  automation:
+                    type: string
+                    example: 'Major'
+                  search:
+                    type: string
+                    example: 'Minor'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/in-store-team-optimization/optimize':
+    post:
+      summary: 'Optimize in-store team performance'
+      description: 'Optimize in-store team performance using data-driven insights.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store_id:
+                  type: string
+                  example: 'STORE123'
+                optimization_criteria:
+                  type: array
+                  items:
+                    type: string
+                  example: ['Staff Scheduling', 'Customer Interaction']
+      responses:
+        '201':
+          description: 'In-store team optimization completed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'In-store team optimization completed successfully.'
+  '/in-store-team-optimization/automate':
+    post:
+      summary: 'Automate in-store team optimization'
+      description: 'Trigger major automation for in-store team optimization processes.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'In-store team optimization automation process started successfully.'
+  '/in-store-team-optimization/summarize':
+    get:
+      summary: 'Summarize in-store team optimization data'
+      description: 'Generate a summary of in-store team optimization insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'In-store team optimization shows a 10% improvement in customer interaction.'

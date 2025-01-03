@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Hazardous Waste Management In Retail
+  version: 1.0.0
+  description: >
+    API to manage and optimize hazardous waste management processes in retail environments,
+    ensuring compliance with regulations, safe disposal, and environmental sustainability.
+
+paths:
+  '/waste/hazardous':
+    get:
+      summary: Analyze hazardous waste management efficiency
+      description: Retrieve analysis and recommendations for improving hazardous waste management in retail.
+      responses:
+        '200':
+          description: Successful retrieval of hazardous waste management data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalHazardousWaste:
+                    type: number
+                    description: Total hazardous waste generated in kilograms.
+                  disposedHazardousWaste:
+                    type: number
+                    description: Amount of hazardous waste disposed of safely in kilograms.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        wasteType:
+                          type: string
+                          description: Type of hazardous waste (e.g., chemicals, batteries, electronic waste).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the waste type.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/waste/simulation':
+    post:
+      summary: Simulate hazardous waste management scenarios
+      description: Create and simulate scenarios for optimizing hazardous waste management in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                wasteCategories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories of hazardous waste (e.g., chemicals, batteries, electronic waste).
+                disposalMethods:
+                  type: array
+                  items:
+                    type: string
+                  description: Methods of hazardous waste disposal (e.g., recycling, incineration, secure landfill).
+              required:
+                - storeId
+                - wasteCategories
+                - disposalMethods
+      responses:
+        '201':
+          description: Hazardous waste management simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the hazardous waste management simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/waste':
+    get:
+      summary: Retrieve hazardous waste optimization suggestions
+      description: Get hazardous waste optimization recommendations based on analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of hazardous waste optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    wasteType:
+                      type: string
+                      description: Type of hazardous waste (e.g., chemicals, batteries, electronic waste).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for hazardous waste management.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., reduced environmental impact, compliance with regulations).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

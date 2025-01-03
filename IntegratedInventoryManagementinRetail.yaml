@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: 'Integrated Inventory Management in Retail'
+  description: 'API for integrated inventory management in retail, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/inventory/integrated/manage':
+    post:
+      summary: 'Manage integrated inventory'
+      description: 'Facilitates the integration and management of inventory across retail operations to ensure efficiency and accuracy.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                inventory_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: string
+                      current_stock:
+                        type: number
+                      location_id:
+                        type: string
+                      integration_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Integrated inventory managed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_inventory_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_id:
+                          type: string
+                        current_stock:
+                          type: number
+                        location_id:
+                          type: string
+                        integration_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/inventory/integrated/search':
+    get:
+      summary: 'Search integrated inventory data'
+      description: 'Search for integrated inventory data based on product ID or location ID.'
+      parameters:
+        - name: 'product_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the product to search for'
+        - name: 'location_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the location to search for'
+      responses:
+        '200':
+          description: 'Integrated inventory data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    product_id:
+                      type: string
+                    current_stock:
+                      type: number
+                    location_id:
+                      type: string
+                    integration_recommendations:
+                      type: array
+                      items:
+                        type: string

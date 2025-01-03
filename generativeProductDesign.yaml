@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: 'Generative Product Design'
+  version: 1.0.0
+  description: 'API for managing Generative Product Design processes to create innovative and optimized product designs.'
+paths:
+  '/product-design':
+    get:
+      summary: 'Retrieve generative product designs'
+      description: 'Fetch available generative product designs.'
+      responses:
+        '200':
+          description: 'Successful retrieval of product designs'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 1
+                  retail_domain_category:
+                    type: string
+                    example: 'Product Development'
+                  process_group:
+                    type: string
+                    example: 'Design Innovation'
+                  creation:
+                    type: string
+                    example: 'Major'
+                  automation:
+                    type: string
+                    example: 'Major'
+  '/product-design/generate':
+    post:
+      summary: 'Generate a new product design'
+      description: 'Create a new generative product design using advanced algorithms.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_category:
+                  type: string
+                  example: 'Electronics'
+                design_parameters:
+                  type: object
+                  properties:
+                    material:
+                      type: string
+                      example: 'Recycled Plastic'
+                    weight:
+                      type: number
+                      example: 0.5
+                    dimensions:
+                      type: string
+                      example: '10x5x2 cm'
+      responses:
+        '201':
+          description: 'Product design generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Product design generated successfully.'
+                  design_id:
+                    type: string
+                    example: 'DESIGN789'
+  '/product-design/automate':
+    post:
+      summary: 'Automate product design generation'
+      description: 'Trigger automation for generating product designs.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Product design automation process started successfully.'
+  '/product-design/visualize':
+    get:
+      summary: 'Visualize product design'
+      description: 'Retrieve a visual representation of the generated product design.'
+      parameters:
+        - name: 'design_id'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'DESIGN789'
+      responses:
+        '200':
+          description: 'Visualization retrieved successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  visualization_url:
+                    type: string
+                    example: 'https://example.com/product-design/DESIGN789'

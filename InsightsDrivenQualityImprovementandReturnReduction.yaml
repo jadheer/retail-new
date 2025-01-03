@@ -1,0 +1,115 @@
+openapi: 3.0.0
+info:
+  title: 'Insights-Driven Quality Improvement and Return Reduction in Retail'
+  description: 'API for insights-driven quality improvement and return reduction in retail, focusing on automation and search functionalities to enhance product quality and reduce returns.'
+  version: 1.0.0
+paths:
+  '/quality-returns/insights/manage':
+    post:
+      summary: 'Manage insights-driven quality improvement and return reduction'
+      description: 'Uses data insights to improve product quality and reduce return rates in retail operations.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                quality_returns_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: string
+                      quality_metrics:
+                        type: object
+                        properties:
+                          defect_rate:
+                            type: number
+                          return_rate:
+                            type: number
+                      improvement_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Quality improvement and return reduction managed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_quality_returns_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_id:
+                          type: string
+                        quality_metrics:
+                          type: object
+                          properties:
+                            defect_rate:
+                              type: number
+                            return_rate:
+                              type: number
+                        improvement_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/quality-returns/insights/search':
+    get:
+      summary: 'Search quality improvement and return reduction data'
+      description: 'Search for quality improvement and return reduction data based on product ID or defect/return rates.'
+      parameters:
+        - name: 'product_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the product to search for'
+        - name: 'defect_rate'
+          in: query
+          schema:
+            type: number
+          required: false
+          description: 'Defect rate to search for'
+        - name: 'return_rate'
+          in: query
+          schema:
+            type: number
+          required: false
+          description: 'Return rate to search for'
+      responses:
+        '200':
+          description: 'Quality improvement and return reduction data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    product_id:
+                      type: string
+                    quality_metrics:
+                      type: object
+                      properties:
+                        defect_rate:
+                          type: number
+                        return_rate:
+                          type: number
+                    improvement_recommendations:
+                      type: array
+                      items:
+                        type: string
