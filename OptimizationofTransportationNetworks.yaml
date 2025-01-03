@@ -1,0 +1,94 @@
+openapi: 3.0.0
+info:
+  title: 'Optimization of Transportation Networks'
+  description: 'API for optimization of transportation networks, focusing on automation and search functionalities to improve efficiency and reduce costs.'
+  version: 1.0.0
+paths:
+  '/transportation/networks/optimize':
+    post:
+      summary: 'Optimize transportation networks'
+      description: 'Optimizes transportation networks to improve efficiency, reduce costs, and ensure timely delivery of goods.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                network_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      route_id:
+                        type: string
+                      transportation_mode:
+                        type: string
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Transportation networks optimized successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_network_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route_id:
+                          type: string
+                        transportation_mode:
+                          type: string
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/transportation/networks/search':
+    get:
+      summary: 'Search transportation networks data'
+      description: 'Search for transportation networks data based on route ID or transportation mode.'
+      parameters:
+        - name: 'route_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the route to search for'
+        - name: 'transportation_mode'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'Transportation mode to search for'
+      responses:
+        '200':
+          description: 'Transportation networks data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    route_id:
+                      type: string
+                    transportation_mode:
+                      type: string
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

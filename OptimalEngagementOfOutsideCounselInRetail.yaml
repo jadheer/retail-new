@@ -1,0 +1,149 @@
+openapi: 3.0.0
+info:
+  title: Optimal Engagement Of Outside Counsel In Retail
+  version: 1.0.0
+  description: >
+    API to manage the optimal engagement of outside counsel in retail, ensuring
+    effective legal support and cost-efficient use of external legal resources.
+
+paths:
+  '/outside-counsel/engagement':
+    get:
+      summary: Retrieve outside counsel engagement data
+      description: Fetch details of engaged outside counsel and their performance metrics.
+      responses:
+        '200':
+          description: Successful retrieval of outside counsel engagement data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  counselId:
+                    type: string
+                    description: Unique identifier of the outside counsel.
+                  counselName:
+                    type: string
+                    description: Name of the outside counsel firm or attorney.
+                  engagementType:
+                    type: string
+                    description: Type of engagement (e.g., litigation, advisory).
+                  performanceMetrics:
+                    type: object
+                    properties:
+                      responsiveness:
+                        type: number
+                        description: Responsiveness score (0-100).
+                      costEfficiency:
+                        type: number
+                        description: Cost efficiency score (0-100).
+                      successRate:
+                        type: number
+                        description: Success rate of cases or matters handled.
+                  lastEngagementDate:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last engagement.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/outside-counsel/engagement/submit':
+    post:
+      summary: Submit a new outside counsel engagement
+      description: Submit details of a new engagement with outside counsel.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                counselName:
+                  type: string
+                  description: Name of the outside counsel firm or attorney.
+                engagementType:
+                  type: string
+                  description: Type of engagement (e.g., litigation, advisory).
+                matterDescription:
+                  type: string
+                  description: Description of the legal matter.
+                estimatedCost:
+                  type: number
+                  description: Estimated cost of the engagement.
+              required:
+                - counselName
+                - engagementType
+                - matterDescription
+      responses:
+        '201':
+          description: Outside counsel engagement successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  engagementId:
+                    type: string
+                    description: Unique identifier of the submitted engagement.
+                  status:
+                    type: string
+                    description: Status of the engagement (e.g., active, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/outside-counsel/engagement/reports':
+    get:
+      summary: Retrieve outside counsel engagement reports
+      description: Fetch detailed reports on engagements with outside counsel.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the engagement report.
+      responses:
+        '200':
+          description: Successful retrieval of outside counsel engagement reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the engagement report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    engagements:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          counselName:
+                            type: string
+                            description: Name of the outside counsel firm or attorney.
+                          engagementType:
+                            type: string
+                            description: Type of engagement.
+                          totalCost:
+                            type: number
+                            description: Total cost of the engagement.
+                          performanceScore:
+                            type: number
+                            description: Overall performance score (0-100).
+                    totalEngagementCost:
+                      type: number
+                      description: Total cost of all engagements during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

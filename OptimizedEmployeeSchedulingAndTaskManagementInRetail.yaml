@@ -1,0 +1,133 @@
+openapi: 3.0.0
+info:
+  title: Optimized Employee Scheduling And Task Management In Retail
+  version: 1.0.0
+  description: >
+    API for enhancing employee scheduling and task management in retail operations,
+    enabling efficient resource utilization, reducing downtime, and improving productivity.
+
+paths:
+  '/scheduling/employees':
+    post:
+      summary: Create employee schedules
+      description: Define and allocate employee schedules based on retail operation needs.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                  description: Unique identifier of the employee.
+                shiftStart:
+                  type: string
+                  format: date-time
+                  description: Start time of the employee's shift.
+                shiftEnd:
+                  type: string
+                  format: date-time
+                  description: End time of the employee's shift.
+                assignedTasks:
+                  type: array
+                  items:
+                    type: string
+                  description: List of tasks assigned to the employee during the shift.
+              required:
+                - employeeId
+                - shiftStart
+                - shiftEnd
+      responses:
+        '201':
+          description: Employee schedule successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scheduleId:
+                    type: string
+                    description: Unique identifier of the created schedule.
+                  status:
+                    type: string
+                    description: Status of the schedule (e.g., confirmed, pending).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/tasks/management':
+    get:
+      summary: Retrieve task assignments
+      description: Fetch task assignments for employees based on their schedules.
+      parameters:
+        - name: employeeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the employee.
+      responses:
+        '200':
+          description: Successful retrieval of task assignments.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    taskId:
+                      type: string
+                      description: Unique identifier of the task.
+                    taskDescription:
+                      type: string
+                      description: Detailed description of the task.
+                    taskStatus:
+                      type: string
+                      description: Current status of the task (e.g., pending, completed).
+        '400':
+          description: Missing or invalid employeeId parameter.
+        '500':
+          description: Internal server error.
+
+  '/scheduling/optimization':
+    get:
+      summary: Optimize employee schedules
+      description: Analyze employee schedules and provide recommendations for optimal task allocation and shift planning.
+      responses:
+        '200':
+          description: Successful retrieval of schedule optimization recommendations.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    employeeId:
+                      type: string
+                      description: Unique identifier of the employee.
+                    suggestedShifts:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          shiftStart:
+                            type: string
+                            format: date-time
+                            description: Suggested start time for the shift.
+                          shiftEnd:
+                            type: string
+                            format: date-time
+                            description: Suggested end time for the shift.
+                          tasks:
+                            type: array
+                            items:
+                              type: string
+                            description: Suggested tasks for the shift.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.

@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Optimized Service/Solution Integration'
+  description: 'This API provides endpoints to manage and optimize service/solution integrations, including creating, retrieving, updating, and deleting integrations. It is designed to streamline the process of integrating various services and solutions within a system.'
+  version: 1.0.0
+paths:
+  '/service-solution-integrations':
+    get:
+      summary: 'Retrieve a list of service/solution integrations'
+      description: 'Fetches a list of all service/solution integrations being optimized.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    integrationId:
+                      type: string
+                      description: 'Unique identifier for the service/solution integration'
+                    integrationName:
+                      type: string
+                      description: 'Name of the integration (e.g., API integration, data synchronization, system interoperability)'
+                    createdDate:
+                      type: string
+                      format: date
+                      description: 'Date the integration was created'
+                    lastUpdatedDate:
+                      type: string
+                      format: date
+                      description: 'Date the integration was last updated'
+                    status:
+                      type: string
+                      description: 'Status of the integration (e.g., active, inactive, under review)'
+                  required:
+                    - integrationId
+                    - integrationName
+                    - createdDate
+                    - status
+    post:
+      summary: 'Add a new service/solution integration'
+      description: 'Adds a new service/solution integration to the system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                integrationName:
+                  type: string
+                  description: 'Name of the integration (e.g., API integration, data synchronization, system interoperability)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the integration was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the integration was last updated'
+                status:
+                  type: string
+                  description: 'Status of the integration (e.g., active, inactive, under review)'
+              required:
+                - integrationName
+                - createdDate
+                - status
+      responses:
+        '201':
+          description: 'Service/solution integration created successfully'
+  '/service-solution-integrations/{integrationId}':
+    get:
+      summary: 'Retrieve details of a specific service/solution integration'
+      description: 'Fetches details of a specific service/solution integration by its ID.'
+      parameters:
+        - name: 'integrationId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  integrationId:
+                    type: string
+                    description: 'Unique identifier for the service/solution integration'
+                  integrationName:
+                    type: string
+                    description: 'Name of the integration (e.g., API integration, data synchronization, system interoperability)'
+                  createdDate:
+                    type: string
+                    format: date
+                    description: 'Date the integration was created'
+                  lastUpdatedDate:
+                    type: string
+                    format: date
+                    description: 'Date the integration was last updated'
+                  status:
+                    type: string
+                    description: 'Status of the integration (e.g., active, inactive, under review)'
+                required:
+                  - integrationId
+                  - integrationName
+                  - createdDate
+                  - status
+    put:
+      summary: 'Update an existing service/solution integration'
+      description: 'Updates details of an existing service/solution integration by its ID.'
+      parameters:
+        - name: 'integrationId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                integrationName:
+                  type: string
+                  description: 'Name of the integration (e.g., API integration, data synchronization, system interoperability)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the integration was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the integration was last updated'
+                status:
+                  type: string
+                  description: 'Status of the integration (e.g., active, inactive, under review)'
+              required:
+                - integrationName
+                - createdDate
+                - status
+      responses:
+        '200':
+          description: 'Service/solution integration updated successfully'
+    delete:
+      summary: 'Delete a service/solution integration'
+      description: 'Deletes a service/solution integration from the system by its ID.'
+      parameters:
+        - name: 'integrationId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Service/solution integration deleted successfully'

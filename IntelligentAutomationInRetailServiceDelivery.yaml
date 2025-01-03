@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Intelligent Automation in Retail Service Delivery'
+  description: 'This API is designed to enable intelligent automation in retail service delivery, leveraging AI and machine learning to streamline processes such as customer support, order fulfillment, and inventory management. It supports the creation, retrieval, updating, and deletion of automation records to enhance efficiency and customer satisfaction.'
+  version: 1.0.0
+paths:
+  '/automation-records':
+    get:
+      summary: 'Retrieve a list of automation records'
+      description: 'Fetches a list of all intelligent automation records in retail service delivery.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the automation record'
+                    processName:
+                      type: string
+                      description: 'Name of the automated process (e.g., customer support, order fulfillment, inventory management)'
+                    automationDate:
+                      type: string
+                      format: date
+                      description: 'Date the automation was implemented'
+                    status:
+                      type: string
+                      description: 'Status of the automation (e.g., active, inactive, under review)'
+                  required:
+                    - recordId
+                    - processName
+                    - automationDate
+                    - status
+    post:
+      summary: 'Add a new automation record'
+      description: 'Adds a new intelligent automation record to the retail service delivery system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the automated process (e.g., customer support, order fulfillment, inventory management)'
+                automationDate:
+                  type: string
+                  format: date
+                  description: 'Date the automation was implemented'
+                status:
+                  type: string
+                  description: 'Status of the automation (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - automationDate
+                - status
+      responses:
+        '201':
+          description: 'Automation record created successfully'
+  '/automation-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific automation record'
+      description: 'Fetches details of a specific intelligent automation record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the automation record'
+                  processName:
+                    type: string
+                    description: 'Name of the automated process (e.g., customer support, order fulfillment, inventory management)'
+                  automationDate:
+                    type: string
+                    format: date
+                    description: 'Date the automation was implemented'
+                  status:
+                    type: string
+                    description: 'Status of the automation (e.g., active, inactive, under review)'
+                required:
+                  - recordId
+                  - processName
+                  - automationDate
+                  - status
+    put:
+      summary: 'Update an existing automation record'
+      description: 'Updates details of an existing intelligent automation record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the automated process (e.g., customer support, order fulfillment, inventory management)'
+                automationDate:
+                  type: string
+                  format: date
+                  description: 'Date the automation was implemented'
+                status:
+                  type: string
+                  description: 'Status of the automation (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - automationDate
+                - status
+      responses:
+        '200':
+          description: 'Automation record updated successfully'
+    delete:
+      summary: 'Delete an automation record'
+      description: 'Deletes an intelligent automation record from the retail service delivery system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Automation record deleted successfully'

@@ -1,0 +1,154 @@
+openapi: 3.0.0
+info:
+  title: Optimized Press Release Distribution In Retail
+  version: 1.0.0
+  description: >
+    API to manage optimized press release distribution in retail, ensuring effective
+    communication with the public and media through targeted and timely dissemination.
+
+paths:
+  '/press-release/distribution':
+    get:
+      summary: Retrieve press release distribution data
+      description: Fetch details of distributed press releases and their performance metrics.
+      responses:
+        '200':
+          description: Successful retrieval of press release distribution data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pressReleaseId:
+                    type: string
+                    description: Unique identifier of the press release.
+                  title:
+                    type: string
+                    description: Title of the press release.
+                  distributionChannels:
+                    type: array
+                    items:
+                      type: string
+                    description: Channels used for distribution (e.g., email, social media, news outlets).
+                  targetAudience:
+                    type: string
+                    description: Intended audience for the press release.
+                  distributionDate:
+                    type: string
+                    format: date-time
+                    description: Timestamp of when the press release was distributed.
+                  performanceMetrics:
+                    type: object
+                    properties:
+                      reach:
+                        type: integer
+                        description: Estimated number of people reached.
+                      engagement:
+                        type: number
+                        description: Engagement rate (e.g., clicks, shares).
+                      sentiment:
+                        type: string
+                        description: Public sentiment (e.g., positive, neutral, negative).
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/press-release/distribution/submit':
+    post:
+      summary: Submit a press release for distribution
+      description: Submit a press release for optimized distribution across targeted channels.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Title of the press release.
+                content:
+                  type: string
+                  description: Full content of the press release.
+                distributionChannels:
+                  type: array
+                  items:
+                    type: string
+                  description: Channels to use for distribution (e.g., email, social media, news outlets).
+                targetAudience:
+                  type: string
+                  description: Intended audience for the press release.
+              required:
+                - title
+                - content
+                - distributionChannels
+                - targetAudience
+      responses:
+        '201':
+          description: Press release successfully submitted for distribution.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pressReleaseId:
+                    type: string
+                    description: Unique identifier of the submitted press release.
+                  status:
+                    type: string
+                    description: Status of the distribution (e.g., scheduled, in-progress).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/press-release/distribution/performance':
+    get:
+      summary: Retrieve press release performance metrics
+      description: Fetch performance metrics for distributed press releases.
+      parameters:
+        - name: pressReleaseId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the press release.
+      responses:
+        '200':
+          description: Successful retrieval of press release performance metrics.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pressReleaseId:
+                    type: string
+                    description: Unique identifier of the press release.
+                  performanceMetrics:
+                    type: object
+                    properties:
+                      reach:
+                        type: integer
+                        description: Estimated number of people reached.
+                      engagement:
+                        type: number
+                        description: Engagement rate (e.g., clicks, shares).
+                      sentiment:
+                        type: string
+                        description: Public sentiment (e.g., positive, neutral, negative).
+                  feedback:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        source:
+                          type: string
+                          description: Source of the feedback (e.g., media outlet, social media).
+                        comment:
+                          type: string
+                          description: Feedback or comment on the press release.
+        '400':
+          description: Missing or invalid pressReleaseId parameter.
+        '500':
+          description: Internal server error.

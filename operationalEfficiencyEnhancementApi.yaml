@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: 'Operational Efficiency Enhancement'
+  version: 1.0.0
+  description: 'API for managing Operational Efficiency Enhancement processes to improve omni-channel operations and customer experience.'
+paths:
+  '/operational-efficiency':
+    get:
+      summary: 'Retrieve operational efficiency data'
+      description: 'Fetch available operational efficiency data and insights.'
+      responses:
+        '200':
+          description: 'Successful retrieval of operational efficiency data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 21
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Customer Experience'
+                  process_group:
+                    type: string
+                    example: 'Develop and manage omni channel'
+                  process_name:
+                    type: string
+                    example: 'Operational Efficiency Enhancement'
+                  creation:
+                    type: string
+                    example: 'Not Applicable'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  search:
+                    type: string
+                    example: 'Major'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/operational-efficiency/search':
+    get:
+      summary: 'Search for operational efficiency metrics'
+      description: 'Search for specific operational efficiency metrics based on criteria.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'Process Optimization'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Metric A', 'Metric B']
+  '/operational-efficiency/automate':
+    post:
+      summary: 'Automate operational efficiency analysis'
+      description: 'Trigger minor automation for analyzing operational efficiency data.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Operational efficiency analysis automation process started successfully.'
+  '/operational-efficiency/summarize':
+    get:
+      summary: 'Summarize operational efficiency data'
+      description: 'Generate a summary of operational efficiency insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Operational efficiency analysis shows a 15% improvement in process optimization.'

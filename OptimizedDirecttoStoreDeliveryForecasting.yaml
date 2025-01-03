@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: 'Optimized Direct-to-Store Delivery Forecasting'
+  description: 'API for optimized direct-to-store delivery forecasting, focusing on automation and search functionalities to improve delivery efficiency and reduce costs.'
+  version: 1.0.0
+paths:
+  '/direct-to-store-delivery/forecasting/optimize':
+    post:
+      summary: 'Optimize direct-to-store delivery forecasting'
+      description: 'Optimizes forecasting for direct-to-store deliveries to ensure efficient and timely delivery operations.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                delivery_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      store_id:
+                        type: string
+                      forecasted_demand:
+                        type: number
+                      delivery_schedule:
+                        type: string
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Direct-to-store delivery forecasting optimized successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_delivery_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        store_id:
+                          type: string
+                        forecasted_demand:
+                          type: number
+                        delivery_schedule:
+                          type: string
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/direct-to-store-delivery/forecasting/search':
+    get:
+      summary: 'Search optimized direct-to-store delivery forecasting data'
+      description: 'Search for optimized direct-to-store delivery forecasting data based on store ID or forecasted demand.'
+      parameters:
+        - name: 'store_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the store to search for'
+        - name: 'forecasted_demand'
+          in: query
+          schema:
+            type: number
+          required: false
+          description: 'Forecasted demand to search for'
+      responses:
+        '200':
+          description: 'Optimized direct-to-store delivery forecasting data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    store_id:
+                      type: string
+                    forecasted_demand:
+                      type: number
+                    delivery_schedule:
+                      type: string
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: Non Conformance Detection In Retail Operations
+  version: 1.0.0
+  description: >
+    API to manage non-conformance detection in retail operations, enabling businesses
+    to identify and address deviations from quality standards and operational procedures.
+
+paths:
+  '/non-conformance/detection':
+    get:
+      summary: Retrieve non-conformance detection data
+      description: Fetch details of detected non-conformances in retail operations.
+      responses:
+        '200':
+          description: Successful retrieval of non-conformance detection data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nonConformanceId:
+                    type: string
+                    description: Unique identifier of the non-conformance.
+                  description:
+                    type: string
+                    description: Description of the non-conformance.
+                  category:
+                    type: string
+                    description: Category of the non-conformance (e.g., product quality, process deviation).
+                  severity:
+                    type: string
+                    description: Severity level of the non-conformance (e.g., low, medium, high).
+                  correctiveActions:
+                    type: array
+                    items:
+                      type: string
+                    description: Corrective actions taken to address the non-conformance.
+                  status:
+                    type: string
+                    description: Status of the non-conformance (e.g., open, resolved).
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the non-conformance.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/non-conformance/detection/submit':
+    post:
+      summary: Submit a non-conformance detection
+      description: Submit details of a detected non-conformance in retail operations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  description: Description of the non-conformance.
+                category:
+                  type: string
+                  description: Category of the non-conformance (e.g., product quality, process deviation).
+                severity:
+                  type: string
+                  description: Severity level of the non-conformance (e.g., low, medium, high).
+                correctiveActions:
+                  type: array
+                  items:
+                    type: string
+                  description: Corrective actions taken to address the non-conformance.
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the non-conformance.
+              required:
+                - description
+                - category
+                - severity
+                - correctiveActions
+      responses:
+        '201':
+          description: Non-conformance detection successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nonConformanceId:
+                    type: string
+                    description: Unique identifier of the submitted non-conformance.
+                  status:
+                    type: string
+                    description: Status of the non-conformance (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/non-conformance/detection/reports':
+    get:
+      summary: Retrieve non-conformance detection reports
+      description: Fetch detailed reports on detected non-conformances in retail operations.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [daily, weekly, monthly]
+          description: Timeframe for the non-conformance detection report.
+      responses:
+        '200':
+          description: Successful retrieval of non-conformance detection reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the non-conformance report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    detectedNonConformances:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          nonConformanceId:
+                            type: string
+                            description: Unique identifier of the non-conformance.
+                          description:
+                            type: string
+                            description: Description of the non-conformance.
+                          category:
+                            type: string
+                            description: Category of the non-conformance.
+                          severity:
+                            type: string
+                            description: Severity level of the non-conformance.
+                          correctiveActions:
+                            type: array
+                            items:
+                              type: string
+                            description: Corrective actions taken to address the non-conformance.
+                          status:
+                            type: string
+                            description: Status of the non-conformance (e.g., open, resolved).
+                    overallNonConformanceTrend:
+                      type: string
+                      description: Overall trend in non-conformances during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

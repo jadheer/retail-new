@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Optimizing Business Information Lifecycle'
+  description: 'This API provides endpoints to manage and optimize the stages of the business information lifecycle. It allows users to create, retrieve, update, and delete lifecycle stages, ensuring efficient management of data from creation to deletion.'
+  version: 1.0.0
+paths:
+  '/information-lifecycle-stages':
+    get:
+      summary: 'Retrieve a list of business information lifecycle stages'
+      description: 'Fetches a list of all stages in the business information lifecycle being optimized.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    stageId:
+                      type: string
+                      description: 'Unique identifier for the lifecycle stage'
+                    stageName:
+                      type: string
+                      description: 'Name of the lifecycle stage (e.g., data creation, storage, processing, archival, deletion)'
+                    startDate:
+                      type: string
+                      format: date
+                      description: 'Start date of the lifecycle stage'
+                    endDate:
+                      type: string
+                      format: date
+                      description: 'End date of the lifecycle stage'
+                    status:
+                      type: string
+                      description: 'Status of the lifecycle stage (e.g., active, completed, pending)'
+                  required:
+                    - stageId
+                    - stageName
+                    - startDate
+                    - status
+    post:
+      summary: 'Add a new lifecycle stage'
+      description: 'Adds a new stage to the business information lifecycle.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stageName:
+                  type: string
+                  description: 'Name of the lifecycle stage (e.g., data creation, storage, processing, archival, deletion)'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the lifecycle stage'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the lifecycle stage'
+                status:
+                  type: string
+                  description: 'Status of the lifecycle stage (e.g., active, completed, pending)'
+              required:
+                - stageName
+                - startDate
+                - status
+      responses:
+        '201':
+          description: 'Lifecycle stage created successfully'
+  '/information-lifecycle-stages/{stageId}':
+    get:
+      summary: 'Retrieve details of a specific lifecycle stage'
+      description: 'Fetches details of a specific business information lifecycle stage by its ID.'
+      parameters:
+        - name: 'stageId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stageId:
+                    type: string
+                    description: 'Unique identifier for the lifecycle stage'
+                  stageName:
+                    type: string
+                    description: 'Name of the lifecycle stage (e.g., data creation, storage, processing, archival, deletion)'
+                  startDate:
+                    type: string
+                    format: date
+                    description: 'Start date of the lifecycle stage'
+                  endDate:
+                    type: string
+                    format: date
+                    description: 'End date of the lifecycle stage'
+                  status:
+                    type: string
+                    description: 'Status of the lifecycle stage (e.g., active, completed, pending)'
+                required:
+                  - stageId
+                  - stageName
+                  - startDate
+                  - status
+    put:
+      summary: 'Update an existing lifecycle stage'
+      description: 'Updates details of an existing business information lifecycle stage by its ID.'
+      parameters:
+        - name: 'stageId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stageName:
+                  type: string
+                  description: 'Name of the lifecycle stage (e.g., data creation, storage, processing, archival, deletion)'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the lifecycle stage'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the lifecycle stage'
+                status:
+                  type: string
+                  description: 'Status of the lifecycle stage (e.g., active, completed, pending)'
+              required:
+                - stageName
+                - startDate
+                - status
+      responses:
+        '200':
+          description: 'Lifecycle stage updated successfully'
+    delete:
+      summary: 'Delete a lifecycle stage'
+      description: 'Deletes a business information lifecycle stage from the system by its ID.'
+      parameters:
+        - name: 'stageId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Lifecycle stage deleted successfully'

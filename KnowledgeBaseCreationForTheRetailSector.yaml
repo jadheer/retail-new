@@ -1,0 +1,144 @@
+openapi: 3.0.0
+info:
+  title: Knowledge Base Creation For The Retail Sector
+  version: 1.0.0
+  description: >
+    API to manage the creation of a knowledge base for the retail sector, enabling
+    businesses to centralize, organize, and share knowledge for improved decision-making
+    and operational efficiency.
+
+paths:
+  '/knowledge-base/creation':
+    get:
+      summary: Retrieve knowledge base creation data
+      description: Fetch details of the knowledge base creation process for the retail sector.
+      responses:
+        '200':
+          description: Successful retrieval of knowledge base creation data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  knowledgeBaseId:
+                    type: string
+                    description: Unique identifier of the knowledge base.
+                  knowledgeBaseName:
+                    type: string
+                    description: Name of the knowledge base.
+                  knowledgeCategories:
+                    type: array
+                    items:
+                      type: string
+                    description: Categories of knowledge included (e.g., sales, inventory, customer service).
+                  creationStatus:
+                    type: string
+                    description: Status of the knowledge base creation (e.g., planned, in-progress, completed).
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the knowledge base.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/knowledge-base/creation/submit':
+    post:
+      summary: Submit data for knowledge base creation
+      description: Submit data for creating a knowledge base for the retail sector.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                knowledgeBaseName:
+                  type: string
+                  description: Name of the knowledge base.
+                knowledgeCategories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories of knowledge to include (e.g., sales, inventory, customer service).
+                creationDetails:
+                  type: string
+                  description: Detailed description of the knowledge base.
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the knowledge base data.
+              required:
+                - knowledgeBaseName
+                - knowledgeCategories
+                - creationDetails
+      responses:
+        '201':
+          description: Knowledge base creation data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  knowledgeBaseId:
+                    type: string
+                    description: Unique identifier of the submitted knowledge base.
+                  status:
+                    type: string
+                    description: Status of the knowledge base creation (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/knowledge-base/creation/reports':
+    get:
+      summary: Retrieve knowledge base creation reports
+      description: Fetch detailed reports on the creation of knowledge bases for the retail sector.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the knowledge base creation report.
+      responses:
+        '200':
+          description: Successful retrieval of knowledge base creation reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the knowledge base creation report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    createdKnowledgeBases:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          knowledgeBaseName:
+                            type: string
+                            description: Name of the knowledge base.
+                          knowledgeCategories:
+                            type: array
+                            items:
+                              type: string
+                            description: Categories of knowledge included.
+                          creationStatus:
+                            type: string
+                            description: Status of the knowledge base creation.
+                    overallKnowledgeBaseCreationProgress:
+                      type: string
+                      description: Overall assessment of knowledge base creation progress during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

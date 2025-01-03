@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: 'Optimizing Collective Bargaining in Retail'
+  description: 'This API is designed to streamline the management of collective bargaining agreements in the retail sector. It enables organizations to create, retrieve, update, and delete agreements, ensuring efficient handling of union negotiations and compliance with labor regulations.'
+  version: 1.0.0
+paths:
+  '/bargaining-agreements':
+    get:
+      summary: 'Retrieve a list of collective bargaining agreements'
+      description: 'Fetches a list of all collective bargaining agreements in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    agreementId:
+                      type: string
+                      description: 'Unique identifier for the bargaining agreement'
+                    unionName:
+                      type: string
+                      description: 'Name of the union involved in the agreement'
+                    agreementType:
+                      type: string
+                      description: 'Type of agreement (e.g., wages, benefits, working conditions)'
+                    effectiveDate:
+                      type: string
+                      format: date
+                      description: 'Effective date of the agreement'
+                    expirationDate:
+                      type: string
+                      format: date
+                      description: 'Expiration date of the agreement'
+                    status:
+                      type: string
+                      description: 'Current status of the agreement (e.g., active, expired)'
+                  required:
+                    - agreementId
+                    - unionName
+                    - agreementType
+                    - effectiveDate
+                    - status
+    post:
+      summary: 'Add a new bargaining agreement'
+      description: 'Adds a new collective bargaining agreement to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                unionName:
+                  type: string
+                  description: 'Name of the union involved in the agreement'
+                agreementType:
+                  type: string
+                  description: 'Type of agreement (e.g., wages, benefits, working conditions)'
+                effectiveDate:
+                  type: string
+                  format: date
+                  description: 'Effective date of the agreement'
+                expirationDate:
+                  type: string
+                  format: date
+                  description: 'Expiration date of the agreement'
+                status:
+                  type: string
+                  description: 'Current status of the agreement (e.g., active, expired)'
+              required:
+                - unionName
+                - agreementType
+                - effectiveDate
+                - status
+      responses:
+        '201':
+          description: 'Bargaining agreement created successfully'
+  '/bargaining-agreements/{agreementId}':
+    get:
+      summary: 'Retrieve details of a specific bargaining agreement'
+      description: 'Fetches details of a specific collective bargaining agreement by its ID.'
+      parameters:
+        - name: 'agreementId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agreementId:
+                    type: string
+                    description: 'Unique identifier for the bargaining agreement'
+                  unionName:
+                    type: string
+                    description: 'Name of the union involved in the agreement'
+                  agreementType:
+                    type: string
+                    description: 'Type of agreement (e.g., wages, benefits, working conditions)'
+                  effectiveDate:
+                    type: string
+                    format: date
+                    description: 'Effective date of the agreement'
+                  expirationDate:
+                    type: string
+                    format: date
+                    description: 'Expiration date of the agreement'
+                  status:
+                    type: string
+                    description: 'Current status of the agreement (e.g., active, expired)'
+                required:
+                  - agreementId
+                  - unionName
+                  - agreementType
+                  - effectiveDate
+                  - status
+    put:
+      summary: 'Update an existing bargaining agreement'
+      description: 'Updates details of an existing collective bargaining agreement by its ID.'
+      parameters:
+        - name: 'agreementId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                unionName:
+                  type: string
+                  description: 'Name of the union involved in the agreement'
+                agreementType:
+                  type: string
+                  description: 'Type of agreement (e.g., wages, benefits, working conditions)'
+                effectiveDate:
+                  type: string
+                  format: date
+                  description: 'Effective date of the agreement'
+                expirationDate:
+                  type: string
+                  format: date
+                  description: 'Expiration date of the agreement'
+                status:
+                  type: string
+                  description: 'Current status of the agreement (e.g., active, expired)'
+              required:
+                - unionName
+                - agreementType
+                - effectiveDate
+                - status
+      responses:
+        '200':
+          description: 'Bargaining agreement updated successfully'
+    delete:
+      summary: 'Delete a bargaining agreement'
+      description: 'Deletes a collective bargaining agreement from the retail system by its ID.'
+      parameters:
+        - name: 'agreementId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Bargaining agreement deleted successfully'

@@ -1,0 +1,166 @@
+openapi: 3.0.0
+info:
+  title: 'Optimizing Business Value in Retail IT Portfolios'
+  description: 'This API is designed to optimize the business value of IT portfolios in the retail sector, enabling organizations to manage and enhance their IT investments effectively. It supports the creation, retrieval, updating, and deletion of IT portfolio records to ensure alignment with business goals and maximize return on investment.'
+  version: 1.0.0
+paths:
+  '/it-portfolio-records':
+    get:
+      summary: 'Retrieve a list of IT portfolio records'
+      description: 'Fetches a list of all IT portfolio records being optimized for business value in the retail sector.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the IT portfolio record'
+                    portfolioItem:
+                      type: string
+                      description: 'Name of the IT portfolio item (e.g., ERP system, cloud infrastructure, data analytics platform)'
+                    businessValueScore:
+                      type: number
+                      format: float
+                      description: 'Score representing the business value of the portfolio item (e.g., 0.0 to 10.0)'
+                    lastUpdatedDate:
+                      type: string
+                      format: date
+                      description: 'Date the portfolio record was last updated'
+                    status:
+                      type: string
+                      description: 'Status of the portfolio item (e.g., active, deprecated, under review)'
+                  required:
+                    - recordId
+                    - portfolioItem
+                    - businessValueScore
+                    - lastUpdatedDate
+                    - status
+    post:
+      summary: 'Add a new IT portfolio record'
+      description: 'Adds a new IT portfolio record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                portfolioItem:
+                  type: string
+                  description: 'Name of the IT portfolio item (e.g., ERP system, cloud infrastructure, data analytics platform)'
+                businessValueScore:
+                  type: number
+                  format: float
+                  description: 'Score representing the business value of the portfolio item (e.g., 0.0 to 10.0)'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the portfolio record was last updated'
+                status:
+                  type: string
+                  description: 'Status of the portfolio item (e.g., active, deprecated, under review)'
+              required:
+                - portfolioItem
+                - businessValueScore
+                - lastUpdatedDate
+                - status
+      responses:
+        '201':
+          description: 'IT portfolio record created successfully'
+  '/it-portfolio-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific IT portfolio record'
+      description: 'Fetches details of a specific IT portfolio record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the IT portfolio record'
+                  portfolioItem:
+                    type: string
+                    description: 'Name of the IT portfolio item (e.g., ERP system, cloud infrastructure, data analytics platform)'
+                  businessValueScore:
+                    type: number
+                    format: float
+                    description: 'Score representing the business value of the portfolio item (e.g., 0.0 to 10.0)'
+                  lastUpdatedDate:
+                    type: string
+                    format: date
+                    description: 'Date the portfolio record was last updated'
+                  status:
+                    type: string
+                    description: 'Status of the portfolio item (e.g., active, deprecated, under review)'
+                required:
+                  - recordId
+                  - portfolioItem
+                  - businessValueScore
+                  - lastUpdatedDate
+                  - status
+    put:
+      summary: 'Update an existing IT portfolio record'
+      description: 'Updates details of an existing IT portfolio record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                portfolioItem:
+                  type: string
+                  description: 'Name of the IT portfolio item (e.g., ERP system, cloud infrastructure, data analytics platform)'
+                businessValueScore:
+                  type: number
+                  format: float
+                  description: 'Score representing the business value of the portfolio item (e.g., 0.0 to 10.0)'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the portfolio record was last updated'
+                status:
+                  type: string
+                  description: 'Status of the portfolio item (e.g., active, deprecated, under review)'
+              required:
+                - portfolioItem
+                - businessValueScore
+                - lastUpdatedDate
+                - status
+      responses:
+        '200':
+          description: 'IT portfolio record updated successfully'
+    delete:
+      summary: 'Delete an IT portfolio record'
+      description: 'Deletes an IT portfolio record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'IT portfolio record deleted successfully'

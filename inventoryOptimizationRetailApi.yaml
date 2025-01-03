@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: 'Inventory Optimization Using Retail'
+  version: 1.0.0
+  description: 'API for managing Inventory Optimization processes in retail to enhance direct channel operations and customer experience.'
+paths:
+  '/inventory-optimization':
+    get:
+      summary: 'Retrieve inventory optimization data'
+      description: 'Fetch available inventory optimization data and insights.'
+      responses:
+        '200':
+          description: 'Successful retrieval of inventory optimization data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 16
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Customer Experience'
+                  process_group:
+                    type: string
+                    example: 'Operate direct channels'
+                  process_name:
+                    type: string
+                    example: 'Inventory Optimization Using Retail'
+                  creation:
+                    type: string
+                    example: 'Minor'
+                  automation:
+                    type: string
+                    example: 'Major'
+                  search:
+                    type: string
+                    example: 'Major'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/inventory-optimization/search':
+    get:
+      summary: 'Search for inventory optimization metrics'
+      description: 'Search for specific inventory optimization metrics based on criteria.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'Stock Levels'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Metric A', 'Metric B']
+  '/inventory-optimization/automate':
+    post:
+      summary: 'Automate inventory optimization analysis'
+      description: 'Trigger major automation for analyzing inventory optimization data.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Inventory optimization analysis automation process started successfully.'
+  '/inventory-optimization/summarize':
+    get:
+      summary: 'Summarize inventory optimization data'
+      description: 'Generate a summary of inventory optimization insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Inventory optimization analysis shows a 30% reduction in overstock.'

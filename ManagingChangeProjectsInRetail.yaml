@@ -1,0 +1,154 @@
+openapi: 3.0.0
+info:
+  title: Managing Change Projects In Retail
+  version: 1.0.0
+  description: >
+    API to manage change projects in retail, enabling businesses to plan, execute,
+    and monitor change initiatives to adapt to evolving market conditions and
+    organizational needs.
+
+paths:
+  '/change-projects/retail':
+    get:
+      summary: Retrieve change project data
+      description: Fetch details of change projects and their current status in retail.
+      responses:
+        '200':
+          description: Successful retrieval of change project data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  changeProjectId:
+                    type: string
+                    description: Unique identifier of the change project.
+                  projectName:
+                    type: string
+                    description: Name of the change project.
+                  projectObjectives:
+                    type: array
+                    items:
+                      type: string
+                    description: Objectives of the change project.
+                  projectScope:
+                    type: string
+                    description: Scope of the change project.
+                  projectStatus:
+                    type: string
+                    description: Status of the change project (e.g., planned, in-progress, completed).
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the project.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/change-projects/retail/submit':
+    post:
+      summary: Submit data for managing change projects
+      description: Submit change project data for management and monitoring in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projectName:
+                  type: string
+                  description: Name of the change project.
+                projectObjectives:
+                  type: array
+                  items:
+                    type: string
+                  description: Objectives of the change project.
+                projectScope:
+                  type: string
+                  description: Scope of the change project.
+                projectStatus:
+                  type: string
+                  description: Status of the change project (e.g., planned, in-progress, completed).
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the change project data.
+              required:
+                - projectName
+                - projectObjectives
+                - projectScope
+                - projectStatus
+      responses:
+        '201':
+          description: Change project data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  changeProjectId:
+                    type: string
+                    description: Unique identifier of the submitted change project.
+                  status:
+                    type: string
+                    description: Status of the project (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/change-projects/retail/reports':
+    get:
+      summary: Retrieve change project reports
+      description: Fetch detailed reports on change projects in retail.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the change project report.
+      responses:
+        '200':
+          description: Successful retrieval of change project reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the change project report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    managedChangeProjects:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          projectName:
+                            type: string
+                            description: Name of the change project.
+                          projectObjectives:
+                            type: array
+                            items:
+                              type: string
+                            description: Objectives of the change project.
+                          projectScope:
+                            type: string
+                            description: Scope of the change project.
+                          projectStatus:
+                            type: string
+                            description: Status of the change project.
+                    overallChangeProjectPerformance:
+                      type: string
+                      description: Overall assessment of change project performance during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

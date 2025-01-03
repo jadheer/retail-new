@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: Optimized Maintenance Planning And Scheduling
+  version: 1.0.0
+  description: >
+    API for efficiently planning and scheduling maintenance tasks to ensure the 
+    productivity and longevity of assets in retail environments.
+
+paths:
+  '/maintenance/schedule':
+    get:
+      summary: Retrieve maintenance schedule
+      description: Fetch the current maintenance schedule for all assets.
+      responses:
+        '200':
+          description: Successful retrieval of maintenance schedule.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    assetId:
+                      type: string
+                      description: Unique identifier for the asset.
+                    scheduledDate:
+                      type: string
+                      format: date
+                      description: Date of the scheduled maintenance.
+                    maintenanceType:
+                      type: string
+                      description: Type of maintenance planned (e.g., preventive, corrective).
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal server error
+
+  '/maintenance/task':
+    post:
+      summary: Create a maintenance task
+      description: Submit a new maintenance task for a specific asset.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                assetId:
+                  type: string
+                  description: Unique identifier for the asset.
+                maintenanceType:
+                  type: string
+                  description: Type of maintenance task (e.g., preventive, corrective).
+                priority:
+                  type: string
+                  description: Priority level of the task (e.g., high, medium, low).
+                dueDate:
+                  type: string
+                  format: date
+                  description: Deadline for completing the maintenance task.
+              required:
+                - assetId
+                - maintenanceType
+                - priority
+                - dueDate
+      responses:
+        '201':
+          description: Maintenance task successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  taskId:
+                    type: string
+                    description: Unique identifier for the maintenance task.
+                  status:
+                    type: string
+                    description: Current status of the task (e.g., pending, in-progress).
+        '400':
+          description: Invalid request body
+        '500':
+          description: Internal server error
+
+  '/maintenance/overview':
+    get:
+      summary: Maintenance overview
+      description: Retrieve an overview of maintenance activities, including completed and pending tasks.
+      responses:
+        '200':
+          description: Successful retrieval of maintenance overview.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  completedTasks:
+                    type: integer
+                    description: Number of maintenance tasks completed.
+                  pendingTasks:
+                    type: integer
+                    description: Number of maintenance tasks pending.
+                  upcomingTasks:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        assetId:
+                          type: string
+                          description: Unique identifier for the asset.
+                        scheduledDate:
+                          type: string
+                          format: date
+                          description: Date of the upcoming maintenance task.
+                        maintenanceType:
+                          type: string
+                          description: Type of maintenance planned (e.g., preventive, corrective).
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal server error

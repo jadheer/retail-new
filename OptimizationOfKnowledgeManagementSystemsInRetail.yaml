@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: Optimization Of Knowledge Management Systems In Retail
+  version: 1.0.0
+  description: >
+    API to manage the optimization of knowledge management systems in retail, enabling
+    businesses to enhance knowledge sharing, improve decision-making, and streamline
+    operations.
+
+paths:
+  '/knowledge-management/optimization':
+    get:
+      summary: Retrieve knowledge management system optimization data
+      description: Fetch insights and recommendations for optimizing knowledge management systems.
+      responses:
+        '200':
+          description: Successful retrieval of knowledge management system optimization data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  systemId:
+                    type: string
+                    description: Unique identifier of the knowledge management system.
+                  systemName:
+                    type: string
+                    description: Name of the knowledge management system.
+                  optimizationMetrics:
+                    type: object
+                    properties:
+                      knowledgeAccessRate:
+                        type: number
+                        description: Rate at which knowledge is accessed (e.g., per day, per week).
+                      userEngagementScore:
+                        type: number
+                        description: User engagement score (0-100).
+                      searchEfficiency:
+                        type: number
+                        description: Efficiency of the search functionality (0-100).
+                      contentRelevanceScore:
+                        type: number
+                        description: Relevance score of the content (0-100).
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: string
+                    description: Recommendations for optimizing the knowledge management system.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the optimization data.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/knowledge-management/optimization/submit':
+    post:
+      summary: Submit data for knowledge management system optimization
+      description: Submit data for optimizing knowledge management systems in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                systemName:
+                  type: string
+                  description: Name of the knowledge management system.
+                optimizationMetrics:
+                  type: object
+                  properties:
+                    knowledgeAccessRate:
+                      type: number
+                      description: Rate at which knowledge is accessed (e.g., per day, per week).
+                    userEngagementScore:
+                      type: number
+                      description: User engagement score (0-100).
+                    searchEfficiency:
+                      type: number
+                      description: Efficiency of the search functionality (0-100).
+                    contentRelevanceScore:
+                      type: number
+                      description: Relevance score of the content (0-100).
+                  required:
+                    - knowledgeAccessRate
+                    - userEngagementScore
+                    - searchEfficiency
+                    - contentRelevanceScore
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the optimization data.
+              required:
+                - systemName
+                - optimizationMetrics
+      responses:
+        '201':
+          description: Knowledge management system optimization data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  optimizationId:
+                    type: string
+                    description: Unique identifier of the submitted optimization session.
+                  status:
+                    type: string
+                    description: Status of the optimization (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/knowledge-management/optimization/reports':
+    get:
+      summary: Retrieve knowledge management system optimization reports
+      description: Fetch detailed reports on the optimization of knowledge management systems.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the knowledge management system optimization report.
+      responses:
+        '200':
+          description: Successful retrieval of knowledge management system optimization reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the knowledge management system optimization report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    optimizedSystems:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          systemName:
+                            type: string
+                            description: Name of the knowledge management system.
+                          optimizationMetrics:
+                            type: object
+                            properties:
+                              knowledgeAccessRate:
+                                type: number
+                                description: Rate at which knowledge is accessed.
+                              userEngagementScore:
+                                type: number
+                                description: User engagement score.
+                              searchEfficiency:
+                                type: number
+                                description: Efficiency of the search functionality.
+                              contentRelevanceScore:
+                                type: number
+                                description: Relevance score of the content.
+                          optimizationSuggestions:
+                            type: array
+                            items:
+                              type: string
+                            description: Recommendations for optimizing the knowledge management system.
+                    overallSystemPerformance:
+                      type: string
+                      description: Overall assessment of knowledge management system performance during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

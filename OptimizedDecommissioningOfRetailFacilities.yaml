@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  title: Optimized Decommissioning Of Retail Facilities
+  version: 1.0.0
+  description: >
+    API for managing the decommissioning process of retail facilities, including planning, 
+    execution, and compliance tracking to ensure efficient and environmentally responsible disposal.
+
+paths:
+  '/decommission/facilities':
+    get:
+      summary: Retrieve decommissioning plans
+      description: Fetch plans for decommissioning retail facilities.
+      responses:
+        '200':
+          description: Successful retrieval of decommissioning plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    facilityId:
+                      type: string
+                      description: Unique identifier for the retail facility.
+                    decommissionDate:
+                      type: string
+                      format: date
+                      description: Planned date for decommissioning the facility.
+                    status:
+                      type: string
+                      description: Current status of the decommissioning process (e.g., pending, in-progress).
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal server error
+
+  '/decommission/schedule':
+    post:
+      summary: Schedule a decommissioning task
+      description: Submit a new task for decommissioning a retail facility.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                facilityId:
+                  type: string
+                  description: Unique identifier for the retail facility.
+                targetDate:
+                  type: string
+                  format: date
+                  description: Target date for completing the decommissioning.
+                priority:
+                  type: string
+                  description: Priority level of the task (e.g., high, medium, low).
+              required:
+                - facilityId
+                - targetDate
+                - priority
+      responses:
+        '201':
+          description: Decommissioning task successfully scheduled.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  taskId:
+                    type: string
+                    description: Unique identifier for the decommissioning task.
+                  status:
+                    type: string
+                    description: Current status of the task (e.g., pending, in-progress).
+        '400':
+          description: Invalid request body
+        '500':
+          description: Internal server error
+
+  '/decommission/compliance':
+    get:
+      summary: Check compliance records
+      description: Retrieve compliance records for completed decommissioning tasks.
+      responses:
+        '200':
+          description: Successful retrieval of compliance records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    facilityId:
+                      type: string
+                      description: Unique identifier for the retail facility.
+                    complianceStatus:
+                      type: string
+                      description: Compliance status of the decommissioning process (e.g., compliant, non-compliant).
+                    report:
+                      type: string
+                      description: Link to the compliance report.
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal server error

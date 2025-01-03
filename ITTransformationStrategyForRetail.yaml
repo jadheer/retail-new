@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'IT Transformation Strategy for Retail'
+  description: 'This API is designed to enable IT transformation strategy in retail, ensuring effective planning and execution of IT initiatives. It supports the creation, retrieval, updating, and deletion of IT transformation strategy records.'
+  version: 1.0.0
+paths:
+  '/it-transformation-records':
+    get:
+      summary: 'Retrieve a list of IT transformation records'
+      description: 'Fetches a list of all IT transformation strategy records in retail.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the IT transformation record'
+                    processName:
+                      type: string
+                      description: 'Name of the process (e.g., IT transformation strategy)'
+                    transformationDate:
+                      type: string
+                      format: date
+                      description: 'Date the IT transformation was planned'
+                    status:
+                      type: string
+                      description: 'Status of the transformation (e.g., active, inactive, under review)'
+                  required:
+                    - recordId
+                    - processName
+                    - transformationDate
+                    - status
+    post:
+      summary: 'Add a new IT transformation record'
+      description: 'Adds a new IT transformation strategy record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., IT transformation strategy)'
+                transformationDate:
+                  type: string
+                  format: date
+                  description: 'Date the IT transformation was planned'
+                status:
+                  type: string
+                  description: 'Status of the transformation (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - transformationDate
+                - status
+      responses:
+        '201':
+          description: 'IT transformation record created successfully'
+  '/it-transformation-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific IT transformation record'
+      description: 'Fetches details of a specific IT transformation strategy record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the IT transformation record'
+                  processName:
+                    type: string
+                    description: 'Name of the process (e.g., IT transformation strategy)'
+                  transformationDate:
+                    type: string
+                    format: date
+                    description: 'Date the IT transformation was planned'
+                  status:
+                    type: string
+                    description: 'Status of the transformation (e.g., active, inactive, under review)'
+                required:
+                  - recordId
+                  - processName
+                  - transformationDate
+                  - status
+    put:
+      summary: 'Update an existing IT transformation record'
+      description: 'Updates details of an existing IT transformation strategy record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., IT transformation strategy)'
+                transformationDate:
+                  type: string
+                  format: date
+                  description: 'Date the IT transformation was planned'
+                status:
+                  type: string
+                  description: 'Status of the transformation (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - transformationDate
+                - status
+      responses:
+        '200':
+          description: 'IT transformation record updated successfully'
+    delete:
+      summary: 'Delete an IT transformation record'
+      description: 'Deletes an IT transformation strategy record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'IT transformation record deleted successfully'

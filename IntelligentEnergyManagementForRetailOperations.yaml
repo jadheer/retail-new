@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: Intelligent Energy Management For Retail Operations
+  version: 1.0.0
+  description: >
+    API for managing and optimizing energy usage within retail operations,
+    enabling efficient energy consumption, cost savings, and sustainable practices.
+
+paths:
+  '/energy/consumption':
+    get:
+      summary: Retrieve energy consumption data
+      description: Fetch real-time and historical energy usage data for retail locations.
+      responses:
+        '200':
+          description: Successful retrieval of energy consumption data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  locationId:
+                    type: string
+                    description: Unique identifier for the retail location.
+                  timestamp:
+                    type: string
+                    format: date-time
+                    description: Time of the energy measurement.
+                  energyUsed:
+                    type: number
+                    description: Amount of energy used in kilowatt-hours (kWh).
+                  energySource:
+                    type: string
+                    description: Source of the energy (e.g., electricity, gas).
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/energy/settings':
+    post:
+      summary: Configure energy management settings
+      description: Set or update energy management preferences and thresholds for retail operations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                locationId:
+                  type: string
+                  description: Unique identifier for the retail location.
+                targetEnergyUsage:
+                  type: number
+                  description: Target energy usage in kilowatt-hours (kWh) per month.
+                alertThreshold:
+                  type: number
+                  description: Energy usage threshold for sending alerts.
+                automationEnabled:
+                  type: boolean
+                  description: Flag to enable or disable automated energy management features.
+              required:
+                - locationId
+                - targetEnergyUsage
+                - alertThreshold
+                - automationEnabled
+      responses:
+        '200':
+          description: Energy management settings successfully updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  locationId:
+                    type: string
+                    description: Unique identifier for the retail location.
+                  status:
+                    type: string
+                    description: Status of the update operation (e.g., success, failure).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/energy/analysis':
+    get:
+      summary: Analyze energy usage patterns
+      description: Retrieve detailed analysis and reports on energy consumption trends and efficiency.
+      responses:
+        '200':
+          description: Successful retrieval of energy usage analysis.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  locationId:
+                    type: string
+                    description: Unique identifier for the retail location.
+                  analysisPeriod:
+                    type: string
+                    description: Time period of the analysis (e.g., Q1 2024).
+                  totalEnergyUsed:
+                    type: number
+                    description: Total energy consumed during the analysis period in kWh.
+                  peakUsageTimes:
+                    type: array
+                    items:
+                      type: string
+                      description: Times of day with highest energy consumption.
+                  efficiencyRating:
+                    type: number
+                    description: Rating indicating the energy efficiency of the location.
+                  recommendations:
+                    type: array
+                    items:
+                      type: string
+                      description: Suggested actions to improve energy efficiency.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/energy/alerts':
+    get:
+      summary: Retrieve energy usage alerts
+      description: Get a list of current and past energy usage alerts for retail locations.
+      responses:
+        '200':
+          description: Successful retrieval of energy usage alerts.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    alertId:
+                      type: string
+                      description: Unique identifier for the alert.
+                    locationId:
+                      type: string
+                      description: Unique identifier for the retail location.
+                    timestamp:
+                      type: string
+                      format: date-time
+                      description: Time when the alert was triggered.
+                    energyUsed:
+                      type: number
+                      description: Amount of energy used that triggered the alert in kWh.
+                    threshold:
+                      type: number
+                      description: Energy usage threshold that was exceeded.
+                    status:
+                      type: string
+                      description: Current status of the alert (e.g., active, resolved).
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.

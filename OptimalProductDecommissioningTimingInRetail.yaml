@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Optimal Product Decommissioning Timing In Retail
+  version: 1.0.0
+  description: >
+    API to manage and optimize the timing of product decommissioning in retail,
+    ensuring efficient inventory management, reduced waste, and improved profitability.
+
+paths:
+  '/product/decommissioning':
+    get:
+      summary: Analyze product decommissioning timing efficiency
+      description: Retrieve analysis and recommendations for improving the timing of product decommissioning in retail.
+      responses:
+        '200':
+          description: Successful retrieval of product decommissioning data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalProductsDecommissioned:
+                    type: integer
+                    description: Total number of products decommissioned.
+                  productsDecommissionedOptimally:
+                    type: integer
+                    description: Number of products decommissioned at the optimal time.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productCategory:
+                          type: string
+                          description: Category of product (e.g., electronics, apparel, groceries).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the product category.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/product/decommissioning/simulation':
+    post:
+      summary: Simulate product decommissioning timing scenarios
+      description: Create and simulate scenarios for optimizing the timing of product decommissioning in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                productCategories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories of products (e.g., electronics, apparel, groceries).
+                decommissioningStrategies:
+                  type: array
+                  items:
+                    type: string
+                  description: Strategies for product decommissioning (e.g., end-of-life, seasonal, demand-based).
+              required:
+                - storeId
+                - productCategories
+                - decommissioningStrategies
+      responses:
+        '201':
+          description: Product decommissioning timing simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the product decommissioning timing simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/product/decommissioning':
+    get:
+      summary: Retrieve product decommissioning timing optimization suggestions
+      description: Get product decommissioning timing optimization recommendations based on analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of product decommissioning timing optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    productCategory:
+                      type: string
+                      description: Category of product (e.g., electronics, apparel, groceries).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for product decommissioning timing.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., reduced waste, improved profitability).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

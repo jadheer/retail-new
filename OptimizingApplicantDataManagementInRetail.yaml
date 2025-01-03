@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: Optimizing Applicant Data Management in Retail
+  description: API for optimizing and managing applicant data throughout the recruitment lifecycle in the retail domain.
+  version: 1.0.0
+paths:
+  '/optimizing-applicant-data':
+    get:
+      summary: Retrieve applicant data
+      description: Fetch applicant details, application statuses, and relevant information in the retail recruitment process.
+      parameters:
+        - name: applicantId
+          in: query
+          required: false
+          schema:
+            type: string
+            example: APP12345
+        - name: applicationStatus
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "under-review"
+      responses:
+        '200':
+          description: Successfully retrieved applicant data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  applicantId:
+                    type: string
+                  applicantName:
+                    type: string
+                  applicationStatus:
+                    type: string
+                  positionApplied:
+                    type: string
+                  dateApplied:
+                    type: string
+                    format: date
+    post:
+      summary: Submit applicant data
+      description: Submit a new applicant's data for review and processing in the recruitment system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                applicantName:
+                  type: string
+                positionApplied:
+                  type: string
+                contactDetails:
+                  type: object
+                  properties:
+                    phone:
+                      type: string
+                    email:
+                      type: string
+                resumeLink:
+                  type: string
+                  format: uri
+      responses:
+        '201':
+          description: Applicant data submitted successfully.
+        '400':
+          description: Invalid input data.
