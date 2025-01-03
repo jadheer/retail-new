@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: 'Automated Compliance in Retail'
+  description: 'This API is designed to automate compliance processes in the retail sector, enabling organizations to manage regulatory requirements, audits, and compliance checks efficiently. It supports the creation, retrieval, updating, and deletion of compliance records to ensure adherence to industry standards and regulations.'
+  version: 1.0.0
+paths:
+  '/compliance-records':
+    get:
+      summary: 'Retrieve a list of compliance records'
+      description: 'Fetches a list of all compliance records managed in the automated compliance system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the compliance record'
+                    regulation:
+                      type: string
+                      description: 'Regulation or standard being complied with (e.g., GDPR, PCI-DSS)'
+                    auditDate:
+                      type: string
+                      format: date
+                      description: 'Date of the compliance audit'
+                    status:
+                      type: string
+                      description: 'Status of the compliance record (e.g., compliant, non-compliant, under review)'
+                    notes:
+                      type: string
+                      description: 'Additional notes or comments about the compliance record'
+                  required:
+                    - recordId
+                    - regulation
+                    - auditDate
+                    - status
+    post:
+      summary: 'Add a new compliance record'
+      description: 'Adds a new compliance record to the automated compliance system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                regulation:
+                  type: string
+                  description: 'Regulation or standard being complied with (e.g., GDPR, PCI-DSS)'
+                auditDate:
+                  type: string
+                  format: date
+                  description: 'Date of the compliance audit'
+                status:
+                  type: string
+                  description: 'Status of the compliance record (e.g., compliant, non-compliant, under review)'
+                notes:
+                  type: string
+                  description: 'Additional notes or comments about the compliance record'
+              required:
+                - regulation
+                - auditDate
+                - status
+      responses:
+        '201':
+          description: 'Compliance record created successfully'
+  '/compliance-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific compliance record'
+      description: 'Fetches details of a specific compliance record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the compliance record'
+                  regulation:
+                    type: string
+                    description: 'Regulation or standard being complied with (e.g., GDPR, PCI-DSS)'
+                  auditDate:
+                    type: string
+                    format: date
+                    description: 'Date of the compliance audit'
+                  status:
+                    type: string
+                    description: 'Status of the compliance record (e.g., compliant, non-compliant, under review)'
+                  notes:
+                    type: string
+                    description: 'Additional notes or comments about the compliance record'
+                required:
+                  - recordId
+                  - regulation
+                  - auditDate
+                  - status
+    put:
+      summary: 'Update an existing compliance record'
+      description: 'Updates details of an existing compliance record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                regulation:
+                  type: string
+                  description: 'Regulation or standard being complied with (e.g., GDPR, PCI-DSS)'
+                auditDate:
+                  type: string
+                  format: date
+                  description: 'Date of the compliance audit'
+                status:
+                  type: string
+                  description: 'Status of the compliance record (e.g., compliant, non-compliant, under review)'
+                notes:
+                  type: string
+                  description: 'Additional notes or comments about the compliance record'
+              required:
+                - regulation
+                - auditDate
+                - status
+      responses:
+        '200':
+          description: 'Compliance record updated successfully'
+    delete:
+      summary: 'Delete a compliance record'
+      description: 'Deletes a compliance record from the automated compliance system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Compliance record deleted successfully'

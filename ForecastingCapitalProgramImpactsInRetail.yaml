@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Forecasting Capital Program Impacts In Retail
+  version: 1.0.0
+  description: >
+    API to manage and optimize the forecasting of capital program impacts in retail environments,
+    ensuring accurate financial planning and resource allocation for capital projects.
+
+paths:
+  '/capital/forecast':
+    get:
+      summary: Analyze capital program impacts
+      description: Retrieve analysis and recommendations for forecasting the impacts of capital programs in retail.
+      responses:
+        '200':
+          description: Successful retrieval of capital program impact data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalCapitalInvestment:
+                    type: number
+                    description: Total capital investment in dollars.
+                  projectedROI:
+                    type: number
+                    description: Projected return on investment (ROI) in percentage.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        program:
+                          type: string
+                          description: Capital program (e.g., store expansion, technology upgrade).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the capital program.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/capital/simulation':
+    post:
+      summary: Simulate capital program impact scenarios
+      description: Create and simulate scenarios for forecasting the impacts of capital programs in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                capitalPrograms:
+                  type: array
+                  items:
+                    type: string
+                  description: Capital programs (e.g., store expansion, technology upgrade).
+                impactMetrics:
+                  type: array
+                  items:
+                    type: string
+                  description: Metrics for measuring impact (e.g., ROI, customer satisfaction, operational efficiency).
+              required:
+                - storeId
+                - capitalPrograms
+                - impactMetrics
+      responses:
+        '201':
+          description: Capital program impact simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the capital program impact simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/capital':
+    get:
+      summary: Retrieve capital program optimization suggestions
+      description: Get capital program optimization recommendations based on impact forecasting analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of capital program optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    program:
+                      type: string
+                      description: Capital program (e.g., store expansion, technology upgrade).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for capital program planning.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., increased ROI, improved efficiency).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

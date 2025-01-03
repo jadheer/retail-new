@@ -1,0 +1,67 @@
+openapi: 3.0.0
+info:
+  title: Enhancing Employee Engagement in Retail
+  description: API for improving employee engagement, satisfaction, and productivity within the retail industry.
+  version: 1.0.0
+paths:
+  '/enhancing-employee-engagement':
+    get:
+      summary: Retrieve employee engagement data
+      description: Fetch data on employee engagement metrics, satisfaction surveys, and feedback in the retail sector.
+      parameters:
+        - name: employeeId
+          in: query
+          required: false
+          schema:
+            type: string
+            example: EMP56789
+        - name: engagementType
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "satisfaction"
+      responses:
+        '200':
+          description: Successfully retrieved employee engagement data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  employeeId:
+                    type: string
+                  engagementType:
+                    type: string
+                  score:
+                    type: number
+                    format: float
+                  feedback:
+                    type: string
+                  lastSurveyDate:
+                    type: string
+                    format: date
+    post:
+      summary: Submit employee engagement feedback
+      description: Submit feedback and engagement scores for employees to improve engagement initiatives.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                engagementType:
+                  type: string
+                score:
+                  type: number
+                  format: float
+                feedback:
+                  type: string
+      responses:
+        '201':
+          description: Employee engagement feedback submitted successfully.
+        '400':
+          description: Invalid input data.

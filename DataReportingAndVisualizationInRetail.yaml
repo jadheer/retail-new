@@ -1,0 +1,198 @@
+openapi: 3.0.0
+info:
+  title: Data Reporting And Visualization In Retail
+  version: 1.0.0
+  description: >
+    API to manage data reporting and visualization in retail, enabling businesses to
+    transform raw data into actionable insights through comprehensive reports and
+    intuitive visualizations.
+
+paths:
+  '/data-reporting/visualization':
+    get:
+      summary: Retrieve data reporting and visualization
+      description: Fetch pre-generated reports and visualizations for retail data.
+      responses:
+        '200':
+          description: Successful retrieval of data reporting and visualization.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reportId:
+                    type: string
+                    description: Unique identifier of the report.
+                  reportType:
+                    type: string
+                    description: Type of report (e.g., sales, inventory, customer behavior).
+                  visualizationType:
+                    type: string
+                    description: Type of visualization (e.g., bar chart, pie chart, line graph).
+                  dataSummary:
+                    type: object
+                    properties:
+                      totalSales:
+                        type: number
+                        description: Total sales for the reporting period.
+                      inventoryLevels:
+                        type: object
+                        properties:
+                          inStock:
+                            type: number
+                            description: Number of items in stock.
+                          outOfStock:
+                            type: number
+                        description: Number of items out of stock.
+                      customerEngagement:
+                        type: number
+                        description: Customer engagement score.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the report.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/data-reporting/visualization/submit':
+    post:
+      summary: Submit data for reporting and visualization
+      description: Submit raw data for generating reports and visualizations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reportType:
+                  type: string
+                  description: Type of report to generate (e.g., sales, inventory, customer behavior).
+                visualizationType:
+                  type: string
+                  description: Type of visualization to generate (e.g., bar chart, pie chart, line graph).
+                rawData:
+                  type: object
+                  properties:
+                    salesData:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          date:
+                            type: string
+                            format: date
+                            description: Date of the sales data.
+                          amount:
+                            type: number
+                            description: Sales amount for the date.
+                    inventoryData:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          productId:
+                            type: string
+                            description: Unique identifier of the product.
+                          stockLevel:
+                            type: number
+                            description: Current stock level of the product.
+                    customerData:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          customerId:
+                            type: string
+                            description: Unique identifier of the customer.
+                          engagementScore:
+                            type: number
+                            description: Engagement score of the customer.
+                  required:
+                    - salesData
+                    - inventoryData
+                    - customerData
+              required:
+                - reportType
+                - visualizationType
+                - rawData
+      responses:
+        '201':
+          description: Data successfully submitted for reporting and visualization.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reportId:
+                    type: string
+                    description: Unique identifier of the generated report.
+                  status:
+                    type: string
+                    description: Status of the report generation (e.g., submitted, in-progress).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/data-reporting/visualization/reports':
+    get:
+      summary: Retrieve data reporting and visualization reports
+      description: Fetch detailed reports and visualizations for a specified timeframe.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [daily, weekly, monthly]
+          description: Timeframe for the data reporting and visualization report.
+      responses:
+        '200':
+          description: Successful retrieval of data reporting and visualization reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    reportType:
+                      type: string
+                      description: Type of report (e.g., sales, inventory, customer behavior).
+                    visualizationType:
+                      type: string
+                      description: Type of visualization (e.g., bar chart, pie chart, line graph).
+                    dataSummary:
+                      type: object
+                      properties:
+                        totalSales:
+                          type: number
+                          description: Total sales for the reporting period.
+                        inventoryLevels:
+                          type: object
+                          properties:
+                            inStock:
+                              type: number
+                              description: Number of items in stock.
+                            outOfStock:
+                              type: number
+                            description: Number of items out of stock.
+                        customerEngagement:
+                          type: number
+                          description: Customer engagement score.
+                    overallAssessment:
+                      type: string
+                      description: Overall assessment of the data for the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

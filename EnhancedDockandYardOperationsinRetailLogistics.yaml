@@ -1,0 +1,104 @@
+openapi: 3.0.0
+info:
+  title: 'Enhanced Dock and Yard Operations in Retail Logistics'
+  description: 'API for enhancing dock and yard operations in retail logistics, focusing on automation and search functionalities to improve efficiency.'
+  version: 1.0.0
+paths:
+  '/dock-yard/operations/enhance':
+    post:
+      summary: 'Enhance dock and yard operations'
+      description: 'Optimizes dock and yard operations in retail logistics to streamline inbound and outbound processes.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                operations_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      dock_id:
+                        type: string
+                      yard_id:
+                        type: string
+                      operation_status:
+                        type: string
+                        enum: ['Idle', 'Active', 'Completed']
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Dock and yard operations enhanced successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_operations_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        dock_id:
+                          type: string
+                        yard_id:
+                          type: string
+                        operation_status:
+                          type: string
+                          enum: ['Idle', 'Active', 'Completed']
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/dock-yard/operations/search':
+    get:
+      summary: 'Search dock and yard operations data'
+      description: 'Search for dock and yard operations data based on dock ID or operation status.'
+      parameters:
+        - name: 'dock_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the dock to search for'
+        - name: 'operation_status'
+          in: query
+          schema:
+            type: string
+            enum: ['Idle', 'Active', 'Completed']
+          required: false
+          description: 'Status of the operation to search for'
+      responses:
+        '200':
+          description: 'Dock and yard operations data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    dock_id:
+                      type: string
+                    yard_id:
+                      type: string
+                    operation_status:
+                      type: string
+                      enum: ['Idle', 'Active', 'Completed']
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

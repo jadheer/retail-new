@@ -1,0 +1,154 @@
+openapi: 3.0.0
+info:
+  title: Continuous Quality And Compliance Monitoring In Retail
+  version: 1.0.0
+  description: >
+    API to manage continuous quality and compliance monitoring in retail, ensuring
+    adherence to quality standards and regulatory requirements through real-time tracking and reporting.
+
+paths:
+  '/quality-compliance/monitoring':
+    get:
+      summary: Retrieve quality and compliance monitoring data
+      description: Fetch real-time data on quality and compliance metrics for retail operations.
+      responses:
+        '200':
+          description: Successful retrieval of quality and compliance monitoring data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  monitoringId:
+                    type: string
+                    description: Unique identifier of the monitoring session.
+                  qualityMetrics:
+                    type: object
+                    properties:
+                      productQualityScore:
+                        type: number
+                        description: Score indicating product quality (0-100).
+                      serviceQualityScore:
+                        type: number
+                        description: Score indicating service quality (0-100).
+                  complianceMetrics:
+                    type: object
+                    properties:
+                      regulatoryComplianceScore:
+                        type: number
+                        description: Score indicating regulatory compliance (0-100).
+                      auditPassRate:
+                        type: number
+                        description: Percentage of passed audits.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the monitoring data.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/quality-compliance/monitoring/submit':
+    post:
+      summary: Submit quality and compliance monitoring data
+      description: Submit new data for continuous quality and compliance monitoring.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productQualityScore:
+                  type: number
+                  description: Score indicating product quality (0-100).
+                serviceQualityScore:
+                  type: number
+                  description: Score indicating service quality (0-100).
+                regulatoryComplianceScore:
+                  type: number
+                  description: Score indicating regulatory compliance (0-100).
+                auditPassRate:
+                  type: number
+                  description: Percentage of passed audits.
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the monitoring data.
+              required:
+                - productQualityScore
+                - serviceQualityScore
+                - regulatoryComplianceScore
+                - auditPassRate
+      responses:
+        '201':
+          description: Quality and compliance monitoring data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  monitoringId:
+                    type: string
+                    description: Unique identifier of the submitted monitoring data.
+                  status:
+                    type: string
+                    description: Status of the monitoring data (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/quality-compliance/monitoring/reports':
+    get:
+      summary: Retrieve quality and compliance monitoring reports
+      description: Fetch detailed reports on quality and compliance metrics.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [daily, weekly, monthly]
+          description: Timeframe for the quality and compliance monitoring report.
+      responses:
+        '200':
+          description: Successful retrieval of quality and compliance monitoring reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the monitoring report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    qualityMetrics:
+                      type: object
+                      properties:
+                        productQualityScore:
+                          type: number
+                          description: Average product quality score for the timeframe.
+                        serviceQualityScore:
+                          type: number
+                          description: Average service quality score for the timeframe.
+                    complianceMetrics:
+                      type: object
+                      properties:
+                        regulatoryComplianceScore:
+                          type: number
+                          description: Average regulatory compliance score for the timeframe.
+                        auditPassRate:
+                          type: number
+                          description: Average audit pass rate for the timeframe.
+                    overallAssessment:
+                      type: string
+                      description: Overall assessment of quality and compliance during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

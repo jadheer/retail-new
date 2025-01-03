@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Enhancing Risk Mitigation and Compliance in Security Strategy'
+  description: 'This API is designed to strengthen risk mitigation and compliance in security strategies by enabling the creation, management, and optimization of strategies such as threat detection, compliance auditing, and incident response. It ensures robust security measures and adherence to regulatory requirements.'
+  version: 1.0.0
+paths:
+  '/security-strategies':
+    get:
+      summary: 'Retrieve a list of security strategies'
+      description: 'Fetches a list of all security strategies focused on risk mitigation and compliance.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    strategyId:
+                      type: string
+                      description: 'Unique identifier for the security strategy'
+                    strategyName:
+                      type: string
+                      description: 'Name of the strategy (e.g., threat detection, compliance auditing, incident response)'
+                    createdDate:
+                      type: string
+                      format: date
+                      description: 'Date the strategy was created'
+                    lastUpdatedDate:
+                      type: string
+                      format: date
+                      description: 'Date the strategy was last updated'
+                    status:
+                      type: string
+                      description: 'Status of the strategy (e.g., active, inactive, under review)'
+                  required:
+                    - strategyId
+                    - strategyName
+                    - createdDate
+                    - status
+    post:
+      summary: 'Add a new security strategy'
+      description: 'Adds a new security strategy to enhance risk mitigation and compliance.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                strategyName:
+                  type: string
+                  description: 'Name of the strategy (e.g., threat detection, compliance auditing, incident response)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was last updated'
+                status:
+                  type: string
+                  description: 'Status of the strategy (e.g., active, inactive, under review)'
+              required:
+                - strategyName
+                - createdDate
+                - status
+      responses:
+        '201':
+          description: 'Security strategy created successfully'
+  '/security-strategies/{strategyId}':
+    get:
+      summary: 'Retrieve details of a specific security strategy'
+      description: 'Fetches details of a specific security strategy by its ID.'
+      parameters:
+        - name: 'strategyId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  strategyId:
+                    type: string
+                    description: 'Unique identifier for the security strategy'
+                  strategyName:
+                    type: string
+                    description: 'Name of the strategy (e.g., threat detection, compliance auditing, incident response)'
+                  createdDate:
+                    type: string
+                    format: date
+                    description: 'Date the strategy was created'
+                  lastUpdatedDate:
+                    type: string
+                    format: date
+                    description: 'Date the strategy was last updated'
+                  status:
+                    type: string
+                    description: 'Status of the strategy (e.g., active, inactive, under review)'
+                required:
+                  - strategyId
+                  - strategyName
+                  - createdDate
+                  - status
+    put:
+      summary: 'Update an existing security strategy'
+      description: 'Updates details of an existing security strategy by its ID.'
+      parameters:
+        - name: 'strategyId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                strategyName:
+                  type: string
+                  description: 'Name of the strategy (e.g., threat detection, compliance auditing, incident response)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was last updated'
+                status:
+                  type: string
+                  description: 'Status of the strategy (e.g., active, inactive, under review)'
+              required:
+                - strategyName
+                - createdDate
+                - status
+      responses:
+        '200':
+          description: 'Security strategy updated successfully'
+    delete:
+      summary: 'Delete a security strategy'
+      description: 'Deletes a security strategy from the system by its ID.'
+      parameters:
+        - name: 'strategyId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Security strategy deleted successfully'

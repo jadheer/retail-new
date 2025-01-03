@@ -1,0 +1,105 @@
+openapi: 3.0.0
+info:
+  title: 'Content Generation for Marketing'
+  version: 1.0.0
+  description: 'API for managing Content Generation for Marketing processes to create engaging and optimized marketing content.'
+paths:
+  '/marketing-content':
+    get:
+      summary: 'Retrieve generated marketing content'
+      description: 'Fetch available marketing content for customer engagement.'
+      responses:
+        '200':
+          description: 'Successful retrieval of marketing content'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 9
+                  retail_domain_category:
+                    type: string
+                    example: 'Market Products and Services'
+                  process_group:
+                    type: string
+                    example: 'Market to customers'
+                  creation:
+                    type: string
+                    example: 'Major'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/marketing-content/generate':
+    post:
+      summary: 'Generate new marketing content'
+      description: 'Create new marketing content for customer engagement.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                campaign_name:
+                  type: string
+                  example: 'Holiday Sale 2023'
+                target_audience:
+                  type: string
+                  example: 'Young Adults'
+                content_type:
+                  type: string
+                  example: 'Social Media Post'
+                key_messages:
+                  type: array
+                  items:
+                    type: string
+                  example: ['50% Off', 'Free Shipping', 'Limited Time Offer']
+      responses:
+        '201':
+          description: 'Marketing content generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Marketing content generated successfully.'
+                  content_id:
+                    type: string
+                    example: 'CONTENT123'
+  '/marketing-content/automate':
+    post:
+      summary: 'Automate marketing content generation'
+      description: 'Trigger minor automation for generating marketing content.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Marketing content automation process started successfully.'
+  '/marketing-content/summarize':
+    get:
+      summary: 'Summarize marketing content'
+      description: 'Generate a summary of marketing content.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Generated content covers 80% of the marketing campaign needs.'

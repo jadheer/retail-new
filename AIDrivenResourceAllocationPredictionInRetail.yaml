@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: AI Driven Resource Allocation Prediction In Retail
+  version: 1.0.0
+  description: >
+    API to manage and optimize AI-driven resource allocation prediction in retail,
+    ensuring efficient resource utilization, cost-effectiveness, and improved operational efficiency.
+
+paths:
+  '/resource/allocation/prediction':
+    get:
+      summary: Analyze AI-driven resource allocation prediction efficiency
+      description: Retrieve analysis and recommendations for improving AI-driven resource allocation prediction in retail.
+      responses:
+        '200':
+          description: Successful retrieval of AI-driven resource allocation prediction data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalResourcesAllocated:
+                    type: integer
+                    description: Total number of resources allocated using AI predictions.
+                  resourcesOptimized:
+                    type: integer
+                    description: Number of resources successfully optimized through AI predictions.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        resourceType:
+                          type: string
+                          description: Type of resource (e.g., inventory, workforce, capital).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the resource type.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/resource/allocation/prediction/simulation':
+    post:
+      summary: Simulate AI-driven resource allocation prediction scenarios
+      description: Create and simulate scenarios for optimizing AI-driven resource allocation prediction in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                resourceCategories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories of resources (e.g., inventory, workforce, capital).
+                predictionStrategies:
+                  type: array
+                  items:
+                    type: string
+                  description: Strategies for AI-driven resource allocation prediction (e.g., machine learning, predictive analytics, optimization algorithms).
+              required:
+                - storeId
+                - resourceCategories
+                - predictionStrategies
+      responses:
+        '201':
+          description: AI-driven resource allocation prediction simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the AI-driven resource allocation prediction simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/resource/allocation/prediction':
+    get:
+      summary: Retrieve AI-driven resource allocation prediction optimization suggestions
+      description: Get AI-driven resource allocation prediction optimization recommendations based on analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of AI-driven resource allocation prediction optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    resourceType:
+                      type: string
+                      description: Type of resource (e.g., inventory, workforce, capital).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for AI-driven resource allocation prediction.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., improved resource utilization, cost savings).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

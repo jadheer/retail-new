@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Advanced Credit Trend Analysis in Retail'
+  description: 'This API is designed to enable advanced credit trend analysis in retail, leveraging AI and machine learning to analyze and predict credit trends. It supports the creation, retrieval, updating, and deletion of credit trend analysis records.'
+  version: 1.0.0
+paths:
+  '/credit-trend-analysis-records':
+    get:
+      summary: 'Retrieve a list of credit trend analysis records'
+      description: 'Fetches a list of all advanced credit trend analysis records in retail.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the credit trend analysis record'
+                    processName:
+                      type: string
+                      description: 'Name of the process (e.g., advanced credit trend analysis)'
+                    analysisDate:
+                      type: string
+                      format: date
+                      description: 'Date the credit trend analysis was performed'
+                    status:
+                      type: string
+                      description: 'Status of the analysis (e.g., active, inactive, under review)'
+                  required:
+                    - recordId
+                    - processName
+                    - analysisDate
+                    - status
+    post:
+      summary: 'Add a new credit trend analysis record'
+      description: 'Adds a new advanced credit trend analysis record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., advanced credit trend analysis)'
+                analysisDate:
+                  type: string
+                  format: date
+                  description: 'Date the credit trend analysis was performed'
+                status:
+                  type: string
+                  description: 'Status of the analysis (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - analysisDate
+                - status
+      responses:
+        '201':
+          description: 'Credit trend analysis record created successfully'
+  '/credit-trend-analysis-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific credit trend analysis record'
+      description: 'Fetches details of a specific advanced credit trend analysis record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the credit trend analysis record'
+                  processName:
+                    type: string
+                    description: 'Name of the process (e.g., advanced credit trend analysis)'
+                  analysisDate:
+                    type: string
+                    format: date
+                    description: 'Date the credit trend analysis was performed'
+                  status:
+                    type: string
+                    description: 'Status of the analysis (e.g., active, inactive, under review)'
+                required:
+                  - recordId
+                  - processName
+                  - analysisDate
+                  - status
+    put:
+      summary: 'Update an existing credit trend analysis record'
+      description: 'Updates details of an existing advanced credit trend analysis record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., advanced credit trend analysis)'
+                analysisDate:
+                  type: string
+                  format: date
+                  description: 'Date the credit trend analysis was performed'
+                status:
+                  type: string
+                  description: 'Status of the analysis (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - analysisDate
+                - status
+      responses:
+        '200':
+          description: 'Credit trend analysis record updated successfully'
+    delete:
+      summary: 'Delete a credit trend analysis record'
+      description: 'Deletes an advanced credit trend analysis record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Credit trend analysis record deleted successfully'

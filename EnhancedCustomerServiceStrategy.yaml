@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Enhanced Customer Service Strategy'
+  description: 'This API is designed to improve customer service strategies by enabling businesses to create, manage, and optimize customer engagement approaches such as omnichannel support, personalized service, and proactive engagement.'
+  version: 1.0.0
+paths:
+  '/customer-service-strategies':
+    get:
+      summary: 'Retrieve a list of customer service strategies'
+      description: 'Fetches a list of all customer service strategies being enhanced.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    strategyId:
+                      type: string
+                      description: 'Unique identifier for the customer service strategy'
+                    strategyName:
+                      type: string
+                      description: 'Name of the strategy (e.g., omnichannel support, personalized service, proactive engagement)'
+                    createdDate:
+                      type: string
+                      format: date
+                      description: 'Date the strategy was created'
+                    lastUpdatedDate:
+                      type: string
+                      format: date
+                      description: 'Date the strategy was last updated'
+                    status:
+                      type: string
+                      description: 'Status of the strategy (e.g., active, inactive, under review)'
+                  required:
+                    - strategyId
+                    - strategyName
+                    - createdDate
+                    - status
+    post:
+      summary: 'Add a new customer service strategy'
+      description: 'Adds a new customer service strategy to the system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                strategyName:
+                  type: string
+                  description: 'Name of the strategy (e.g., omnichannel support, personalized service, proactive engagement)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was last updated'
+                status:
+                  type: string
+                  description: 'Status of the strategy (e.g., active, inactive, under review)'
+              required:
+                - strategyName
+                - createdDate
+                - status
+      responses:
+        '201':
+          description: 'Customer service strategy created successfully'
+  '/customer-service-strategies/{strategyId}':
+    get:
+      summary: 'Retrieve details of a specific customer service strategy'
+      description: 'Fetches details of a specific customer service strategy by its ID.'
+      parameters:
+        - name: 'strategyId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  strategyId:
+                    type: string
+                    description: 'Unique identifier for the customer service strategy'
+                  strategyName:
+                    type: string
+                    description: 'Name of the strategy (e.g., omnichannel support, personalized service, proactive engagement)'
+                  createdDate:
+                    type: string
+                    format: date
+                    description: 'Date the strategy was created'
+                  lastUpdatedDate:
+                    type: string
+                    format: date
+                    description: 'Date the strategy was last updated'
+                  status:
+                    type: string
+                    description: 'Status of the strategy (e.g., active, inactive, under review)'
+                required:
+                  - strategyId
+                  - strategyName
+                  - createdDate
+                  - status
+    put:
+      summary: 'Update an existing customer service strategy'
+      description: 'Updates details of an existing customer service strategy by its ID.'
+      parameters:
+        - name: 'strategyId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                strategyName:
+                  type: string
+                  description: 'Name of the strategy (e.g., omnichannel support, personalized service, proactive engagement)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was last updated'
+                status:
+                  type: string
+                  description: 'Status of the strategy (e.g., active, inactive, under review)'
+              required:
+                - strategyName
+                - createdDate
+                - status
+      responses:
+        '200':
+          description: 'Customer service strategy updated successfully'
+    delete:
+      summary: 'Delete a customer service strategy'
+      description: 'Deletes a customer service strategy from the system by its ID.'
+      parameters:
+        - name: 'strategyId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Customer service strategy deleted successfully'

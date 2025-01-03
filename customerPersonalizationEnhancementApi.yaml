@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: 'Customer Personalization Enhancement'
+  version: 1.0.0
+  description: 'API for managing Customer Personalization Enhancement processes to improve customer relationships through personalized experiences.'
+paths:
+  '/customer-personalization':
+    get:
+      summary: 'Retrieve customer personalization data'
+      description: 'Fetch available customer personalization data and insights.'
+      responses:
+        '200':
+          description: 'Successful retrieval of customer personalization data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 19
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Customer Experience'
+                  process_group:
+                    type: string
+                    example: 'Manage customer relationship'
+                  process_name:
+                    type: string
+                    example: 'Customer Personalization Enhancement'
+                  creation:
+                    type: string
+                    example: 'Major'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  search:
+                    type: string
+                    example: 'Major'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/customer-personalization/search':
+    get:
+      summary: 'Search for customer personalization metrics'
+      description: 'Search for specific customer personalization metrics based on criteria.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'Personalized Recommendations'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Metric A', 'Metric B']
+  '/customer-personalization/automate':
+    post:
+      summary: 'Automate customer personalization analysis'
+      description: 'Trigger minor automation for analyzing customer personalization data.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Customer personalization analysis automation process started successfully.'
+  '/customer-personalization/summarize':
+    get:
+      summary: 'Summarize customer personalization data'
+      description: 'Generate a summary of customer personalization insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Customer personalization analysis shows a 15% increase in customer engagement.'

@@ -1,0 +1,190 @@
+openapi: 3.0.0
+info:
+  title: 'Enhancing HR Efficiency with a Chatbot in Retail'
+  description: 'This API is designed to improve HR efficiency in the retail sector by leveraging chatbot interactions. It enables employees to interact with the chatbot for queries, requests, and feedback, streamlining HR processes and enhancing employee experience.'
+  version: 1.0.0
+paths:
+  '/chatbot-interactions':
+    get:
+      summary: 'Retrieve a list of chatbot interactions'
+      description: 'Fetches a list of all chatbot interactions in the retail HR system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    interactionId:
+                      type: string
+                      description: 'Unique identifier for the chatbot interaction'
+                    employeeId:
+                      type: string
+                      description: 'Unique identifier for the employee interacting with the chatbot'
+                    interactionType:
+                      type: string
+                      description: 'Type of interaction (e.g., query, request, feedback)'
+                    interactionDate:
+                      type: string
+                      format: date-time
+                      description: 'Date and time of the interaction'
+                    query:
+                      type: string
+                      description: 'Query or request made by the employee'
+                    response:
+                      type: string
+                      description: 'Response provided by the chatbot'
+                    status:
+                      type: string
+                      description: 'Status of the interaction (e.g., resolved, pending)'
+                  required:
+                    - interactionId
+                    - employeeId
+                    - interactionType
+                    - interactionDate
+                    - query
+                    - status
+    post:
+      summary: 'Add a new chatbot interaction'
+      description: 'Adds a new chatbot interaction to the retail HR system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                  description: 'Unique identifier for the employee interacting with the chatbot'
+                interactionType:
+                  type: string
+                  description: 'Type of interaction (e.g., query, request, feedback)'
+                interactionDate:
+                  type: string
+                  format: date-time
+                  description: 'Date and time of the interaction'
+                query:
+                  type: string
+                  description: 'Query or request made by the employee'
+                response:
+                  type: string
+                  description: 'Response provided by the chatbot'
+                status:
+                  type: string
+                  description: 'Status of the interaction (e.g., resolved, pending)'
+              required:
+                - employeeId
+                - interactionType
+                - interactionDate
+                - query
+                - status
+      responses:
+        '201':
+          description: 'Chatbot interaction created successfully'
+  '/chatbot-interactions/{interactionId}':
+    get:
+      summary: 'Retrieve details of a specific chatbot interaction'
+      description: 'Fetches details of a specific chatbot interaction by its ID.'
+      parameters:
+        - name: 'interactionId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  interactionId:
+                    type: string
+                    description: 'Unique identifier for the chatbot interaction'
+                  employeeId:
+                    type: string
+                    description: 'Unique identifier for the employee interacting with the chatbot'
+                  interactionType:
+                    type: string
+                    description: 'Type of interaction (e.g., query, request, feedback)'
+                  interactionDate:
+                    type: string
+                    format: date-time
+                    description: 'Date and time of the interaction'
+                  query:
+                    type: string
+                    description: 'Query or request made by the employee'
+                  response:
+                    type: string
+                    description: 'Response provided by the chatbot'
+                  status:
+                    type: string
+                    description: 'Status of the interaction (e.g., resolved, pending)'
+                required:
+                  - interactionId
+                  - employeeId
+                  - interactionType
+                  - interactionDate
+                  - query
+                  - status
+    put:
+      summary: 'Update an existing chatbot interaction'
+      description: 'Updates details of an existing chatbot interaction by its ID.'
+      parameters:
+        - name: 'interactionId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                  description: 'Unique identifier for the employee interacting with the chatbot'
+                interactionType:
+                  type: string
+                  description: 'Type of interaction (e.g., query, request, feedback)'
+                interactionDate:
+                  type: string
+                  format: date-time
+                  description: 'Date and time of the interaction'
+                query:
+                  type: string
+                  description: 'Query or request made by the employee'
+                response:
+                  type: string
+                  description: 'Response provided by the chatbot'
+                status:
+                  type: string
+                  description: 'Status of the interaction (e.g., resolved, pending)'
+              required:
+                - employeeId
+                - interactionType
+                - interactionDate
+                - query
+                - status
+      responses:
+        '200':
+          description: 'Chatbot interaction updated successfully'
+    delete:
+      summary: 'Delete a chatbot interaction'
+      description: 'Deletes a chatbot interaction from the retail HR system by its ID.'
+      parameters:
+        - name: 'interactionId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Chatbot interaction deleted successfully'

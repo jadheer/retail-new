@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: Advanced Supply Chain and Material Requirement Forecasting
+  description: API for automating and analyzing the advanced supply chain and material requirements in the retail domain.
+  version: 1.0.0
+paths:
+  '/forecast/material-requirements':
+    get:
+      summary: Retrieve material requirement forecasts
+      description: Fetch forecasts for material requirements based on input parameters.
+      parameters:
+        - name: productId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: ID of the product to forecast requirements for.
+        - name: startDate
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: Start date for the forecast period.
+        - name: endDate
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: End date for the forecast period.
+      responses:
+        '200':
+          description: Successful retrieval of forecasts.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId:
+                    type: string
+                    description: The ID of the product.
+                  forecasts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                          description: Date of the forecast.
+                        requiredQuantity:
+                          type: number
+                          description: Forecasted quantity required.
+  '/analyze/supply-chain':
+    post:
+      summary: Analyze supply chain data
+      description: Submit and analyze supply chain data for insights and recommendations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                supplyChainData:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      supplierId:
+                        type: string
+                        description: ID of the supplier.
+                      deliveryDate:
+                        type: string
+                        format: date
+                        description: Date of the delivery.
+                      quantity:
+                        type: number
+                        description: Quantity delivered.
+      responses:
+        '200':
+          description: Analysis results returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  insights:
+                    type: array
+                    items:
+                      type: string
+                      description: Insights derived from the supply chain data.
+                  recommendations:
+                    type: array
+                    items:
+                      type: string
+                      description: Recommended actions based on the analysis.

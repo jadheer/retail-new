@@ -1,0 +1,139 @@
+openapi: 3.0.0
+info:
+  title: Automated Policy Management In Business
+  version: 1.0.0
+  description: >
+    API to manage automated policy management in business, ensuring compliance with
+    legal and ethical standards through streamlined policy creation, tracking, and enforcement.
+
+paths:
+  '/policy/management':
+    get:
+      summary: Retrieve policy management data
+      description: Fetch details of automated policies and their compliance status.
+      responses:
+        '200':
+          description: Successful retrieval of policy management data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  policyId:
+                    type: string
+                    description: Unique identifier of the policy.
+                  policyName:
+                    type: string
+                    description: Name of the policy.
+                  policyType:
+                    type: string
+                    description: Type of policy (e.g., legal, ethical, operational).
+                  complianceStatus:
+                    type: string
+                    description: Compliance status (e.g., compliant, non-compliant).
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the policy.
+                  enforcementActions:
+                    type: array
+                    items:
+                      type: string
+                    description: Actions taken to enforce the policy.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/policy/management/submit':
+    post:
+      summary: Submit a new policy
+      description: Submit a new policy for automated management and enforcement.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                policyName:
+                  type: string
+                  description: Name of the policy.
+                policyType:
+                  type: string
+                  description: Type of policy (e.g., legal, ethical, operational).
+                policyDetails:
+                  type: string
+                  description: Detailed description of the policy.
+                enforcementActions:
+                  type: array
+                  items:
+                    type: string
+                  description: Actions to enforce the policy.
+              required:
+                - policyName
+                - policyType
+                - policyDetails
+      responses:
+        '201':
+          description: Policy successfully submitted for automated management.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  policyId:
+                    type: string
+                    description: Unique identifier of the submitted policy.
+                  status:
+                    type: string
+                    description: Status of the policy (e.g., active, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/policy/management/compliance':
+    get:
+      summary: Retrieve policy compliance reports
+      description: Fetch compliance reports for automated policies.
+      parameters:
+        - name: policyType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [legal, ethical, operational]
+          description: Type of policy to retrieve compliance reports for.
+      responses:
+        '200':
+          description: Successful retrieval of policy compliance reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    policyId:
+                      type: string
+                      description: Unique identifier of the policy.
+                    policyName:
+                      type: string
+                      description: Name of the policy.
+                    complianceStatus:
+                      type: string
+                      description: Compliance status (e.g., compliant, non-compliant).
+                    lastAuditDate:
+                      type: string
+                      format: date-time
+                      description: Timestamp of the last compliance audit.
+                    auditFindings:
+                      type: array
+                      items:
+                        type: string
+                      description: Findings from the last compliance audit.
+        '400':
+          description: Missing or invalid policyType parameter.
+        '500':
+          description: Internal server error.

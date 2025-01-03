@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: Enhanced Financial Reporting In Retail
+  version: 1.0.0
+  description: >
+    API to manage enhanced financial reporting in retail, ensuring accurate and comprehensive
+    financial data for government and industry stakeholders.
+
+paths:
+  '/financial/reporting':
+    get:
+      summary: Retrieve financial reporting data
+      description: Fetch enhanced financial reports for retail operations.
+      responses:
+        '200':
+          description: Successful retrieval of financial reporting data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reportId:
+                    type: string
+                    description: Unique identifier of the financial report.
+                  period:
+                    type: string
+                    format: date
+                    description: Reporting period (e.g., monthly, quarterly).
+                  totalRevenue:
+                    type: number
+                    description: Total revenue generated during the period.
+                  totalExpenses:
+                    type: number
+                    description: Total expenses incurred during the period.
+                  netProfit:
+                    type: number
+                    description: Net profit for the period.
+                  complianceStatus:
+                    type: string
+                    description: Compliance status with financial regulations (e.g., compliant, non-compliant).
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/financial/reporting/submit':
+    post:
+      summary: Submit a financial report
+      description: Submit an enhanced financial report for review and compliance checks.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                period:
+                  type: string
+                  format: date
+                  description: Reporting period (e.g., monthly, quarterly).
+                totalRevenue:
+                  type: number
+                  description: Total revenue generated during the period.
+                totalExpenses:
+                  type: number
+                  description: Total expenses incurred during the period.
+                netProfit:
+                  type: number
+                  description: Net profit for the period.
+                complianceNotes:
+                  type: string
+                  description: Additional notes on compliance with financial regulations.
+              required:
+                - period
+                - totalRevenue
+                - totalExpenses
+                - netProfit
+      responses:
+        '201':
+          description: Financial report successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reportId:
+                    type: string
+                    description: Unique identifier of the submitted financial report.
+                  status:
+                    type: string
+                    description: Status of the report (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/financial/reporting/audit':
+    get:
+      summary: Retrieve financial audit reports
+      description: Fetch detailed financial audit reports for compliance and analysis.
+      parameters:
+        - name: period
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          description: Reporting period for the audit (e.g., monthly, quarterly).
+      responses:
+        '200':
+          description: Successful retrieval of financial audit reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    auditId:
+                      type: string
+                      description: Unique identifier of the financial audit report.
+                    period:
+                      type: string
+                      format: date
+                      description: Reporting period covered by the audit.
+                    findings:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          issue:
+                            type: string
+                            description: Description of the compliance issue.
+                          severity:
+                            type: string
+                            description: Severity level of the issue (e.g., minor, major).
+                          resolution:
+                            type: string
+                            description: Recommended resolution for the issue.
+                    overallStatus:
+                      type: string
+                      description: Overall status of the audit (e.g., passed, failed).
+        '400':
+          description: Missing or invalid period parameter.
+        '500':
+          description: Internal server error.

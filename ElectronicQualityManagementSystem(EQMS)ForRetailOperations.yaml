@@ -1,0 +1,144 @@
+openapi: 3.0.0
+info:
+  title: Electronic Quality Management System (EQMS) For Retail Operations
+  version: 1.0.0
+  description: >
+    API to manage the Electronic Quality Management System (EQMS) for retail operations,
+    enabling businesses to ensure quality compliance, streamline processes, and improve
+    operational efficiency.
+
+paths:
+  '/eqms/retail-operations':
+    get:
+      summary: Retrieve EQMS data for retail operations
+      description: Fetch details of the EQMS and its implementation in retail operations.
+      responses:
+        '200':
+          description: Successful retrieval of EQMS data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  eqmsId:
+                    type: string
+                    description: Unique identifier of the EQMS.
+                  eqmsName:
+                    type: string
+                    description: Name of the EQMS.
+                  implementedProcesses:
+                    type: array
+                    items:
+                      type: string
+                    description: Processes managed by the EQMS (e.g., quality control, compliance).
+                  complianceStatus:
+                    type: string
+                    description: Compliance status of the EQMS (e.g., compliant, non-compliant).
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the EQMS.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/eqms/retail-operations/submit':
+    post:
+      summary: Submit data for EQMS implementation
+      description: Submit data for implementing the EQMS in retail operations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eqmsName:
+                  type: string
+                  description: Name of the EQMS.
+                implementedProcesses:
+                  type: array
+                  items:
+                    type: string
+                  description: Processes to be managed by the EQMS (e.g., quality control, compliance).
+                complianceDetails:
+                  type: string
+                  description: Detailed analysis of compliance with quality standards.
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the EQMS implementation.
+              required:
+                - eqmsName
+                - implementedProcesses
+                - complianceDetails
+      responses:
+        '201':
+          description: EQMS implementation data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  eqmsId:
+                    type: string
+                    description: Unique identifier of the submitted EQMS.
+                  status:
+                    type: string
+                    description: Status of the EQMS implementation (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/eqms/retail-operations/reports':
+    get:
+      summary: Retrieve EQMS implementation reports
+      description: Fetch detailed reports on the implementation of the EQMS in retail operations.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the EQMS implementation report.
+      responses:
+        '200':
+          description: Successful retrieval of EQMS implementation reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the EQMS implementation report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    implementedEqms:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          eqmsName:
+                            type: string
+                            description: Name of the EQMS.
+                          implementedProcesses:
+                            type: array
+                            items:
+                              type: string
+                            description: Processes managed by the EQMS.
+                          complianceStatus:
+                            type: string
+                            description: Compliance status of the EQMS.
+                    overallEqmsPerformance:
+                      type: string
+                      description: Overall assessment of EQMS performance during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

@@ -1,0 +1,79 @@
+openapi: 3.0.0
+info:
+  title: 'Expanded Product Offerings'
+  version: 1.0.0
+  description: 'API for managing the Expanded Product Offerings process in the retail domain to enhance product variety and availability.'
+paths:
+  '/product-offerings':
+    get:
+      summary: 'Retrieve expanded product offerings'
+      description: 'Fetch the list of expanded product offerings available in the retail domain.'
+      responses:
+        '200':
+          description: 'Successful retrieval of expanded product offerings'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 1
+                  retail_domain_category:
+                    type: string
+                    example: 'Deliver Products'
+                  process_group:
+                    type: string
+                    example: 'Manage direct-to-store-delivery'
+                  creation:
+                    type: string
+                    example: 'Major'
+                  automation:
+                    type: string
+                    example: 'Major'
+  '/product-offerings/expand':
+    post:
+      summary: 'Expand product offerings'
+      description: 'Add new products to the existing offerings to enhance variety and availability.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_name:
+                  type: string
+                  example: 'New Product A'
+                category:
+                  type: string
+                  example: 'Electronics'
+                description:
+                  type: string
+                  example: 'A new electronic gadget with advanced features.'
+      responses:
+        '201':
+          description: 'Product offering expanded successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Product offering expanded successfully.'
+  '/product-offerings/automate':
+    post:
+      summary: 'Automate product offering expansion'
+      description: 'Trigger automation for expanding product offerings.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Product offering expansion automation process started successfully.'

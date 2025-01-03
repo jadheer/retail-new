@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: 'Automated Reordering and Inventory Optimization in Retail'
+  description: 'API for automated reordering and inventory optimization in retail, focusing on automation and search functionalities to ensure optimal stock levels.'
+  version: 1.0.0
+paths:
+  '/inventory/reordering/automate':
+    post:
+      summary: 'Automate reordering and inventory optimization'
+      description: 'Automates the reordering process and optimizes inventory levels in retail to prevent stockouts and overstocking.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                inventory_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: string
+                      current_stock:
+                        type: number
+                      reorder_threshold:
+                        type: number
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Reordering and inventory optimization automated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_inventory_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_id:
+                          type: string
+                        current_stock:
+                          type: number
+                        reorder_threshold:
+                          type: number
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/inventory/reordering/search':
+    get:
+      summary: 'Search automated reordering and inventory optimization data'
+      description: 'Search for automated reordering and inventory optimization data based on product ID or reorder threshold.'
+      parameters:
+        - name: 'product_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the product to search for'
+        - name: 'reorder_threshold'
+          in: query
+          schema:
+            type: number
+          required: false
+          description: 'Reorder threshold to search for'
+      responses:
+        '200':
+          description: 'Automated reordering and inventory optimization data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    product_id:
+                      type: string
+                    current_stock:
+                      type: number
+                    reorder_threshold:
+                      type: number
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

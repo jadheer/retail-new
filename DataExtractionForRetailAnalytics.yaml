@@ -1,0 +1,170 @@
+openapi: 3.0.0
+info:
+  title: Data Extraction For Retail Analytics
+  version: 1.0.0
+  description: >
+    API to manage data extraction for retail analytics, enabling businesses to collect,
+    process, and analyze data for actionable insights and decision-making.
+
+paths:
+  '/data-extraction/retail-analytics':
+    get:
+      summary: Retrieve data extraction details
+      description: Fetch details of data extraction processes for retail analytics.
+      responses:
+        '200':
+          description: Successful retrieval of data extraction details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  extractionId:
+                    type: string
+                    description: Unique identifier of the data extraction process.
+                  dataSource:
+                    type: string
+                    description: Source of the data (e.g., POS systems, e-commerce platforms).
+                  extractionMethod:
+                    type: string
+                    description: Method used for data extraction (e.g., API, ETL).
+                  extractedDataSummary:
+                    type: object
+                    properties:
+                      totalRecords:
+                        type: integer
+                        description: Total number of records extracted.
+                      dataTypes:
+                        type: array
+                        items:
+                          type: string
+                        description: Types of data extracted (e.g., sales, inventory, customer).
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the extraction process.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/data-extraction/retail-analytics/submit':
+    post:
+      summary: Submit data for extraction
+      description: Submit data sources and parameters for extraction in retail analytics.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dataSource:
+                  type: string
+                  description: Source of the data (e.g., POS systems, e-commerce platforms).
+                extractionMethod:
+                  type: string
+                  description: Method used for data extraction (e.g., API, ETL).
+                extractionParameters:
+                  type: object
+                  properties:
+                    startDate:
+                      type: string
+                      format: date
+                      description: Start date for data extraction.
+                    endDate:
+                      type: string
+                      format: date
+                      description: End date for data extraction.
+                    dataTypes:
+                      type: array
+                      items:
+                        type: string
+                      description: Types of data to extract (e.g., sales, inventory, customer).
+                  required:
+                    - startDate
+                    - endDate
+                    - dataTypes
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the extraction parameters.
+              required:
+                - dataSource
+                - extractionMethod
+                - extractionParameters
+      responses:
+        '201':
+          description: Data extraction request successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  extractionId:
+                    type: string
+                    description: Unique identifier of the submitted extraction process.
+                  status:
+                    type: string
+                    description: Status of the extraction (e.g., submitted, in-progress).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/data-extraction/retail-analytics/reports':
+    get:
+      summary: Retrieve data extraction reports
+      description: Fetch detailed reports on data extraction processes for retail analytics.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [daily, weekly, monthly]
+          description: Timeframe for the data extraction report.
+      responses:
+        '200':
+          description: Successful retrieval of data extraction reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the data extraction report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    extractionDetails:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          dataSource:
+                            type: string
+                            description: Source of the data.
+                          extractionMethod:
+                            type: string
+                            description: Method used for data extraction.
+                          extractedDataSummary:
+                            type: object
+                            properties:
+                              totalRecords:
+                                type: integer
+                                description: Total number of records extracted.
+                              dataTypes:
+                                type: array
+                                items:
+                                  type: string
+                                description: Types of data extracted.
+                    overallExtractionPerformance:
+                      type: string
+                      description: Overall assessment of data extraction performance during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

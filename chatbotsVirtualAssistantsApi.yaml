@@ -1,0 +1,129 @@
+openapi: 3.0.0
+info:
+  title: 'Chatbots and Virtual Assistants'
+  version: 1.0.0
+  description: 'API for managing Chatbots and Virtual Assistants to enhance customer service delivery.'
+paths:
+  '/chatbots':
+    get:
+      summary: 'Retrieve chatbot configurations'
+      description: 'Fetch available chatbot and virtual assistant configurations for customer service.'
+      responses:
+        '200':
+          description: 'Successful retrieval of chatbot configurations'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 7
+                  retail_domain_category:
+                    type: string
+                    example: 'Deliver Services'
+                  process_group:
+                    type: string
+                    example: 'Deliver service to customer'
+                  creation:
+                    type: string
+                    example: 'Major'
+                  automation:
+                    type: string
+                    example: 'Major'
+                  search:
+                    type: string
+                    example: 'Minor'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/chatbots/create':
+    post:
+      summary: 'Create a new chatbot or virtual assistant'
+      description: 'Create a new chatbot or virtual assistant for customer service delivery.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                chatbot_name:
+                  type: string
+                  example: 'Customer Support Bot'
+                use_case:
+                  type: string
+                  example: 'Order Tracking'
+                integration_platforms:
+                  type: array
+                  items:
+                    type: string
+                  example: ['Website', 'Mobile App']
+      responses:
+        '201':
+          description: 'Chatbot created successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Chatbot created successfully.'
+                  chatbot_id:
+                    type: string
+                    example: 'CHATBOT123'
+  '/chatbots/automate':
+    post:
+      summary: 'Automate chatbot interactions'
+      description: 'Trigger major automation for chatbot and virtual assistant interactions.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Chatbot automation process started successfully.'
+  '/chatbots/search':
+    get:
+      summary: 'Search for chatbot interactions'
+      description: 'Search for specific chatbot interactions based on criteria.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'Order Status'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Interaction A', 'Interaction B']
+  '/chatbots/summarize':
+    get:
+      summary: 'Summarize chatbot interactions'
+      description: 'Generate a summary of chatbot interactions.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Chatbot handled 95% of customer queries successfully.'

@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Automated User Identity and Authorization Management in Retail'
+  description: 'This API is designed to enable automated user identity and authorization management in retail, ensuring secure and efficient access control. It supports the creation, retrieval, updating, and deletion of user identity and authorization records.'
+  version: 1.0.0
+paths:
+  '/user-identity-records':
+    get:
+      summary: 'Retrieve a list of user identity records'
+      description: 'Fetches a list of all automated user identity and authorization management records in retail.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the user identity record'
+                    processName:
+                      type: string
+                      description: 'Name of the process (e.g., automated user identity and authorization management)'
+                    identityDate:
+                      type: string
+                      format: date
+                      description: 'Date the user identity was managed'
+                    status:
+                      type: string
+                      description: 'Status of the identity management (e.g., active, inactive, under review)'
+                  required:
+                    - recordId
+                    - processName
+                    - identityDate
+                    - status
+    post:
+      summary: 'Add a new user identity record'
+      description: 'Adds a new automated user identity and authorization management record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., automated user identity and authorization management)'
+                identityDate:
+                  type: string
+                  format: date
+                  description: 'Date the user identity was managed'
+                status:
+                  type: string
+                  description: 'Status of the identity management (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - identityDate
+                - status
+      responses:
+        '201':
+          description: 'User identity record created successfully'
+  '/user-identity-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific user identity record'
+      description: 'Fetches details of a specific automated user identity and authorization management record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the user identity record'
+                  processName:
+                    type: string
+                    description: 'Name of the process (e.g., automated user identity and authorization management)'
+                  identityDate:
+                    type: string
+                    format: date
+                    description: 'Date the user identity was managed'
+                  status:
+                    type: string
+                    description: 'Status of the identity management (e.g., active, inactive, under review)'
+                required:
+                  - recordId
+                  - processName
+                  - identityDate
+                  - status
+    put:
+      summary: 'Update an existing user identity record'
+      description: 'Updates details of an existing automated user identity and authorization management record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., automated user identity and authorization management)'
+                identityDate:
+                  type: string
+                  format: date
+                  description: 'Date the user identity was managed'
+                status:
+                  type: string
+                  description: 'Status of the identity management (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - identityDate
+                - status
+      responses:
+        '200':
+          description: 'User identity record updated successfully'
+    delete:
+      summary: 'Delete a user identity record'
+      description: 'Deletes an automated user identity and authorization management record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'User identity record deleted successfully'

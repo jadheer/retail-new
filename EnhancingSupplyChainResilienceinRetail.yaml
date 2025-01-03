@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: 'Enhancing Supply Chain Resilience in Retail'
+  description: 'API for enhancing supply chain resilience in retail, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/supply-chain/resilience/enhance':
+    post:
+      summary: 'Enhance supply chain resilience'
+      description: 'Improves the resilience of the supply chain in retail by identifying risks and implementing mitigation strategies.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                resilience_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      risk_id:
+                        type: string
+                      risk_description:
+                        type: string
+                      mitigation_strategy:
+                        type: array
+                        items:
+                          type: string
+                      resilience_score:
+                        type: number
+      responses:
+        '200':
+          description: 'Supply chain resilience enhanced successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_resilience_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        risk_id:
+                          type: string
+                        risk_description:
+                          type: string
+                        mitigation_strategy:
+                          type: array
+                          items:
+                            type: string
+                        resilience_score:
+                          type: number
+  '/supply-chain/resilience/search':
+    get:
+      summary: 'Search supply chain resilience data'
+      description: 'Search for supply chain resilience data based on risk ID or resilience score.'
+      parameters:
+        - name: 'risk_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the risk to search for'
+        - name: 'resilience_score'
+          in: query
+          schema:
+            type: number
+          required: false
+          description: 'Resilience score to search for'
+      responses:
+        '200':
+          description: 'Supply chain resilience data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    risk_id:
+                      type: string
+                    risk_description:
+                      type: string
+                    mitigation_strategy:
+                      type: array
+                      items:
+                        type: string
+                    resilience_score:
+                      type: number

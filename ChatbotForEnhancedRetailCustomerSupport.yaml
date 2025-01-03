@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Chatbot for Enhanced Retail Customer Support'
+  description: 'This API is designed to enable chatbot functionality for enhanced customer support in retail, leveraging AI to provide instant and accurate responses to customer queries. It supports the creation, retrieval, updating, and deletion of chatbot interaction records.'
+  version: 1.0.0
+paths:
+  '/chatbot-interaction-records':
+    get:
+      summary: 'Retrieve a list of chatbot interaction records'
+      description: 'Fetches a list of all chatbot interaction records in retail customer support.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the chatbot interaction record'
+                    processName:
+                      type: string
+                      description: 'Name of the process (e.g., chatbot for customer support)'
+                    interactionDate:
+                      type: string
+                      format: date-time
+                      description: 'Date and time of the chatbot interaction'
+                    status:
+                      type: string
+                      description: 'Status of the interaction (e.g., resolved, pending, escalated)'
+                  required:
+                    - recordId
+                    - processName
+                    - interactionDate
+                    - status
+    post:
+      summary: 'Add a new chatbot interaction record'
+      description: 'Adds a new chatbot interaction record to the retail customer support system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., chatbot for customer support)'
+                interactionDate:
+                  type: string
+                  format: date-time
+                  description: 'Date and time of the chatbot interaction'
+                status:
+                  type: string
+                  description: 'Status of the interaction (e.g., resolved, pending, escalated)'
+              required:
+                - processName
+                - interactionDate
+                - status
+      responses:
+        '201':
+          description: 'Chatbot interaction record created successfully'
+  '/chatbot-interaction-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific chatbot interaction record'
+      description: 'Fetches details of a specific chatbot interaction record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the chatbot interaction record'
+                  processName:
+                    type: string
+                    description: 'Name of the process (e.g., chatbot for customer support)'
+                  interactionDate:
+                    type: string
+                    format: date-time
+                    description: 'Date and time of the chatbot interaction'
+                  status:
+                    type: string
+                    description: 'Status of the interaction (e.g., resolved, pending, escalated)'
+                required:
+                  - recordId
+                  - processName
+                  - interactionDate
+                  - status
+    put:
+      summary: 'Update an existing chatbot interaction record'
+      description: 'Updates details of an existing chatbot interaction record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., chatbot for customer support)'
+                interactionDate:
+                  type: string
+                  format: date-time
+                  description: 'Date and time of the chatbot interaction'
+                status:
+                  type: string
+                  description: 'Status of the interaction (e.g., resolved, pending, escalated)'
+              required:
+                - processName
+                - interactionDate
+                - status
+      responses:
+        '200':
+          description: 'Chatbot interaction record updated successfully'
+    delete:
+      summary: 'Delete a chatbot interaction record'
+      description: 'Deletes a chatbot interaction record from the retail customer support system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Chatbot interaction record deleted successfully'

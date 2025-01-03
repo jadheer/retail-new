@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: Community Sentiment Analysis In Retail
+  version: 1.0.0
+  description: >
+    API to manage community sentiment analysis in retail, enabling businesses to
+    understand public perception and improve their public relations strategies.
+
+paths:
+  '/community-sentiment/analysis':
+    get:
+      summary: Retrieve community sentiment analysis data
+      description: Fetch sentiment analysis results on community perceptions of retail operations.
+      responses:
+        '200':
+          description: Successful retrieval of community sentiment analysis data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analysisId:
+                    type: string
+                    description: Unique identifier of the sentiment analysis.
+                  communitySegment:
+                    type: string
+                    description: Segment of the community being analyzed (e.g., local residents, customers).
+                  sentimentScore:
+                    type: number
+                    description: Overall sentiment score (ranging from -1 to 1).
+                  sentimentBreakdown:
+                    type: object
+                    properties:
+                      positive:
+                        type: number
+                        description: Percentage of positive sentiment.
+                      neutral:
+                        type: number
+                        description: Percentage of neutral sentiment.
+                      negative:
+                        type: number
+                        description: Percentage of negative sentiment.
+                  keyInsights:
+                    type: array
+                    items:
+                      type: string
+                    description: Key insights derived from the sentiment analysis.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the analysis.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/community-sentiment/analysis/submit':
+    post:
+      summary: Submit data for community sentiment analysis
+      description: Submit data for sentiment analysis on community perceptions of retail operations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                communitySegment:
+                  type: string
+                  description: Segment of the community being analyzed (e.g., local residents, customers).
+                dataSources:
+                  type: array
+                  items:
+                    type: string
+                  description: Sources of data for the sentiment analysis (e.g., social media, surveys).
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the sentiment data.
+              required:
+                - communitySegment
+                - dataSources
+      responses:
+        '201':
+          description: Community sentiment analysis data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analysisId:
+                    type: string
+                    description: Unique identifier of the submitted analysis.
+                  status:
+                    type: string
+                    description: Status of the analysis (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/community-sentiment/analysis/reports':
+    get:
+      summary: Retrieve community sentiment analysis reports
+      description: Fetch detailed reports on community sentiment analysis.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the community sentiment analysis report.
+      responses:
+        '200':
+          description: Successful retrieval of community sentiment analysis reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the sentiment analysis report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    analyzedSegments:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          communitySegment:
+                            type: string
+                            description: Segment of the community.
+                          sentimentScore:
+                            type: number
+                            description: Overall sentiment score.
+                          sentimentBreakdown:
+                            type: object
+                            properties:
+                              positive:
+                                type: number
+                                description: Percentage of positive sentiment.
+                              neutral:
+                                type: number
+                                description: Percentage of neutral sentiment.
+                              negative:
+                                type: number
+                                description: Percentage of negative sentiment.
+                    overallSentimentTrend:
+                      type: string
+                      description: Overall trend in community sentiment during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

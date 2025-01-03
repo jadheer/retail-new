@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: 'AI-Powered Workforce Management Optimization'
+  version: 1.0.0
+  description: 'API for managing AI-Powered Workforce Management Optimization processes to enhance employee information and analytics.'
+paths:
+  '/workforce-management':
+    get:
+      summary: 'Retrieve workforce management data'
+      description: 'Fetch available workforce management data and insights.'
+      responses:
+        '200':
+          description: 'Successful retrieval of workforce management data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 18
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Human Capital'
+                  process_group:
+                    type: string
+                    example: 'Manage employee information and analytics'
+                  process_name:
+                    type: string
+                    example: 'AI-Powered Workforce Management Optimization'
+                  creation:
+                    type: string
+                    example: 'Major'
+                  automation:
+                    type: string
+                    example: 'Major'
+                  search:
+                    type: string
+                    example: 'Major'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/workforce-management/search':
+    get:
+      summary: 'Search for workforce management metrics'
+      description: 'Search for specific workforce management metrics based on criteria.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'Employee Productivity'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Metric A', 'Metric B']
+  '/workforce-management/automate':
+    post:
+      summary: 'Automate workforce management analysis'
+      description: 'Trigger major automation for analyzing workforce management data.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Workforce management analysis automation process started successfully.'
+  '/workforce-management/summarize':
+    get:
+      summary: 'Summarize workforce management data'
+      description: 'Generate a summary of workforce management insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Workforce management analysis shows a 20% increase in employee productivity.'

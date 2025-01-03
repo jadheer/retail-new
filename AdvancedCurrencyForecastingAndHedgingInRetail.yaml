@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Advanced Currency Forecasting and Hedging in Retail'
+  description: 'This API is designed to enable advanced currency forecasting and hedging in retail, leveraging AI and machine learning to predict currency trends and manage hedging strategies. It supports the creation, retrieval, updating, and deletion of currency forecasting and hedging records.'
+  version: 1.0.0
+paths:
+  '/currency-forecasting-records':
+    get:
+      summary: 'Retrieve a list of currency forecasting and hedging records'
+      description: 'Fetches a list of all advanced currency forecasting and hedging records in retail.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the currency forecasting and hedging record'
+                    processName:
+                      type: string
+                      description: 'Name of the process (e.g., advanced currency forecasting and hedging)'
+                    forecastDate:
+                      type: string
+                      format: date
+                      description: 'Date the currency forecasting and hedging was performed'
+                    status:
+                      type: string
+                      description: 'Status of the forecast (e.g., active, inactive, under review)'
+                  required:
+                    - recordId
+                    - processName
+                    - forecastDate
+                    - status
+    post:
+      summary: 'Add a new currency forecasting and hedging record'
+      description: 'Adds a new advanced currency forecasting and hedging record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., advanced currency forecasting and hedging)'
+                forecastDate:
+                  type: string
+                  format: date
+                  description: 'Date the currency forecasting and hedging was performed'
+                status:
+                  type: string
+                  description: 'Status of the forecast (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - forecastDate
+                - status
+      responses:
+        '201':
+          description: 'Currency forecasting and hedging record created successfully'
+  '/currency-forecasting-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific currency forecasting and hedging record'
+      description: 'Fetches details of a specific advanced currency forecasting and hedging record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the currency forecasting and hedging record'
+                  processName:
+                    type: string
+                    description: 'Name of the process (e.g., advanced currency forecasting and hedging)'
+                  forecastDate:
+                    type: string
+                    format: date
+                    description: 'Date the currency forecasting and hedging was performed'
+                  status:
+                    type: string
+                    description: 'Status of the forecast (e.g., active, inactive, under review)'
+                required:
+                  - recordId
+                  - processName
+                  - forecastDate
+                  - status
+    put:
+      summary: 'Update an existing currency forecasting and hedging record'
+      description: 'Updates details of an existing advanced currency forecasting and hedging record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., advanced currency forecasting and hedging)'
+                forecastDate:
+                  type: string
+                  format: date
+                  description: 'Date the currency forecasting and hedging was performed'
+                status:
+                  type: string
+                  description: 'Status of the forecast (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - forecastDate
+                - status
+      responses:
+        '200':
+          description: 'Currency forecasting and hedging record updated successfully'
+    delete:
+      summary: 'Delete a currency forecasting and hedging record'
+      description: 'Deletes an advanced currency forecasting and hedging record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Currency forecasting and hedging record deleted successfully'

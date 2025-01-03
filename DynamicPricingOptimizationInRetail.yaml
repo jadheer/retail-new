@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Dynamic Pricing Optimization In Retail
+  version: 1.0.0
+  description: >
+    API to manage and optimize dynamic pricing strategies in retail,
+    ensuring competitive pricing, increased sales, and improved profitability.
+
+paths:
+  '/pricing/dynamic':
+    get:
+      summary: Analyze dynamic pricing efficiency
+      description: Retrieve analysis and recommendations for improving dynamic pricing strategies in retail.
+      responses:
+        '200':
+          description: Successful retrieval of dynamic pricing data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalProductsPriced:
+                    type: integer
+                    description: Total number of products with dynamic pricing applied.
+                  productsWithIncreasedSales:
+                    type: integer
+                    description: Number of products with increased sales due to dynamic pricing.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productCategory:
+                          type: string
+                          description: Category of product (e.g., electronics, apparel, groceries).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the product category.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/pricing/dynamic/simulation':
+    post:
+      summary: Simulate dynamic pricing scenarios
+      description: Create and simulate scenarios for optimizing dynamic pricing strategies in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                productCategories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories of products (e.g., electronics, apparel, groceries).
+                pricingStrategies:
+                  type: array
+                  items:
+                    type: string
+                  description: Strategies for dynamic pricing (e.g., demand-based, competitor-based, time-based).
+              required:
+                - storeId
+                - productCategories
+                - pricingStrategies
+      responses:
+        '201':
+          description: Dynamic pricing simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the dynamic pricing simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/pricing/dynamic':
+    get:
+      summary: Retrieve dynamic pricing optimization suggestions
+      description: Get dynamic pricing optimization recommendations based on analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of dynamic pricing optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    productCategory:
+                      type: string
+                      description: Category of product (e.g., electronics, apparel, groceries).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for dynamic pricing strategies.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., increased sales, improved profitability).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

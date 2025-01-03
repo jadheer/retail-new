@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: 'Enhanced Product Review Analysis'
+  version: 1.0.0
+  description: 'API for managing Enhanced Product Review Analysis processes to improve customer experience through omni-channel product review insights.'
+paths:
+  '/product-review-analysis':
+    get:
+      summary: 'Retrieve product review analysis data'
+      description: 'Fetch available product review analysis data and insights.'
+      responses:
+        '200':
+          description: 'Successful retrieval of product review analysis data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 20
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Customer Experience'
+                  process_group:
+                    type: string
+                    example: 'Develop and manage omni channel'
+                  process_name:
+                    type: string
+                    example: 'Enhanced Product Review Analysis'
+                  creation:
+                    type: string
+                    example: 'Minor'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  search:
+                    type: string
+                    example: 'Major'
+                  summarization:
+                    type: string
+                    example: 'Major'
+  '/product-review-analysis/search':
+    get:
+      summary: 'Search for product review metrics'
+      description: 'Search for specific product review metrics based on criteria.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'Customer Sentiment'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Metric A', 'Metric B']
+  '/product-review-analysis/automate':
+    post:
+      summary: 'Automate product review analysis'
+      description: 'Trigger minor automation for analyzing product review data.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Product review analysis automation process started successfully.'
+  '/product-review-analysis/summarize':
+    get:
+      summary: 'Summarize product review data'
+      description: 'Generate a summary of product review insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Product review analysis shows a 90% positive customer sentiment.'

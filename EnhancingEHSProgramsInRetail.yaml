@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  title: Enhancing EHS Programs In Retail
+  version: 1.0.0
+  description: >
+    API to manage the enhancement of environmental, health, and safety (EHS) programs
+    in retail, ensuring continuous improvement and compliance with regulations.
+
+paths:
+  '/ehs-programs/enhancement':
+    get:
+      summary: Retrieve EHS program enhancement data
+      description: Fetch details of EHS programs and their enhancement initiatives.
+      responses:
+        '200':
+          description: Successful retrieval of EHS program enhancement data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  programId:
+                    type: string
+                    description: Unique identifier of the EHS program.
+                  programName:
+                    type: string
+                    description: Name of the EHS program.
+                  enhancementInitiatives:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        initiativeName:
+                          type: string
+                          description: Name of the enhancement initiative.
+                        initiativeDescription:
+                          type: string
+                          description: Description of the enhancement initiative.
+                        status:
+                          type: string
+                          description: Status of the initiative (e.g., planned, in-progress, completed).
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the program.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/ehs-programs/enhancement/submit':
+    post:
+      summary: Submit data for EHS program enhancement
+      description: Submit data for enhancing EHS programs in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                programName:
+                  type: string
+                  description: Name of the EHS program.
+                enhancementInitiatives:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      initiativeName:
+                        type: string
+                        description: Name of the enhancement initiative.
+                      initiativeDescription:
+                        type: string
+                        description: Description of the enhancement initiative.
+                      status:
+                        type: string
+                        description: Status of the initiative (e.g., planned, in-progress, completed).
+                  required:
+                    - initiativeName
+                    - initiativeDescription
+                    - status
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the enhancement initiatives.
+              required:
+                - programName
+                - enhancementInitiatives
+      responses:
+        '201':
+          description: EHS program enhancement data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  programId:
+                    type: string
+                    description: Unique identifier of the submitted EHS program.
+                  status:
+                    type: string
+                    description: Status of the program (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/ehs-programs/enhancement/reports':
+    get:
+      summary: Retrieve EHS program enhancement reports
+      description: Fetch detailed reports on the enhancement of EHS programs.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the EHS program enhancement report.
+      responses:
+        '200':
+          description: Successful retrieval of EHS program enhancement reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the EHS program enhancement report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    enhancedPrograms:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          programName:
+                            type: string
+                            description: Name of the EHS program.
+                          enhancementInitiatives:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                initiativeName:
+                                  type: string
+                                  description: Name of the enhancement initiative.
+                                initiativeDescription:
+                                  type: string
+                                  description: Description of the enhancement initiative.
+                                status:
+                                  type: string
+                                  description: Status of the initiative.
+                    overallEnhancementProgress:
+                      type: string
+                      description: Overall assessment of EHS program enhancement during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: 'Enhancing IT Resilience in Retail'
+  description: 'This API is designed to strengthen IT resilience in the retail sector by managing and tracking IT resilience checks such as system backups, disaster recovery, and network stability. It ensures the robustness and reliability of IT systems to minimize downtime and disruptions.'
+  version: 1.0.0
+paths:
+  '/it-resilience-checks':
+    get:
+      summary: 'Retrieve a list of IT resilience checks'
+      description: 'Fetches a list of all IT resilience checks performed in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    checkId:
+                      type: string
+                      description: 'Unique identifier for the IT resilience check'
+                    checkName:
+                      type: string
+                      description: 'Name of the resilience check (e.g., system backup, disaster recovery, network stability)'
+                    checkDate:
+                      type: string
+                      format: date
+                      description: 'Date the check was performed'
+                    status:
+                      type: string
+                      description: 'Status of the check (e.g., passed, failed, in-progress)'
+                    details:
+                      type: string
+                      description: 'Detailed results or notes from the check'
+                  required:
+                    - checkId
+                    - checkName
+                    - checkDate
+                    - status
+    post:
+      summary: 'Add a new IT resilience check'
+      description: 'Adds a new IT resilience check to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                checkName:
+                  type: string
+                  description: 'Name of the resilience check (e.g., system backup, disaster recovery, network stability)'
+                checkDate:
+                  type: string
+                  format: date
+                  description: 'Date the check was performed'
+                status:
+                  type: string
+                  description: 'Status of the check (e.g., passed, failed, in-progress)'
+                details:
+                  type: string
+                  description: 'Detailed results or notes from the check'
+              required:
+                - checkName
+                - checkDate
+                - status
+      responses:
+        '201':
+          description: 'IT resilience check created successfully'
+  '/it-resilience-checks/{checkId}':
+    get:
+      summary: 'Retrieve details of a specific IT resilience check'
+      description: 'Fetches details of a specific IT resilience check by its ID.'
+      parameters:
+        - name: 'checkId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  checkId:
+                    type: string
+                    description: 'Unique identifier for the IT resilience check'
+                  checkName:
+                    type: string
+                    description: 'Name of the resilience check (e.g., system backup, disaster recovery, network stability)'
+                  checkDate:
+                    type: string
+                    format: date
+                    description: 'Date the check was performed'
+                  status:
+                    type: string
+                    description: 'Status of the check (e.g., passed, failed, in-progress)'
+                  details:
+                    type: string
+                    description: 'Detailed results or notes from the check'
+                required:
+                  - checkId
+                  - checkName
+                  - checkDate
+                  - status
+    put:
+      summary: 'Update an existing IT resilience check'
+      description: 'Updates details of an existing IT resilience check by its ID.'
+      parameters:
+        - name: 'checkId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                checkName:
+                  type: string
+                  description: 'Name of the resilience check (e.g., system backup, disaster recovery, network stability)'
+                checkDate:
+                  type: string
+                  format: date
+                  description: 'Date the check was performed'
+                status:
+                  type: string
+                  description: 'Status of the check (e.g., passed, failed, in-progress)'
+                details:
+                  type: string
+                  description: 'Detailed results or notes from the check'
+              required:
+                - checkName
+                - checkDate
+                - status
+      responses:
+        '200':
+          description: 'IT resilience check updated successfully'
+    delete:
+      summary: 'Delete an IT resilience check'
+      description: 'Deletes an IT resilience check from the retail system by its ID.'
+      parameters:
+        - name: 'checkId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'IT resilience check deleted successfully'

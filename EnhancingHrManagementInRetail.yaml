@@ -1,0 +1,186 @@
+openapi: 3.0.0
+info:
+  title: 'Enhancing HR Management in Retail'
+  description: 'This API is designed to streamline HR management in the retail sector by providing tools to manage employee data, including adding, updating, and deleting employee records. It ensures efficient employee management and supports organizational operations.'
+  version: 1.0.0
+paths:
+  '/employees':
+    get:
+      summary: 'Retrieve a list of employees'
+      description: 'Fetches a list of all employees in the retail HR management system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    employeeId:
+                      type: string
+                      description: 'Unique identifier for the employee'
+                    firstName:
+                      type: string
+                      description: 'First name of the employee'
+                    lastName:
+                      type: string
+                      description: 'Last name of the employee'
+                    role:
+                      type: string
+                      description: 'Role of the employee in the retail organization'
+                    department:
+                      type: string
+                      description: 'Department the employee belongs to'
+                    hireDate:
+                      type: string
+                      format: date
+                      description: 'Date when the employee was hired'
+                  required:
+                    - employeeId
+                    - firstName
+                    - lastName
+                    - role
+                    - department
+                    - hireDate
+    post:
+      summary: 'Add a new employee'
+      description: 'Adds a new employee to the retail HR management system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                  description: 'Unique identifier for the employee'
+                firstName:
+                  type: string
+                  description: 'First name of the employee'
+                lastName:
+                  type: string
+                  description: 'Last name of the employee'
+                role:
+                  type: string
+                  description: 'Role of the employee in the retail organization'
+                department:
+                  type: string
+                  description: 'Department the employee belongs to'
+                hireDate:
+                  type: string
+                  format: date
+                  description: 'Date when the employee was hired'
+              required:
+                - employeeId
+                - firstName
+                - lastName
+                - role
+                - department
+                - hireDate
+      responses:
+        '201':
+          description: 'Employee created successfully'
+  '/employees/{employeeId}':
+    get:
+      summary: 'Retrieve details of a specific employee'
+      description: 'Fetches details of a specific employee by their ID.'
+      parameters:
+        - name: 'employeeId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  employeeId:
+                    type: string
+                    description: 'Unique identifier for the employee'
+                  firstName:
+                    type: string
+                    description: 'First name of the employee'
+                  lastName:
+                    type: string
+                    description: 'Last name of the employee'
+                  role:
+                    type: string
+                    description: 'Role of the employee in the retail organization'
+                  department:
+                    type: string
+                    description: 'Department the employee belongs to'
+                  hireDate:
+                    type: string
+                    format: date
+                    description: 'Date when the employee was hired'
+                required:
+                  - employeeId
+                  - firstName
+                  - lastName
+                  - role
+                  - department
+                  - hireDate
+    put:
+      summary: 'Update an existing employee'
+      description: 'Updates details of an existing employee by their ID.'
+      parameters:
+        - name: 'employeeId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                  description: 'Unique identifier for the employee'
+                firstName:
+                  type: string
+                  description: 'First name of the employee'
+                lastName:
+                  type: string
+                  description: 'Last name of the employee'
+                role:
+                  type: string
+                  description: 'Role of the employee in the retail organization'
+                department:
+                  type: string
+                  description: 'Department the employee belongs to'
+                hireDate:
+                  type: string
+                  format: date
+                  description: 'Date when the employee was hired'
+              required:
+                - employeeId
+                - firstName
+                - lastName
+                - role
+                - department
+                - hireDate
+      responses:
+        '200':
+          description: 'Employee updated successfully'
+    delete:
+      summary: 'Delete an employee'
+      description: 'Deletes an employee from the retail HR management system by their ID.'
+      parameters:
+        - name: 'employeeId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Employee deleted successfully'

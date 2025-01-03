@@ -1,0 +1,118 @@
+openapi: 3.0.0
+info:
+  title: 'Automated Shipping Label and Document Generation in Logistics'
+  description: 'API for automated shipping label and document generation in logistics, focusing on automation and search functionalities to streamline shipping processes.'
+  version: 1.0.0
+paths:
+  '/shipping/label-document/automate':
+    post:
+      summary: 'Automate shipping label and document generation'
+      description: 'Automates the generation of shipping labels and documents in logistics to improve efficiency and accuracy.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                shipping_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      shipment_id:
+                        type: string
+                      label_details:
+                        type: object
+                        properties:
+                          carrier:
+                            type: string
+                          tracking_number:
+                            type: string
+                      document_details:
+                        type: object
+                        properties:
+                          invoice_number:
+                            type: string
+                          packing_list:
+                            type: string
+      responses:
+        '200':
+          description: 'Shipping label and document generation automated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_shipping_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        shipment_id:
+                          type: string
+                        label_details:
+                          type: object
+                          properties:
+                            carrier:
+                              type: string
+                            tracking_number:
+                              type: string
+                        document_details:
+                          type: object
+                          properties:
+                            invoice_number:
+                              type: string
+                            packing_list:
+                              type: string
+  '/shipping/label-document/search':
+    get:
+      summary: 'Search automated shipping label and document data'
+      description: 'Search for automated shipping label and document data based on shipment ID or carrier.'
+      parameters:
+        - name: 'shipment_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the shipment to search for'
+        - name: 'carrier'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'Carrier to search for'
+      responses:
+        '200':
+          description: 'Automated shipping label and document data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    shipment_id:
+                      type: string
+                    label_details:
+                      type: object
+                      properties:
+                        carrier:
+                          type: string
+                        tracking_number:
+                          type: string
+                    document_details:
+                      type: object
+                      properties:
+                        invoice_number:
+                          type: string
+                        packing_list:
+                          type: string

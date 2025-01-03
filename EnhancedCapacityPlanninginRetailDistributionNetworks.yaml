@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: 'Enhanced Capacity Planning in Retail Distribution Networks'
+  description: 'API for enhanced capacity planning in retail distribution networks, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/distribution/capacity/planning/enhance':
+    post:
+      summary: 'Enhance capacity planning for retail distribution networks'
+      description: 'Optimizes capacity planning for retail distribution networks to ensure efficient logistics and transportation.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                capacity_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      distribution_center_id:
+                        type: string
+                      current_capacity:
+                        type: number
+                      projected_demand:
+                        type: number
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Capacity planning enhanced successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_capacity_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        distribution_center_id:
+                          type: string
+                        current_capacity:
+                          type: number
+                        projected_demand:
+                          type: number
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/distribution/capacity/planning/search':
+    get:
+      summary: 'Search capacity planning data'
+      description: 'Search for capacity planning data based on distribution center ID or projected demand.'
+      parameters:
+        - name: 'distribution_center_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the distribution center to search for'
+        - name: 'projected_demand'
+          in: query
+          schema:
+            type: number
+          required: false
+          description: 'Projected demand to search for'
+      responses:
+        '200':
+          description: 'Capacity planning data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    distribution_center_id:
+                      type: string
+                    current_capacity:
+                      type: number
+                    projected_demand:
+                      type: number
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

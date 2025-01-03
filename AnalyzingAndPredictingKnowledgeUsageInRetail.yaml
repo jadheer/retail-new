@@ -1,0 +1,169 @@
+openapi: 3.0.0
+info:
+  title: Analyzing And Predicting Knowledge Usage In Retail
+  version: 1.0.0
+  description: >
+    API to manage the analysis and prediction of knowledge usage in retail, enabling
+    businesses to optimize knowledge sharing, improve decision-making, and enhance
+    operational efficiency.
+
+paths:
+  '/knowledge-usage/analysis-prediction':
+    get:
+      summary: Retrieve knowledge usage analysis and prediction data
+      description: Fetch insights and predictions on knowledge usage in retail.
+      responses:
+        '200':
+          description: Successful retrieval of knowledge usage analysis and prediction data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analysisId:
+                    type: string
+                    description: Unique identifier of the knowledge usage analysis.
+                  knowledgeCategory:
+                    type: string
+                    description: Category of knowledge being analyzed (e.g., sales, inventory, customer service).
+                  usageMetrics:
+                    type: object
+                    properties:
+                      accessRate:
+                        type: number
+                        description: Rate at which knowledge is accessed (e.g., per day, per week).
+                      userEngagementScore:
+                        type: number
+                        description: User engagement score (0-100).
+                      searchEfficiency:
+                        type: number
+                        description: Efficiency of the search functionality (0-100).
+                  predictedUsageTrend:
+                    type: string
+                    description: Predicted trend in knowledge usage (e.g., increasing, decreasing, stable).
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the analysis.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/knowledge-usage/analysis-prediction/submit':
+    post:
+      summary: Submit data for knowledge usage analysis and prediction
+      description: Submit data for analyzing and predicting knowledge usage in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                knowledgeCategory:
+                  type: string
+                  description: Category of knowledge being analyzed (e.g., sales, inventory, customer service).
+                usageMetrics:
+                  type: object
+                  properties:
+                    accessRate:
+                      type: number
+                      description: Rate at which knowledge is accessed (e.g., per day, per week).
+                    userEngagementScore:
+                      type: number
+                      description: User engagement score (0-100).
+                    searchEfficiency:
+                      type: number
+                      description: Efficiency of the search functionality (0-100).
+                  required:
+                    - accessRate
+                    - userEngagementScore
+                    - searchEfficiency
+                predictedUsageTrend:
+                  type: string
+                  description: Predicted trend in knowledge usage (e.g., increasing, decreasing, stable).
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the knowledge usage data.
+              required:
+                - knowledgeCategory
+                - usageMetrics
+                - predictedUsageTrend
+      responses:
+        '201':
+          description: Knowledge usage analysis and prediction data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analysisId:
+                    type: string
+                    description: Unique identifier of the submitted analysis.
+                  status:
+                    type: string
+                    description: Status of the analysis (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/knowledge-usage/analysis-prediction/reports':
+    get:
+      summary: Retrieve knowledge usage analysis and prediction reports
+      description: Fetch detailed reports on the analysis and prediction of knowledge usage in retail.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the knowledge usage analysis and prediction report.
+      responses:
+        '200':
+          description: Successful retrieval of knowledge usage analysis and prediction reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the knowledge usage analysis and prediction report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    analyzedKnowledgeCategories:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          knowledgeCategory:
+                            type: string
+                            description: Category of knowledge being analyzed.
+                          usageMetrics:
+                            type: object
+                            properties:
+                              accessRate:
+                                type: number
+                                description: Rate at which knowledge is accessed.
+                              userEngagementScore:
+                                type: number
+                                description: User engagement score.
+                              searchEfficiency:
+                                type: number
+                                description: Efficiency of the search functionality.
+                          predictedUsageTrend:
+                            type: string
+                            description: Predicted trend in knowledge usage.
+                    overallKnowledgeUsageTrend:
+                      type: string
+                      description: Overall assessment of knowledge usage trends during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: 'Dynamic and Predictive Pricing in Retail'
+  description: 'API for dynamic and predictive pricing strategies in retail, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/pricing/dynamic-predictive/update':
+    post:
+      summary: 'Update dynamic and predictive pricing'
+      description: 'Applies dynamic and predictive pricing strategies to optimize product pricing in retail.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                pricing_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: string
+                      current_price:
+                        type: number
+                      predicted_price:
+                        type: number
+                      pricing_strategy:
+                        type: string
+                        enum: ['Dynamic', 'Predictive']
+                      adjustment_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Dynamic and predictive pricing updated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_pricing_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_id:
+                          type: string
+                        current_price:
+                          type: number
+                        predicted_price:
+                          type: number
+                        pricing_strategy:
+                          type: string
+                          enum: ['Dynamic', 'Predictive']
+                        adjustment_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/pricing/dynamic-predictive/search':
+    get:
+      summary: 'Search dynamic and predictive pricing data'
+      description: 'Search for dynamic and predictive pricing data based on product ID or pricing strategy.'
+      parameters:
+        - name: 'product_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the product to search for'
+        - name: 'pricing_strategy'
+          in: query
+          schema:
+            type: string
+            enum: ['Dynamic', 'Predictive']
+          required: false
+          description: 'Pricing strategy to search for'
+      responses:
+        '200':
+          description: 'Dynamic and predictive pricing data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    product_id:
+                      type: string
+                    current_price:
+                      type: number
+                    predicted_price:
+                      type: number
+                    pricing_strategy:
+                      type: string
+                      enum: ['Dynamic', 'Predictive']
+                    adjustment_recommendations:
+                      type: array
+                      items:
+                        type: string

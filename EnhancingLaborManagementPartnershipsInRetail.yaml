@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: 'Enhancing Labor Management Partnerships in Retail'
+  description: 'This API is designed to improve labor management in the retail sector by facilitating partnerships with external entities for training, recruitment, and compliance. It enables businesses to manage and optimize these partnerships for better workforce management and operational efficiency.'
+  version: 1.0.0
+paths:
+  '/partnerships':
+    get:
+      summary: 'Retrieve a list of labor management partnerships'
+      description: 'Fetches a list of all labor management partnerships in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    partnershipId:
+                      type: string
+                      description: 'Unique identifier for the partnership'
+                    partnerName:
+                      type: string
+                      description: 'Name of the labor management partner'
+                    partnershipType:
+                      type: string
+                      description: 'Type of partnership (e.g., training, recruitment, compliance)'
+                    startDate:
+                      type: string
+                      format: date
+                      description: 'Start date of the partnership'
+                    endDate:
+                      type: string
+                      format: date
+                      description: 'End date of the partnership'
+                    status:
+                      type: string
+                      description: 'Current status of the partnership (e.g., active, inactive)'
+                  required:
+                    - partnershipId
+                    - partnerName
+                    - partnershipType
+                    - startDate
+                    - status
+    post:
+      summary: 'Add a new partnership'
+      description: 'Adds a new labor management partnership to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                partnerName:
+                  type: string
+                  description: 'Name of the labor management partner'
+                partnershipType:
+                  type: string
+                  description: 'Type of partnership (e.g., training, recruitment, compliance)'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the partnership'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the partnership'
+                status:
+                  type: string
+                  description: 'Current status of the partnership (e.g., active, inactive)'
+              required:
+                - partnerName
+                - partnershipType
+                - startDate
+                - status
+      responses:
+        '201':
+          description: 'Partnership created successfully'
+  '/partnerships/{partnershipId}':
+    get:
+      summary: 'Retrieve details of a specific partnership'
+      description: 'Fetches details of a specific labor management partnership by its ID.'
+      parameters:
+        - name: 'partnershipId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  partnershipId:
+                    type: string
+                    description: 'Unique identifier for the partnership'
+                  partnerName:
+                    type: string
+                    description: 'Name of the labor management partner'
+                  partnershipType:
+                    type: string
+                    description: 'Type of partnership (e.g., training, recruitment, compliance)'
+                  startDate:
+                    type: string
+                    format: date
+                    description: 'Start date of the partnership'
+                  endDate:
+                    type: string
+                    format: date
+                    description: 'End date of the partnership'
+                  status:
+                    type: string
+                    description: 'Current status of the partnership (e.g., active, inactive)'
+                required:
+                  - partnershipId
+                  - partnerName
+                  - partnershipType
+                  - startDate
+                  - status
+    put:
+      summary: 'Update an existing partnership'
+      description: 'Updates details of an existing labor management partnership by its ID.'
+      parameters:
+        - name: 'partnershipId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                partnerName:
+                  type: string
+                  description: 'Name of the labor management partner'
+                partnershipType:
+                  type: string
+                  description: 'Type of partnership (e.g., training, recruitment, compliance)'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the partnership'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the partnership'
+                status:
+                  type: string
+                  description: 'Current status of the partnership (e.g., active, inactive)'
+              required:
+                - partnerName
+                - partnershipType
+                - startDate
+                - status
+      responses:
+        '200':
+          description: 'Partnership updated successfully'
+    delete:
+      summary: 'Delete a partnership'
+      description: 'Deletes a labor management partnership from the retail system by its ID.'
+      parameters:
+        - name: 'partnershipId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Partnership deleted successfully'

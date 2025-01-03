@@ -1,0 +1,90 @@
+openapi: 3.0.0
+info:
+  title: 'Fraud Detection in Retail Operations'
+  version: 1.0.0
+  description: 'API for managing Fraud Detection processes in retail operations to enhance enterprise risk management.'
+paths:
+  '/fraud-detection':
+    get:
+      summary: 'Retrieve fraud detection results'
+      description: 'Fetch available fraud detection results for retail operations.'
+      responses:
+        '200':
+          description: 'Successful retrieval of fraud detection results'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 10
+                  retail_domain_category:
+                    type: string
+                    example: 'Manage Enterprise Risk, Compliance, Remediation, and Resiliency'
+                  process_group:
+                    type: string
+                    example: 'Manage enterprise risk'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  search:
+                    type: string
+                    example: 'Major'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/fraud-detection/search':
+    get:
+      summary: 'Search for fraud patterns'
+      description: 'Search for specific fraud patterns in retail operations.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'Suspicious Transactions'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Pattern A', 'Pattern B']
+  '/fraud-detection/automate':
+    post:
+      summary: 'Automate fraud detection'
+      description: 'Trigger minor automation for fraud detection in retail operations.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Fraud detection automation process started successfully.'
+  '/fraud-detection/summarize':
+    get:
+      summary: 'Summarize fraud detection data'
+      description: 'Generate a summary of fraud detection results.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Fraud detection identified 15 suspicious activities in the last month.'

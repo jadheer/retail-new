@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Advanced Cost Management and Forecasting in Retail'
+  description: 'This API is designed to enable advanced cost management and forecasting in retail, leveraging AI and machine learning to predict and manage costs effectively. It supports the creation, retrieval, updating, and deletion of cost management and forecasting records.'
+  version: 1.0.0
+paths:
+  '/cost-management-records':
+    get:
+      summary: 'Retrieve a list of cost management records'
+      description: 'Fetches a list of all advanced cost management and forecasting records in retail.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the cost management record'
+                    processName:
+                      type: string
+                      description: 'Name of the process (e.g., advanced cost management and forecasting)'
+                    forecastDate:
+                      type: string
+                      format: date
+                      description: 'Date the cost forecast was performed'
+                    status:
+                      type: string
+                      description: 'Status of the forecast (e.g., active, inactive, under review)'
+                  required:
+                    - recordId
+                    - processName
+                    - forecastDate
+                    - status
+    post:
+      summary: 'Add a new cost management record'
+      description: 'Adds a new advanced cost management and forecasting record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., advanced cost management and forecasting)'
+                forecastDate:
+                  type: string
+                  format: date
+                  description: 'Date the cost forecast was performed'
+                status:
+                  type: string
+                  description: 'Status of the forecast (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - forecastDate
+                - status
+      responses:
+        '201':
+          description: 'Cost management record created successfully'
+  '/cost-management-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific cost management record'
+      description: 'Fetches details of a specific advanced cost management and forecasting record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the cost management record'
+                  processName:
+                    type: string
+                    description: 'Name of the process (e.g., advanced cost management and forecasting)'
+                  forecastDate:
+                    type: string
+                    format: date
+                    description: 'Date the cost forecast was performed'
+                  status:
+                    type: string
+                    description: 'Status of the forecast (e.g., active, inactive, under review)'
+                required:
+                  - recordId
+                  - processName
+                  - forecastDate
+                  - status
+    put:
+      summary: 'Update an existing cost management record'
+      description: 'Updates details of an existing advanced cost management and forecasting record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., advanced cost management and forecasting)'
+                forecastDate:
+                  type: string
+                  format: date
+                  description: 'Date the cost forecast was performed'
+                status:
+                  type: string
+                  description: 'Status of the forecast (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - forecastDate
+                - status
+      responses:
+        '200':
+          description: 'Cost management record updated successfully'
+    delete:
+      summary: 'Delete a cost management record'
+      description: 'Deletes an advanced cost management and forecasting record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Cost management record deleted successfully'

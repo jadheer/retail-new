@@ -1,0 +1,192 @@
+openapi: 3.0.0
+info:
+  title: Automated Benchmarking And Competitive Insights In Retail
+  version: 1.0.0
+  description: >
+    API to manage automated benchmarking and competitive insights in retail, enabling
+    businesses to measure performance against industry standards and gain actionable
+    insights into competitors.
+
+paths:
+  '/benchmarking/competitive-insights':
+    get:
+      summary: Retrieve benchmarking and competitive insights data
+      description: Fetch automated benchmarking results and competitive insights for retail operations.
+      responses:
+        '200':
+          description: Successful retrieval of benchmarking and competitive insights data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  insightsId:
+                    type: string
+                    description: Unique identifier of the insights report.
+                  benchmarkMetrics:
+                    type: object
+                    properties:
+                      salesPerformance:
+                        type: number
+                        description: Sales performance compared to industry benchmarks.
+                      customerSatisfaction:
+                        type: number
+                        description: Customer satisfaction score compared to industry benchmarks.
+                      operationalEfficiency:
+                        type: number
+                        description: Operational efficiency score compared to industry benchmarks.
+                  competitiveInsights:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        competitorName:
+                          type: string
+                          description: Name of the competitor.
+                        keyStrength:
+                          type: string
+                          description: Key strength of the competitor.
+                        marketShare:
+                          type: number
+                          description: Market share of the competitor.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the insights.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/benchmarking/competitive-insights/submit':
+    post:
+      summary: Submit data for benchmarking and competitive insights
+      description: Submit data for automated benchmarking and competitive insights analysis.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                salesData:
+                  type: object
+                  properties:
+                    totalSales:
+                      type: number
+                      description: Total sales for the period.
+                    salesGrowth:
+                      type: number
+                      description: Sales growth percentage.
+                  required:
+                    - totalSales
+                    - salesGrowth
+                customerFeedback:
+                  type: array
+                  items:
+                    type: string
+                  description: Customer feedback data for analysis.
+                competitorData:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      competitorName:
+                        type: string
+                        description: Name of the competitor.
+                      keyMetrics:
+                        type: object
+                        properties:
+                          sales:
+                            type: number
+                            description: Competitor's sales data.
+                          marketShare:
+                            type: number
+                            description: Competitor's market share.
+                  required:
+                    - competitorName
+                    - keyMetrics
+              required:
+                - salesData
+                - customerFeedback
+                - competitorData
+      responses:
+        '201':
+          description: Benchmarking and competitive insights data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  insightsId:
+                    type: string
+                    description: Unique identifier of the submitted insights.
+                  status:
+                    type: string
+                    description: Status of the analysis (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/benchmarking/competitive-insights/reports':
+    get:
+      summary: Retrieve benchmarking and competitive insights reports
+      description: Fetch detailed reports on benchmarking and competitive insights.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the benchmarking and competitive insights report.
+      responses:
+        '200':
+          description: Successful retrieval of benchmarking and competitive insights reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the insights report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    benchmarkMetrics:
+                      type: object
+                      properties:
+                        salesPerformance:
+                          type: number
+                          description: Sales performance compared to industry benchmarks.
+                        customerSatisfaction:
+                          type: number
+                          description: Customer satisfaction score compared to industry benchmarks.
+                        operationalEfficiency:
+                          type: number
+                          description: Operational efficiency score compared to industry benchmarks.
+                    competitiveInsights:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          competitorName:
+                            type: string
+                            description: Name of the competitor.
+                          keyStrength:
+                            type: string
+                            description: Key strength of the competitor.
+                          marketShare:
+                            type: number
+                            description: Market share of the competitor.
+                    overallAssessment:
+                      type: string
+                      description: Overall assessment of performance and competitive positioning.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

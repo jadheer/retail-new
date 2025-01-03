@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Automated Duty Calculations in International Trade'
+  description: 'This API is designed to enable automated duty calculations in international trade, ensuring accurate and efficient computation of duties and taxes. It supports the creation, retrieval, updating, and deletion of duty calculation records.'
+  version: 1.0.0
+paths:
+  '/duty-calculation-records':
+    get:
+      summary: 'Retrieve a list of duty calculation records'
+      description: 'Fetches a list of all automated duty calculation records in international trade.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the duty calculation record'
+                    processName:
+                      type: string
+                      description: 'Name of the process (e.g., automated duty calculations)'
+                    calculationDate:
+                      type: string
+                      format: date
+                      description: 'Date the duty calculation was performed'
+                    status:
+                      type: string
+                      description: 'Status of the calculation (e.g., completed, pending, error)'
+                  required:
+                    - recordId
+                    - processName
+                    - calculationDate
+                    - status
+    post:
+      summary: 'Add a new duty calculation record'
+      description: 'Adds a new automated duty calculation record to the international trade system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., automated duty calculations)'
+                calculationDate:
+                  type: string
+                  format: date
+                  description: 'Date the duty calculation was performed'
+                status:
+                  type: string
+                  description: 'Status of the calculation (e.g., completed, pending, error)'
+              required:
+                - processName
+                - calculationDate
+                - status
+      responses:
+        '201':
+          description: 'Duty calculation record created successfully'
+  '/duty-calculation-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific duty calculation record'
+      description: 'Fetches details of a specific automated duty calculation record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the duty calculation record'
+                  processName:
+                    type: string
+                    description: 'Name of the process (e.g., automated duty calculations)'
+                  calculationDate:
+                    type: string
+                    format: date
+                    description: 'Date the duty calculation was performed'
+                  status:
+                    type: string
+                    description: 'Status of the calculation (e.g., completed, pending, error)'
+                required:
+                  - recordId
+                  - processName
+                  - calculationDate
+                  - status
+    put:
+      summary: 'Update an existing duty calculation record'
+      description: 'Updates details of an existing automated duty calculation record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., automated duty calculations)'
+                calculationDate:
+                  type: string
+                  format: date
+                  description: 'Date the duty calculation was performed'
+                status:
+                  type: string
+                  description: 'Status of the calculation (e.g., completed, pending, error)'
+              required:
+                - processName
+                - calculationDate
+                - status
+      responses:
+        '200':
+          description: 'Duty calculation record updated successfully'
+    delete:
+      summary: 'Delete a duty calculation record'
+      description: 'Deletes an automated duty calculation record from the international trade system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Duty calculation record deleted successfully'

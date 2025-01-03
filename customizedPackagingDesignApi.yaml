@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: 'Customized Packaging Design'
+  version: 1.0.0
+  description: 'API for managing Customized Packaging Design processes to create personalized packaging solutions for merchandise products and services.'
+paths:
+  '/packaging-design':
+    get:
+      summary: 'Retrieve customized packaging designs'
+      description: 'Fetch available customized packaging designs for merchandise products.'
+      responses:
+        '200':
+          description: 'Successful retrieval of packaging designs'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 5
+                  retail_domain_category:
+                    type: string
+                    example: 'Merchandise Products and Services'
+                  process_group:
+                    type: string
+                    example: 'Develop product plan'
+                  creation:
+                    type: string
+                    example: 'Major'
+                  automation:
+                    type: string
+                    example: 'Minor'
+  '/packaging-design/create':
+    post:
+      summary: 'Create a new customized packaging design'
+      description: 'Create a new customized packaging design for merchandise products.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_id:
+                  type: string
+                  example: 'PROD123'
+                packaging_type:
+                  type: string
+                  example: 'Eco-Friendly Box'
+                dimensions:
+                  type: string
+                  example: '20x10x5 cm'
+                material:
+                  type: string
+                  example: 'Recycled Cardboard'
+                design_preferences:
+                  type: object
+                  properties:
+                    color_scheme:
+                      type: string
+                      example: 'Green and White'
+                    branding_elements:
+                      type: array
+                      items:
+                        type: string
+                      example: ['Logo', 'Tagline']
+      responses:
+        '201':
+          description: 'Packaging design created successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Packaging design created successfully.'
+                  design_id:
+                    type: string
+                    example: 'PACKDESIGN456'
+  '/packaging-design/automate':
+    post:
+      summary: 'Automate packaging design creation'
+      description: 'Trigger automation for creating customized packaging designs (minor automation).'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Packaging design automation process started successfully.'

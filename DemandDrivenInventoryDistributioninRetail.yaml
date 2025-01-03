@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: 'Demand-Driven Inventory Distribution in Retail'
+  description: 'API for demand-driven inventory distribution in retail, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/inventory/distribution/demand-driven/manage':
+    post:
+      summary: 'Manage demand-driven inventory distribution'
+      description: 'Optimizes inventory distribution based on demand forecasts to ensure efficient supply chain operations.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                inventory_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: string
+                      demand_forecast:
+                        type: number
+                      current_stock:
+                        type: number
+                      distribution_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Demand-driven inventory distribution managed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_inventory_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_id:
+                          type: string
+                        demand_forecast:
+                          type: number
+                        current_stock:
+                          type: number
+                        distribution_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/inventory/distribution/demand-driven/search':
+    get:
+      summary: 'Search demand-driven inventory distribution data'
+      description: 'Search for demand-driven inventory distribution data based on product ID or demand forecast.'
+      parameters:
+        - name: 'product_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the product to search for'
+        - name: 'demand_forecast'
+          in: query
+          schema:
+            type: number
+          required: false
+          description: 'Demand forecast to search for'
+      responses:
+        '200':
+          description: 'Demand-driven inventory distribution data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    product_id:
+                      type: string
+                    demand_forecast:
+                      type: number
+                    current_stock:
+                      type: number
+                    distribution_recommendations:
+                      type: array
+                      items:
+                        type: string

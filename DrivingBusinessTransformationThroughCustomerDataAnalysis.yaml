@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: 'Enhancing Customer Understanding in Retail'
+  description: 'This API focuses on improving customer understanding in the retail sector by managing and analyzing customer insights to drive better decision-making and personalized experiences.'
+  version: 1.0.0
+paths:
+  '/customer-insights':
+    get:
+      summary: 'Retrieve a list of customer insights'
+      description: 'Fetches a list of all customer insights gathered in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    insightId:
+                      type: string
+                      description: 'Unique identifier for the customer insight'
+                    customerId:
+                      type: string
+                      description: 'Unique identifier for the customer'
+                    insightType:
+                      type: string
+                      description: 'Type of insight (e.g., purchasing behavior, preferences, feedback)'
+                    insightDate:
+                      type: string
+                      format: date
+                      description: 'Date the insight was recorded'
+                    details:
+                      type: string
+                      description: 'Detailed description of the insight'
+                    status:
+                      type: string
+                      description: 'Status of the insight (e.g., analyzed, pending)'
+                  required:
+                    - insightId
+                    - customerId
+                    - insightType
+                    - insightDate
+                    - status
+    post:
+      summary: 'Add a new customer insight'
+      description: 'Adds a new customer insight to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                  description: 'Unique identifier for the customer'
+                insightType:
+                  type: string
+                  description: 'Type of insight (e.g., purchasing behavior, preferences, feedback)'
+                insightDate:
+                  type: string
+                  format: date
+                  description: 'Date the insight was recorded'
+                details:
+                  type: string
+                  description: 'Detailed description of the insight'
+                status:
+                  type: string
+                  description: 'Status of the insight (e.g., analyzed, pending)'
+              required:
+                - customerId
+                - insightType
+                - insightDate
+                - status
+      responses:
+        '201':
+          description: 'Customer insight created successfully'
+  '/customer-insights/{insightId}':
+    get:
+      summary: 'Retrieve details of a specific customer insight'
+      description: 'Fetches details of a specific customer insight by its ID.'
+      parameters:
+        - name: 'insightId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  insightId:
+                    type: string
+                    description: 'Unique identifier for the customer insight'
+                  customerId:
+                    type: string
+                    description: 'Unique identifier for the customer'
+                  insightType:
+                    type: string
+                    description: 'Type of insight (e.g., purchasing behavior, preferences, feedback)'
+                  insightDate:
+                    type: string
+                    format: date
+                    description: 'Date the insight was recorded'
+                  details:
+                    type: string
+                    description: 'Detailed description of the insight'
+                  status:
+                    type: string
+                    description: 'Status of the insight (e.g., analyzed, pending)'
+                required:
+                  - insightId
+                  - customerId
+                  - insightType
+                  - insightDate
+                  - status
+    put:
+      summary: 'Update an existing customer insight'
+      description: 'Updates details of an existing customer insight by its ID.'
+      parameters:
+        - name: 'insightId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                  description: 'Unique identifier for the customer'
+                insightType:
+                  type: string
+                  description: 'Type of insight (e.g., purchasing behavior, preferences, feedback)'
+                insightDate:
+                  type: string
+                  format: date
+                  description: 'Date the insight was recorded'
+                details:
+                  type: string
+                  description: 'Detailed description of the insight'
+                status:
+                  type: string
+                  description: 'Status of the insight (e.g., analyzed, pending)'
+              required:
+                - customerId
+                - insightType
+                - insightDate
+                - status
+      responses:
+        '200':
+          description: 'Customer insight updated successfully'
+    delete:
+      summary: 'Delete a customer insight'
+      description: 'Deletes a customer insight from the retail system by its ID.'
+      parameters:
+        - name: 'insightId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Customer insight deleted successfully'

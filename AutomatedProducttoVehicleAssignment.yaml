@@ -1,0 +1,94 @@
+openapi: 3.0.0
+info:
+  title: 'Automated Product-to-Vehicle Assignment in Logistics'
+  description: 'API for automated product-to-vehicle assignment in logistics, focusing on automation and search functionalities to optimize transportation efficiency.'
+  version: 1.0.0
+paths:
+  '/product-vehicle/assignment/automate':
+    post:
+      summary: 'Automate product-to-vehicle assignment'
+      description: 'Automates the assignment of products to vehicles in logistics to optimize transportation efficiency and reduce costs.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                assignment_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: string
+                      vehicle_id:
+                        type: string
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Product-to-vehicle assignment automated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_assignment_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_id:
+                          type: string
+                        vehicle_id:
+                          type: string
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/product-vehicle/assignment/search':
+    get:
+      summary: 'Search product-to-vehicle assignment data'
+      description: 'Search for product-to-vehicle assignment data based on product ID or vehicle ID.'
+      parameters:
+        - name: 'product_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the product to search for'
+        - name: 'vehicle_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the vehicle to search for'
+      responses:
+        '200':
+          description: 'Product-to-vehicle assignment data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    product_id:
+                      type: string
+                    vehicle_id:
+                      type: string
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

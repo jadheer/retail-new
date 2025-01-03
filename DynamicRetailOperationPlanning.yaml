@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Dynamic Retail Operation Planning
+  version: 1.0.0
+  description: >
+    API to manage and optimize dynamic retail operation planning,
+    ensuring efficient resource allocation, adaptability to market changes, and improved operational efficiency.
+
+paths:
+  '/operation/planning':
+    get:
+      summary: Analyze dynamic retail operation planning efficiency
+      description: Retrieve analysis and recommendations for improving dynamic retail operation planning.
+      responses:
+        '200':
+          description: Successful retrieval of dynamic operation planning data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalPlansGenerated:
+                    type: integer
+                    description: Total number of operation plans generated.
+                  plansExecutedSuccessfully:
+                    type: integer
+                    description: Number of operation plans successfully executed.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        operationType:
+                          type: string
+                          description: Type of operation (e.g., inventory management, staffing, marketing).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the operation type.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/operation/planning/simulation':
+    post:
+      summary: Simulate dynamic retail operation planning scenarios
+      description: Create and simulate scenarios for optimizing dynamic retail operation planning.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                operationCategories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories of operations (e.g., inventory management, staffing, marketing).
+                planningStrategies:
+                  type: array
+                  items:
+                    type: string
+                  description: Strategies for dynamic planning (e.g., demand forecasting, resource optimization, scenario analysis).
+              required:
+                - storeId
+                - operationCategories
+                - planningStrategies
+      responses:
+        '201':
+          description: Dynamic operation planning simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the dynamic operation planning simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/operation/planning':
+    get:
+      summary: Retrieve dynamic retail operation planning optimization suggestions
+      description: Get dynamic retail operation planning optimization recommendations based on analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of dynamic operation planning optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    operationType:
+                      type: string
+                      description: Type of operation (e.g., inventory management, staffing, marketing).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for dynamic operation planning.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., improved efficiency, better resource allocation).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

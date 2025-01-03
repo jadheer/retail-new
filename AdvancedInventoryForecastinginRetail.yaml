@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: 'Advanced Inventory Forecasting in Retail'
+  description: 'API for advanced inventory forecasting in retail, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/inventory/forecasting/advanced/manage':
+    post:
+      summary: 'Manage advanced inventory forecasting'
+      description: 'Applies advanced forecasting techniques to predict inventory needs and optimize stock levels in retail.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                forecasting_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: string
+                      historical_sales:
+                        type: number
+                      forecasted_demand:
+                        type: number
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Advanced inventory forecasting managed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_forecasting_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_id:
+                          type: string
+                        historical_sales:
+                          type: number
+                        forecasted_demand:
+                          type: number
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/inventory/forecasting/advanced/search':
+    get:
+      summary: 'Search advanced inventory forecasting data'
+      description: 'Search for advanced inventory forecasting data based on product ID or forecasted demand.'
+      parameters:
+        - name: 'product_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the product to search for'
+        - name: 'forecasted_demand'
+          in: query
+          schema:
+            type: number
+          required: false
+          description: 'Forecasted demand to search for'
+      responses:
+        '200':
+          description: 'Advanced inventory forecasting data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    product_id:
+                      type: string
+                    historical_sales:
+                      type: number
+                    forecasted_demand:
+                      type: number
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

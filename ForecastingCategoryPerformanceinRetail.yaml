@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: Forecasting Category Performance in Retail
+  description: API for predicting and analyzing the performance of product categories in the retail sector to drive strategic decisions.
+  version: 1.0.0
+paths:
+  '/category-performance/forecast':
+    get:
+      summary: Retrieve category performance forecast
+      description: Fetch performance forecasts for specific product categories based on historical data and market trends.
+      parameters:
+        - name: categoryId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the product category.
+        - name: forecastPeriod
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [short-term, medium-term, long-term]
+          description: Time period for the forecast.
+      responses:
+        '200':
+          description: Successful retrieval of category performance forecast.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  categoryId:
+                    type: string
+                    description: The ID of the product category.
+                  forecastDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                          description: Date of the forecasted performance.
+                        salesProjection:
+                          type: number
+                          description: Projected sales for the category.
+                        marketShare:
+                          type: number
+                          description: Predicted market share percentage.
+  '/category-performance/analyze':
+    post:
+      summary: Analyze category performance
+      description: Submit historical data to analyze and derive insights about a product category's performance.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                categoryData:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      categoryId:
+                        type: string
+                        description: Unique identifier for the product category.
+                      date:
+                        type: string
+                        format: date
+                        description: Date of the recorded data.
+                      sales:
+                        type: number
+                        description: Recorded sales for the category on the specified date.
+                      customerFeedback:
+                        type: string
+                        description: Summary of customer feedback or sentiment.
+      responses:
+        '200':
+          description: Analysis results successfully generated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  insights:
+                    type: array
+                    items:
+                      type: string
+                      description: Key insights derived from the analysis.
+                  trends:
+                    type: array
+                    items:
+                      type: string
+                      description: Identified trends in category performance.
+                  recommendations:
+                    type: array
+                    items:
+                      type: string
+                      description: Strategic recommendations based on the analysis.

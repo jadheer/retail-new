@@ -1,0 +1,189 @@
+openapi: 3.0.0
+info:
+  title: Business Process Performance Evaluation
+  version: 1.0.0
+  description: >
+    API to manage business process performance evaluation, enabling businesses to
+    assess, measure, and improve the efficiency and effectiveness of their processes.
+
+paths:
+  '/business-process/performance-evaluation':
+    get:
+      summary: Retrieve business process performance evaluation data
+      description: Fetch performance metrics and evaluation results for business processes.
+      responses:
+        '200':
+          description: Successful retrieval of business process performance evaluation data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: string
+                    description: Unique identifier of the business process.
+                  processName:
+                    type: string
+                    description: Name of the business process being evaluated.
+                  performanceMetrics:
+                    type: object
+                    properties:
+                      efficiencyScore:
+                        type: number
+                        description: Efficiency score of the process (0-100).
+                      throughputTime:
+                        type: number
+                        description: Average throughput time of the process.
+                      errorRate:
+                        type: number
+                        description: Error rate in the process.
+                      costPerExecution:
+                        type: number
+                        description: Cost per execution of the process.
+                  evaluationResults:
+                    type: array
+                    items:
+                      type: string
+                    description: Key findings and evaluation results.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the evaluation.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/business-process/performance-evaluation/submit':
+    post:
+      summary: Submit data for business process performance evaluation
+      description: Submit process data for performance evaluation and analysis.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: Name of the business process being evaluated.
+                processData:
+                  type: object
+                  properties:
+                    activities:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          activityName:
+                            type: string
+                            description: Name of the activity.
+                          duration:
+                            type: number
+                            description: Duration of the activity.
+                          cost:
+                            type: number
+                            description: Cost associated with the activity.
+                    throughputTime:
+                      type: number
+                      description: Average throughput time of the process.
+                    errorRate:
+                      type: number
+                      description: Error rate in the process.
+                    totalCost:
+                      type: number
+                      description: Total cost of the process.
+                  required:
+                    - activities
+                    - throughputTime
+                    - errorRate
+                    - totalCost
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the process data.
+              required:
+                - processName
+                - processData
+      responses:
+        '201':
+          description: Business process performance evaluation data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  evaluationId:
+                    type: string
+                    description: Unique identifier of the submitted evaluation.
+                  status:
+                    type: string
+                    description: Status of the evaluation (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/business-process/performance-evaluation/reports':
+    get:
+      summary: Retrieve business process performance evaluation reports
+      description: Fetch detailed reports on business process performance evaluation.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the business process performance evaluation report.
+      responses:
+        '200':
+          description: Successful retrieval of business process performance evaluation reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the performance evaluation report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    evaluatedProcesses:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          processName:
+                            type: string
+                            description: Name of the business process.
+                          performanceMetrics:
+                            type: object
+                            properties:
+                              efficiencyScore:
+                                type: number
+                                description: Efficiency score of the process.
+                              throughputTime:
+                                type: number
+                                description: Average throughput time of the process.
+                              errorRate:
+                                type: number
+                                description: Error rate in the process.
+                              costPerExecution:
+                                type: number
+                                description: Cost per execution of the process.
+                          evaluationResults:
+                            type: array
+                            items:
+                              type: string
+                            description: Key findings and evaluation results.
+                    overallProcessPerformance:
+                      type: string
+                      description: Overall assessment of business process performance during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

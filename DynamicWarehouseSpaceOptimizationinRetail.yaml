@@ -1,0 +1,94 @@
+openapi: 3.0.0
+info:
+  title: 'Dynamic Warehouse Space Optimization in Retail'
+  description: 'API for dynamic warehouse space optimization in retail, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/warehouse/space/optimization/dynamic/manage':
+    post:
+      summary: 'Manage dynamic warehouse space optimization'
+      description: 'Optimizes warehouse space utilization dynamically to improve efficiency and reduce costs.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                optimization_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      warehouse_id:
+                        type: string
+                      current_space_utilization:
+                        type: number
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Dynamic warehouse space optimization managed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_optimization_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        warehouse_id:
+                          type: string
+                        current_space_utilization:
+                          type: number
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/warehouse/space/optimization/dynamic/search':
+    get:
+      summary: 'Search dynamic warehouse space optimization data'
+      description: 'Search for dynamic warehouse space optimization data based on warehouse ID or space utilization.'
+      parameters:
+        - name: 'warehouse_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the warehouse to search for'
+        - name: 'current_space_utilization'
+          in: query
+          schema:
+            type: number
+          required: false
+          description: 'Current space utilization to search for'
+      responses:
+        '200':
+          description: 'Dynamic warehouse space optimization data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    warehouse_id:
+                      type: string
+                    current_space_utilization:
+                      type: number
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

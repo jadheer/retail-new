@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: 'Compliance Monitoring and Enforcement'
+  version: 1.0.0
+  description: 'API for managing Compliance Monitoring and Enforcement processes to ensure adherence to regulations in retail store operations.'
+paths:
+  '/compliance-monitoring':
+    get:
+      summary: 'Retrieve compliance monitoring data'
+      description: 'Fetch available compliance monitoring data and insights.'
+      responses:
+        '200':
+          description: 'Successful retrieval of compliance monitoring data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 22
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Customer Experience'
+                  process_group:
+                    type: string
+                    example: 'Operate retail store'
+                  process_name:
+                    type: string
+                    example: 'Compliance Monitoring and Enforcement'
+                  creation:
+                    type: string
+                    example: 'Minor'
+                  automation:
+                    type: string
+                    example: 'Major'
+                  search:
+                    type: string
+                    example: 'Minor'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/compliance-monitoring/automate':
+    post:
+      summary: 'Automate compliance monitoring'
+      description: 'Trigger major automation for compliance monitoring and enforcement.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Compliance monitoring automation process started successfully.'
+  '/compliance-monitoring/search':
+    get:
+      summary: 'Search for compliance metrics'
+      description: 'Search for specific compliance metrics based on criteria.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'Safety Standards'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Metric A', 'Metric B']
+  '/compliance-monitoring/summarize':
+    get:
+      summary: 'Summarize compliance monitoring data'
+      description: 'Generate a summary of compliance monitoring insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Compliance monitoring shows 95% adherence to safety standards.'

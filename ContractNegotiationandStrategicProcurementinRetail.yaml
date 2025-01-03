@@ -1,0 +1,113 @@
+openapi: 3.0.0
+info:
+  title: 'Contract Negotiation and Strategic Procurement in Retail'
+  description: 'API for contract negotiation and strategic procurement in retail, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/procurement/contract/negotiate':
+    post:
+      summary: 'Negotiate contracts and manage strategic procurement'
+      description: 'Facilitates contract negotiation and strategic procurement processes in retail.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                procurement_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      supplier_id:
+                        type: string
+                      contract_terms:
+                        type: object
+                        properties:
+                          duration:
+                            type: string
+                          pricing_model:
+                            type: string
+                          payment_terms:
+                            type: string
+                      negotiation_status:
+                        type: string
+                        enum: ['Pending', 'In Progress', 'Completed']
+      responses:
+        '200':
+          description: 'Contract negotiation and procurement managed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_procurement_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        supplier_id:
+                          type: string
+                        contract_terms:
+                          type: object
+                          properties:
+                            duration:
+                              type: string
+                            pricing_model:
+                              type: string
+                            payment_terms:
+                              type: string
+                        negotiation_status:
+                          type: string
+                          enum: ['Pending', 'In Progress', 'Completed']
+  '/procurement/contract/search':
+    get:
+      summary: 'Search contract and procurement data'
+      description: 'Search for contract and procurement data based on supplier ID or negotiation status.'
+      parameters:
+        - name: 'supplier_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the supplier to search for'
+        - name: 'negotiation_status'
+          in: query
+          schema:
+            type: string
+            enum: ['Pending', 'In Progress', 'Completed']
+          required: false
+          description: 'Status of the negotiation to search for'
+      responses:
+        '200':
+          description: 'Contract and procurement data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    supplier_id:
+                      type: string
+                    contract_terms:
+                      type: object
+                      properties:
+                        duration:
+                          type: string
+                        pricing_model:
+                          type: string
+                        payment_terms:
+                          type: string
+                    negotiation_status:
+                      type: string
+                      enum: ['Pending', 'In Progress', 'Completed']

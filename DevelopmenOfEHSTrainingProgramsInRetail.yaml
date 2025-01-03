@@ -1,0 +1,154 @@
+openapi: 3.0.0
+info:
+  title: Development Of EHS Training Programs In Retail
+  version: 1.0.0
+  description: >
+    API to manage the development of environmental, health, and safety (EHS) training
+    programs in retail, ensuring compliance with regulations and promoting a safe
+    workplace.
+
+paths:
+  '/ehs-training/development':
+    get:
+      summary: Retrieve EHS training program data
+      description: Fetch details of EHS training programs and their development status.
+      responses:
+        '200':
+          description: Successful retrieval of EHS training program data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trainingProgramId:
+                    type: string
+                    description: Unique identifier of the EHS training program.
+                  programName:
+                    type: string
+                    description: Name of the EHS training program.
+                  programObjectives:
+                    type: array
+                    items:
+                      type: string
+                    description: Objectives of the EHS training program.
+                  targetAudience:
+                    type: string
+                    description: Target audience for the training program (e.g., employees, managers).
+                  developmentStatus:
+                    type: string
+                    description: Status of the program development (e.g., planned, in-progress, completed).
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the program.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/ehs-training/development/submit':
+    post:
+      summary: Submit data for EHS training program development
+      description: Submit data for developing EHS training programs in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                programName:
+                  type: string
+                  description: Name of the EHS training program.
+                programObjectives:
+                  type: array
+                  items:
+                    type: string
+                  description: Objectives of the EHS training program.
+                targetAudience:
+                  type: string
+                  description: Target audience for the training program (e.g., employees, managers).
+                developmentStatus:
+                  type: string
+                  description: Status of the program development (e.g., planned, in-progress, completed).
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the training program data.
+              required:
+                - programName
+                - programObjectives
+                - targetAudience
+                - developmentStatus
+      responses:
+        '201':
+          description: EHS training program data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trainingProgramId:
+                    type: string
+                    description: Unique identifier of the submitted training program.
+                  status:
+                    type: string
+                    description: Status of the program (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/ehs-training/development/reports':
+    get:
+      summary: Retrieve EHS training program development reports
+      description: Fetch detailed reports on the development of EHS training programs.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the EHS training program development report.
+      responses:
+        '200':
+          description: Successful retrieval of EHS training program development reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the EHS training program development report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    developedPrograms:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          programName:
+                            type: string
+                            description: Name of the EHS training program.
+                          programObjectives:
+                            type: array
+                            items:
+                              type: string
+                            description: Objectives of the EHS training program.
+                          targetAudience:
+                            type: string
+                            description: Target audience for the training program.
+                          developmentStatus:
+                            type: string
+                            description: Status of the program development.
+                    overallDevelopmentProgress:
+                      type: string
+                      description: Overall assessment of EHS training program development during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

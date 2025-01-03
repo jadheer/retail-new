@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Environmental Impact Reduction In Retail
+  version: 1.0.0
+  description: >
+    API to manage and optimize processes aimed at reducing the environmental impact of retail operations,
+    ensuring sustainable practices and resource efficiency.
+
+paths:
+  '/environment/impact':
+    get:
+      summary: Analyze environmental impact
+      description: Retrieve analysis and recommendations for reducing the environmental impact of retail operations.
+      responses:
+        '200':
+          description: Successful retrieval of environmental impact data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  carbonFootprint:
+                    type: number
+                    description: Total carbon footprint in metric tons of CO2 equivalent.
+                  energyConsumption:
+                    type: number
+                    description: Total energy consumption in kilowatt-hours (kWh).
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        area:
+                          type: string
+                          description: Area of impact (e.g., energy, waste, water).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the area.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/environment/simulation':
+    post:
+      summary: Simulate environmental impact reduction scenarios
+      description: Create and simulate scenarios for reducing the environmental impact of retail operations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                impactAreas:
+                  type: array
+                  items:
+                    type: string
+                  description: Areas of environmental impact (e.g., energy, waste, water).
+                reductionMethods:
+                  type: array
+                  items:
+                    type: string
+                  description: Methods of impact reduction (e.g., renewable energy, recycling, water conservation).
+              required:
+                - storeId
+                - impactAreas
+                - reductionMethods
+      responses:
+        '201':
+          description: Environmental impact reduction simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the environmental impact reduction simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/environment':
+    get:
+      summary: Retrieve environmental optimization suggestions
+      description: Get environmental optimization recommendations based on impact and reduction analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of environmental optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    area:
+                      type: string
+                      description: Area of environmental impact (e.g., energy, waste, water).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for reducing environmental impact.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., reduced carbon footprint, energy savings).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

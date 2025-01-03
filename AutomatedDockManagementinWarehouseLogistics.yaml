@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: 'Automated Dock Management in Warehouse Logistics'
+  description: 'API for automated dock management in warehouse logistics, focusing on automation and search functionalities to improve efficiency and reduce bottlenecks.'
+  version: 1.0.0
+paths:
+  '/dock/management/automate':
+    post:
+      summary: 'Automate dock management'
+      description: 'Automates the management of docks in warehouse logistics to optimize inbound and outbound operations.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                dock_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      dock_id:
+                        type: string
+                      operation_type:
+                        type: string
+                        enum: ['Inbound', 'Outbound']
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Dock management automated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_dock_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        dock_id:
+                          type: string
+                        operation_type:
+                          type: string
+                          enum: ['Inbound', 'Outbound']
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/dock/management/search':
+    get:
+      summary: 'Search automated dock management data'
+      description: 'Search for automated dock management data based on dock ID or operation type.'
+      parameters:
+        - name: 'dock_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the dock to search for'
+        - name: 'operation_type'
+          in: query
+          schema:
+            type: string
+            enum: ['Inbound', 'Outbound']
+          required: false
+          description: 'Type of operation to search for'
+      responses:
+        '200':
+          description: 'Automated dock management data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    dock_id:
+                      type: string
+                    operation_type:
+                      type: string
+                      enum: ['Inbound', 'Outbound']
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

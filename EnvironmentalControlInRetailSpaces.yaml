@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Environmental Control In Retail Spaces
+  version: 1.0.0
+  description: >
+    API to manage and optimize environmental control processes in retail spaces,
+    ensuring efficient climate management, energy savings, and enhanced customer comfort.
+
+paths:
+  '/environment/control':
+    get:
+      summary: Analyze environmental control efficiency
+      description: Retrieve analysis and recommendations for improving environmental control in retail spaces.
+      responses:
+        '200':
+          description: Successful retrieval of environmental control data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalEnergyConsumption:
+                    type: number
+                    description: Total energy consumption in kilowatt-hours (kWh).
+                  energySavings:
+                    type: number
+                    description: Energy savings achieved through optimized environmental control.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        controlSystem:
+                          type: string
+                          description: Type of environmental control system (e.g., HVAC, lighting, ventilation).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the control system.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/environment/control/simulation':
+    post:
+      summary: Simulate environmental control scenarios
+      description: Create and simulate scenarios for optimizing environmental control in retail spaces.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                controlSystems:
+                  type: array
+                  items:
+                    type: string
+                  description: Types of environmental control systems (e.g., HVAC, lighting, ventilation).
+                optimizationStrategies:
+                  type: array
+                  items:
+                    type: string
+                  description: Strategies for environmental control optimization (e.g., automation, scheduling, sensors).
+              required:
+                - storeId
+                - controlSystems
+                - optimizationStrategies
+      responses:
+        '201':
+          description: Environmental control simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the environmental control simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/environment/control':
+    get:
+      summary: Retrieve environmental control optimization suggestions
+      description: Get environmental control optimization recommendations based on analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of environmental control optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    controlSystem:
+                      type: string
+                      description: Type of environmental control system (e.g., HVAC, lighting, ventilation).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for environmental control.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., energy savings, improved comfort).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

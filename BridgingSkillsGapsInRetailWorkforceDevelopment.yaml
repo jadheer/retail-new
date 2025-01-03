@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  title: Bridging Skills Gaps in Retail Workforce Development
+  description: API for addressing skills gaps within the retail workforce through training, development programs, and performance tracking.
+  version: 1.0.0
+paths:
+  '/bridging-skills-gaps':
+    get:
+      summary: Retrieve skills gap data
+      description: Fetch data on existing skills gaps within the retail workforce, including department-level and employee-level skill assessments.
+      parameters:
+        - name: employeeId
+          in: query
+          required: false
+          schema:
+            type: string
+            example: EMP98765
+        - name: department
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "Operations"
+      responses:
+        '200':
+          description: Successfully retrieved skills gap data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  employeeId:
+                    type: string
+                  department:
+                    type: string
+                  currentSkills:
+                    type: array
+                    items:
+                      type: string
+                  requiredSkills:
+                    type: array
+                    items:
+                      type: string
+                  gapDescription:
+                    type: string
+    post:
+      summary: Submit skills gap training data
+      description: Submit data related to skills gap training programs for employees, including the skills being developed and their progress.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                trainingProgram:
+                  type: string
+                skillsBeingDeveloped:
+                  type: array
+                  items:
+                    type: string
+                progressPercentage:
+                  type: number
+                  format: float
+                completionDate:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: Skills gap training data submitted successfully.
+        '400':
+          description: Invalid input data.

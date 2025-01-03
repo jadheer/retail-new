@@ -1,0 +1,160 @@
+openapi: 3.0.0
+info:
+  title: EHS Risk Prediction In Retail Operations
+  version: 1.0.0
+  description: >
+    API to manage environmental, health, and safety (EHS) risk prediction in retail
+    operations, enabling businesses to proactively identify and mitigate potential risks.
+
+paths:
+  '/ehs-risk/prediction':
+    get:
+      summary: Retrieve EHS risk prediction data
+      description: Fetch predicted EHS risks and their mitigation strategies for retail operations.
+      responses:
+        '200':
+          description: Successful retrieval of EHS risk prediction data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  predictionId:
+                    type: string
+                    description: Unique identifier of the EHS risk prediction.
+                  riskType:
+                    type: string
+                    description: Type of EHS risk (e.g., environmental, health, safety).
+                  riskDescription:
+                    type: string
+                    description: Description of the predicted risk.
+                  likelihood:
+                    type: string
+                    description: Likelihood of the risk occurring (e.g., low, medium, high).
+                  impact:
+                    type: string
+                    description: Potential impact of the risk (e.g., minor, major, critical).
+                  mitigationStrategies:
+                    type: array
+                    items:
+                      type: string
+                    description: Strategies to mitigate the predicted risk.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the prediction.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/ehs-risk/prediction/submit':
+    post:
+      summary: Submit data for EHS risk prediction
+      description: Submit data for predicting EHS risks in retail operations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                riskType:
+                  type: string
+                  description: Type of EHS risk (e.g., environmental, health, safety).
+                riskDescription:
+                  type: string
+                  description: Description of the potential risk.
+                likelihood:
+                  type: string
+                  description: Likelihood of the risk occurring (e.g., low, medium, high).
+                impact:
+                  type: string
+                  description: Potential impact of the risk (e.g., minor, major, critical).
+                mitigationStrategies:
+                  type: array
+                  items:
+                    type: string
+                  description: Strategies to mitigate the predicted risk.
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the EHS risk.
+              required:
+                - riskType
+                - riskDescription
+                - likelihood
+                - impact
+      responses:
+        '201':
+          description: EHS risk prediction data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  predictionId:
+                    type: string
+                    description: Unique identifier of the submitted prediction.
+                  status:
+                    type: string
+                    description: Status of the prediction (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/ehs-risk/prediction/reports':
+    get:
+      summary: Retrieve EHS risk prediction reports
+      description: Fetch detailed reports on predicted EHS risks and their mitigation status.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the EHS risk prediction report.
+      responses:
+        '200':
+          description: Successful retrieval of EHS risk prediction reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the EHS risk prediction report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    predictedRisks:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          riskType:
+                            type: string
+                            description: Type of EHS risk.
+                          riskDescription:
+                            type: string
+                            description: Description of the predicted risk.
+                          likelihood:
+                            type: string
+                            description: Likelihood of the risk occurring.
+                          impact:
+                            type: string
+                            description: Potential impact of the risk.
+                          mitigationStatus:
+                            type: string
+                            description: Status of mitigation efforts (e.g., in-progress, completed).
+                    overallRiskLevel:
+                      type: string
+                      description: Overall risk level for the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

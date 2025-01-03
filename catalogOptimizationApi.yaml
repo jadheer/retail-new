@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: 'Catalog Optimization Using Enhanced Customer Engagement'
+  version: 1.0.0
+  description: 'API for managing Catalog Optimization processes to enhance customer engagement through omni-channel catalog improvements.'
+paths:
+  '/catalog-optimization':
+    get:
+      summary: 'Retrieve catalog optimization data'
+      description: 'Fetch available catalog optimization data and insights.'
+      responses:
+        '200':
+          description: 'Successful retrieval of catalog optimization data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 23
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Customer Experience'
+                  process_group:
+                    type: string
+                    example: 'Develop and manage omni channel'
+                  process_name:
+                    type: string
+                    example: 'Catalog Optimization Using Enhanced Customer Engagement'
+                  creation:
+                    type: string
+                    example: 'Major'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  search:
+                    type: string
+                    example: 'Minor'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/catalog-optimization/optimize':
+    post:
+      summary: 'Optimize catalog using customer engagement data'
+      description: 'Create or update catalog optimizations based on enhanced customer engagement insights.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                catalog_id:
+                  type: string
+                  example: 'CAT123'
+                optimization_criteria:
+                  type: array
+                  items:
+                    type: string
+                  example: ['Customer Preferences', 'Sales Trends']
+      responses:
+        '201':
+          description: 'Catalog optimization completed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Catalog optimization completed successfully.'
+  '/catalog-optimization/automate':
+    post:
+      summary: 'Automate catalog optimization'
+      description: 'Trigger minor automation for catalog optimization processes.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Catalog optimization automation process started successfully.'
+  '/catalog-optimization/summarize':
+    get:
+      summary: 'Summarize catalog optimization data'
+      description: 'Generate a summary of catalog optimization insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Catalog optimization shows a 20% increase in customer engagement.'

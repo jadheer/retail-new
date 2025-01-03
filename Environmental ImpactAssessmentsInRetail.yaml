@@ -1,0 +1,115 @@
+openapi: 3.0.0
+info:
+  title: Environmental Impact Assessments In Retail
+  version: 1.0.0
+  description: >
+    API for conducting and managing environmental impact assessments for retail facilities,
+    ensuring compliance with environmental regulations and promoting sustainable practices.
+
+paths:
+  '/environmental/assessments':
+    get:
+      summary: Retrieve environmental assessments
+      description: Fetch a list of completed environmental impact assessments.
+      responses:
+        '200':
+          description: Successful retrieval of environmental assessments.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    assessmentId:
+                      type: string
+                      description: Unique identifier for the assessment.
+                    facilityId:
+                      type: string
+                      description: Identifier of the retail facility assessed.
+                    assessmentDate:
+                      type: string
+                      format: date
+                      description: Date the assessment was conducted.
+                    complianceStatus:
+                      type: string
+                      description: Compliance status (e.g., compliant, non-compliant).
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal server error
+
+  '/environmental/assessments/new':
+    post:
+      summary: Submit a new environmental assessment
+      description: Initiate a new environmental impact assessment for a retail facility.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                facilityId:
+                  type: string
+                  description: Identifier of the retail facility to be assessed.
+                assessmentType:
+                  type: string
+                  description: Type of assessment (e.g., initial, periodic).
+                targetDate:
+                  type: string
+                  format: date
+                  description: Target date for completing the assessment.
+              required:
+                - facilityId
+                - assessmentType
+                - targetDate
+      responses:
+        '201':
+          description: Environmental assessment successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  assessmentId:
+                    type: string
+                    description: Unique identifier for the submitted assessment.
+                  status:
+                    type: string
+                    description: Current status of the assessment (e.g., scheduled, in-progress).
+        '400':
+          description: Invalid request body
+        '500':
+          description: Internal server error
+
+  '/environmental/compliance':
+    get:
+      summary: Retrieve compliance reports
+      description: Fetch compliance reports related to environmental assessments.
+      responses:
+        '200':
+          description: Successful retrieval of compliance reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier for the compliance report.
+                    facilityId:
+                      type: string
+                      description: Identifier of the retail facility.
+                    complianceStatus:
+                      type: string
+                      description: Status of compliance (e.g., compliant, non-compliant).
+                    reportLink:
+                      type: string
+                      description: Link to the detailed compliance report.
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal server error

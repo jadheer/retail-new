@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Driving Customer Engagement Personalization'
+  description: 'This API is designed to enhance customer engagement through personalized strategies, enabling businesses to deliver tailored experiences, targeted offers, and dynamic content to their customers.'
+  version: 1.0.0
+paths:
+  '/personalization-strategies':
+    get:
+      summary: 'Retrieve a list of personalization strategies'
+      description: 'Fetches a list of all personalization strategies for driving customer engagement.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    strategyId:
+                      type: string
+                      description: 'Unique identifier for the personalization strategy'
+                    strategyName:
+                      type: string
+                      description: 'Name of the strategy (e.g., targeted offers, personalized recommendations, dynamic content)'
+                    createdDate:
+                      type: string
+                      format: date
+                      description: 'Date the strategy was created'
+                    lastUpdatedDate:
+                      type: string
+                      format: date
+                      description: 'Date the strategy was last updated'
+                    status:
+                      type: string
+                      description: 'Status of the strategy (e.g., active, inactive, under review)'
+                  required:
+                    - strategyId
+                    - strategyName
+                    - createdDate
+                    - status
+    post:
+      summary: 'Add a new personalization strategy'
+      description: 'Adds a new personalization strategy to drive customer engagement.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                strategyName:
+                  type: string
+                  description: 'Name of the strategy (e.g., targeted offers, personalized recommendations, dynamic content)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was last updated'
+                status:
+                  type: string
+                  description: 'Status of the strategy (e.g., active, inactive, under review)'
+              required:
+                - strategyName
+                - createdDate
+                - status
+      responses:
+        '201':
+          description: 'Personalization strategy created successfully'
+  '/personalization-strategies/{strategyId}':
+    get:
+      summary: 'Retrieve details of a specific personalization strategy'
+      description: 'Fetches details of a specific personalization strategy by its ID.'
+      parameters:
+        - name: 'strategyId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  strategyId:
+                    type: string
+                    description: 'Unique identifier for the personalization strategy'
+                  strategyName:
+                    type: string
+                    description: 'Name of the strategy (e.g., targeted offers, personalized recommendations, dynamic content)'
+                  createdDate:
+                    type: string
+                    format: date
+                    description: 'Date the strategy was created'
+                  lastUpdatedDate:
+                    type: string
+                    format: date
+                    description: 'Date the strategy was last updated'
+                  status:
+                    type: string
+                    description: 'Status of the strategy (e.g., active, inactive, under review)'
+                required:
+                  - strategyId
+                  - strategyName
+                  - createdDate
+                  - status
+    put:
+      summary: 'Update an existing personalization strategy'
+      description: 'Updates details of an existing personalization strategy by its ID.'
+      parameters:
+        - name: 'strategyId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                strategyName:
+                  type: string
+                  description: 'Name of the strategy (e.g., targeted offers, personalized recommendations, dynamic content)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was last updated'
+                status:
+                  type: string
+                  description: 'Status of the strategy (e.g., active, inactive, under review)'
+              required:
+                - strategyName
+                - createdDate
+                - status
+      responses:
+        '200':
+          description: 'Personalization strategy updated successfully'
+    delete:
+      summary: 'Delete a personalization strategy'
+      description: 'Deletes a personalization strategy from the system by its ID.'
+      parameters:
+        - name: 'strategyId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Personalization strategy deleted successfully'

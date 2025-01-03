@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: Enhancing Employee Retention in Retail
+  description: API for strategies and data analysis to improve employee retention in the retail industry by addressing key factors such as satisfaction, performance, and career growth.
+  version: 1.0.0
+paths:
+  '/enhancing-employee-retention':
+    get:
+      summary: Retrieve employee retention data
+      description: Fetch data related to employee retention, including satisfaction scores, tenure, and performance insights.
+      parameters:
+        - name: employeeId
+          in: query
+          required: false
+          schema:
+            type: string
+            example: EMP34567
+        - name: retentionStatus
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "high"
+      responses:
+        '200':
+          description: Successfully retrieved employee retention data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  employeeId:
+                    type: string
+                  employeeName:
+                    type: string
+                  retentionStatus:
+                    type: string
+                  tenure:
+                    type: integer
+                    description: Number of years the employee has worked at the company
+                  satisfactionScore:
+                    type: number
+                    format: float
+                  performanceRating:
+                    type: string
+                    example: "Excellent"
+    post:
+      summary: Submit employee retention feedback
+      description: Submit feedback from employees related to their job satisfaction, career goals, and future intentions with the company.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                feedback:
+                  type: string
+                satisfactionScore:
+                  type: number
+                  format: float
+                intentionToStay:
+                  type: boolean
+                  description: Whether the employee intends to stay with the company for the foreseeable future
+      responses:
+        '201':
+          description: Employee retention feedback submitted successfully.
+        '400':
+          description: Invalid input data.

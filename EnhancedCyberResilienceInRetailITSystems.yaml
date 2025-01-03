@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Enhanced Cyber Resilience in Retail IT Systems'
+  description: 'This API is designed to enhance cyber resilience in retail IT systems, enabling organizations to proactively manage and mitigate cybersecurity risks. It supports the creation, retrieval, updating, and deletion of cyber resilience records to ensure robust protection against threats and vulnerabilities.'
+  version: 1.0.0
+paths:
+  '/cyber-resilience-records':
+    get:
+      summary: 'Retrieve a list of cyber resilience records'
+      description: 'Fetches a list of all cyber resilience records managed in the retail IT systems.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the cyber resilience record'
+                    systemName:
+                      type: string
+                      description: 'Name of the IT system being protected (e.g., POS system, e-commerce platform, inventory management)'
+                    threatType:
+                      type: string
+                      description: 'Type of threat being mitigated (e.g., malware, phishing, DDoS)'
+                    mitigationDate:
+                      type: string
+                      format: date
+                      description: 'Date the threat was mitigated'
+                    status:
+                      type: string
+                      description: 'Status of the mitigation (e.g., resolved, in-progress, pending)'
+                  required:
+                    - recordId
+                    - systemName
+                    - threatType
+                    - mitigationDate
+                    - status
+    post:
+      summary: 'Add a new cyber resilience record'
+      description: 'Adds a new cyber resilience record to the retail IT systems.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                systemName:
+                  type: string
+                  description: 'Name of the IT system being protected (e.g., POS system, e-commerce platform, inventory management)'
+                threatType:
+                  type: string
+                  description: 'Type of threat being mitigated (e.g., malware, phishing, DDoS)'
+                mitigationDate:
+                  type: string
+                  format: date
+                  description: 'Date the threat was mitigated'
+                status:
+                  type: string
+                  description: 'Status of the mitigation (e.g., resolved, in-progress, pending)'
+              required:
+                - systemName
+                - threatType
+                - mitigationDate
+                - status
+      responses:
+        '201':
+          description: 'Cyber resilience record created successfully'
+  '/cyber-resilience-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific cyber resilience record'
+      description: 'Fetches details of a specific cyber resilience record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the cyber resilience record'
+                  systemName:
+                    type: string
+                    description: 'Name of the IT system being protected (e.g., POS system, e-commerce platform, inventory management)'
+                  threatType:
+                    type: string
+                    description: 'Type of threat being mitigated (e.g., malware, phishing, DDoS)'
+                  mitigationDate:
+                    type: string
+                    format: date
+                    description: 'Date the threat was mitigated'
+                  status:
+                    type: string
+                    description: 'Status of the mitigation (e.g., resolved, in-progress, pending)'
+                required:
+                  - recordId
+                  - systemName
+                  - threatType
+                  - mitigationDate
+                  - status
+    put:
+      summary: 'Update an existing cyber resilience record'
+      description: 'Updates details of an existing cyber resilience record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                systemName:
+                  type: string
+                  description: 'Name of the IT system being protected (e.g., POS system, e-commerce platform, inventory management)'
+                threatType:
+                  type: string
+                  description: 'Type of threat being mitigated (e.g., malware, phishing, DDoS)'
+                mitigationDate:
+                  type: string
+                  format: date
+                  description: 'Date the threat was mitigated'
+                status:
+                  type: string
+                  description: 'Status of the mitigation (e.g., resolved, in-progress, pending)'
+              required:
+                - systemName
+                - threatType
+                - mitigationDate
+                - status
+      responses:
+        '200':
+          description: 'Cyber resilience record updated successfully'
+    delete:
+      summary: 'Delete a cyber resilience record'
+      description: 'Deletes a cyber resilience record from the retail IT systems by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Cyber resilience record deleted successfully'

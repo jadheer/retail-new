@@ -1,0 +1,94 @@
+openapi: 3.0.0
+info:
+  title: 'Comprehensive Load Planning Optimization in Supply Chain'
+  description: 'API for comprehensive load planning optimization in the supply chain, focusing on automation and search functionalities to improve efficiency and reduce costs.'
+  version: 1.0.0
+paths:
+  '/load-planning/optimize':
+    post:
+      summary: 'Optimize comprehensive load planning'
+      description: 'Optimizes load planning in the supply chain to ensure efficient use of resources and reduce transportation costs.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                load_planning_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      shipment_id:
+                        type: string
+                      load_capacity:
+                        type: number
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Load planning optimized successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_load_planning_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        shipment_id:
+                          type: string
+                        load_capacity:
+                          type: number
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/load-planning/search':
+    get:
+      summary: 'Search load planning data'
+      description: 'Search for load planning data based on shipment ID or load capacity.'
+      parameters:
+        - name: 'shipment_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the shipment to search for'
+        - name: 'load_capacity'
+          in: query
+          schema:
+            type: number
+          required: false
+          description: 'Load capacity to search for'
+      responses:
+        '200':
+          description: 'Load planning data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    shipment_id:
+                      type: string
+                    load_capacity:
+                      type: number
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

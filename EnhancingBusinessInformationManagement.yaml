@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Enhancing Business Information Management'
+  description: 'This API focuses on improving business information management by enabling organizations to create, manage, and optimize processes such as data governance, data quality management, and metadata management for better decision-making and operational efficiency.'
+  version: 1.0.0
+paths:
+  '/information-management-processes':
+    get:
+      summary: 'Retrieve a list of business information management processes'
+      description: 'Fetches a list of all business information management processes being enhanced.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    processId:
+                      type: string
+                      description: 'Unique identifier for the information management process'
+                    processName:
+                      type: string
+                      description: 'Name of the process (e.g., data governance, data quality management, metadata management)'
+                    createdDate:
+                      type: string
+                      format: date
+                      description: 'Date the process was created'
+                    lastUpdatedDate:
+                      type: string
+                      format: date
+                      description: 'Date the process was last updated'
+                    status:
+                      type: string
+                      description: 'Status of the process (e.g., active, inactive, under review)'
+                  required:
+                    - processId
+                    - processName
+                    - createdDate
+                    - status
+    post:
+      summary: 'Add a new information management process'
+      description: 'Adds a new business information management process to the system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., data governance, data quality management, metadata management)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the process was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the process was last updated'
+                status:
+                  type: string
+                  description: 'Status of the process (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - createdDate
+                - status
+      responses:
+        '201':
+          description: 'Information management process created successfully'
+  '/information-management-processes/{processId}':
+    get:
+      summary: 'Retrieve details of a specific information management process'
+      description: 'Fetches details of a specific business information management process by its ID.'
+      parameters:
+        - name: 'processId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: string
+                    description: 'Unique identifier for the information management process'
+                  processName:
+                    type: string
+                    description: 'Name of the process (e.g., data governance, data quality management, metadata management)'
+                  createdDate:
+                    type: string
+                    format: date
+                    description: 'Date the process was created'
+                  lastUpdatedDate:
+                    type: string
+                    format: date
+                    description: 'Date the process was last updated'
+                  status:
+                    type: string
+                    description: 'Status of the process (e.g., active, inactive, under review)'
+                required:
+                  - processId
+                  - processName
+                  - createdDate
+                  - status
+    put:
+      summary: 'Update an existing information management process'
+      description: 'Updates details of an existing business information management process by its ID.'
+      parameters:
+        - name: 'processId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., data governance, data quality management, metadata management)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the process was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the process was last updated'
+                status:
+                  type: string
+                  description: 'Status of the process (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - createdDate
+                - status
+      responses:
+        '200':
+          description: 'Information management process updated successfully'
+    delete:
+      summary: 'Delete an information management process'
+      description: 'Deletes a business information management process from the system by its ID.'
+      parameters:
+        - name: 'processId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Information management process deleted successfully'

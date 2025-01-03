@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: 'Freight Consolidation and Deconsolidation Optimization in Retail Logistics'
+  description: 'API for optimizing freight consolidation and deconsolidation processes in retail logistics, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/freight/consolidation-deconsolidation/optimize':
+    post:
+      summary: 'Optimize freight consolidation and deconsolidation'
+      description: 'Optimizes the processes of freight consolidation and deconsolidation in retail logistics to improve efficiency and reduce costs.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                freight_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      shipment_id:
+                        type: string
+                      consolidation_status:
+                        type: string
+                        enum: ['Pending', 'Consolidated', 'Deconsolidated']
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Freight consolidation and deconsolidation optimized successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_freight_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        shipment_id:
+                          type: string
+                        consolidation_status:
+                          type: string
+                          enum: ['Pending', 'Consolidated', 'Deconsolidated']
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/freight/consolidation-deconsolidation/search':
+    get:
+      summary: 'Search freight consolidation and deconsolidation data'
+      description: 'Search for freight consolidation and deconsolidation data based on shipment ID or consolidation status.'
+      parameters:
+        - name: 'shipment_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the shipment to search for'
+        - name: 'consolidation_status'
+          in: query
+          schema:
+            type: string
+            enum: ['Pending', 'Consolidated', 'Deconsolidated']
+          required: false
+          description: 'Status of the consolidation to search for'
+      responses:
+        '200':
+          description: 'Freight consolidation and deconsolidation data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    shipment_id:
+                      type: string
+                    consolidation_status:
+                      type: string
+                      enum: ['Pending', 'Consolidated', 'Deconsolidated']
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

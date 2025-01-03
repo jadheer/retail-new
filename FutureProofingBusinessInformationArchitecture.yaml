@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Future-Proofing Business Information Architecture'
+  description: 'This API is designed to future-proof business information architecture by managing and optimizing components such as data models, integration layers, and metadata management. It ensures scalability, flexibility, and adaptability to evolving business needs.'
+  version: 1.0.0
+paths:
+  '/information-architecture-components':
+    get:
+      summary: 'Retrieve a list of information architecture components'
+      description: 'Fetches a list of all components in the business information architecture being future-proofed.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    componentId:
+                      type: string
+                      description: 'Unique identifier for the information architecture component'
+                    componentName:
+                      type: string
+                      description: 'Name of the component (e.g., data models, integration layers, metadata management)'
+                    createdDate:
+                      type: string
+                      format: date
+                      description: 'Date the component was created'
+                    lastUpdatedDate:
+                      type: string
+                      format: date
+                      description: 'Date the component was last updated'
+                    status:
+                      type: string
+                      description: 'Status of the component (e.g., active, deprecated, under review)'
+                  required:
+                    - componentId
+                    - componentName
+                    - createdDate
+                    - status
+    post:
+      summary: 'Add a new information architecture component'
+      description: 'Adds a new component to the business information architecture.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                componentName:
+                  type: string
+                  description: 'Name of the component (e.g., data models, integration layers, metadata management)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the component was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the component was last updated'
+                status:
+                  type: string
+                  description: 'Status of the component (e.g., active, deprecated, under review)'
+              required:
+                - componentName
+                - createdDate
+                - status
+      responses:
+        '201':
+          description: 'Information architecture component created successfully'
+  '/information-architecture-components/{componentId}':
+    get:
+      summary: 'Retrieve details of a specific information architecture component'
+      description: 'Fetches details of a specific business information architecture component by its ID.'
+      parameters:
+        - name: 'componentId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  componentId:
+                    type: string
+                    description: 'Unique identifier for the information architecture component'
+                  componentName:
+                    type: string
+                    description: 'Name of the component (e.g., data models, integration layers, metadata management)'
+                  createdDate:
+                    type: string
+                    format: date
+                    description: 'Date the component was created'
+                  lastUpdatedDate:
+                    type: string
+                    format: date
+                    description: 'Date the component was last updated'
+                  status:
+                    type: string
+                    description: 'Status of the component (e.g., active, deprecated, under review)'
+                required:
+                  - componentId
+                  - componentName
+                  - createdDate
+                  - status
+    put:
+      summary: 'Update an existing information architecture component'
+      description: 'Updates details of an existing business information architecture component by its ID.'
+      parameters:
+        - name: 'componentId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                componentName:
+                  type: string
+                  description: 'Name of the component (e.g., data models, integration layers, metadata management)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the component was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the component was last updated'
+                status:
+                  type: string
+                  description: 'Status of the component (e.g., active, deprecated, under review)'
+              required:
+                - componentName
+                - createdDate
+                - status
+      responses:
+        '200':
+          description: 'Information architecture component updated successfully'
+    delete:
+      summary: 'Delete an information architecture component'
+      description: 'Deletes a business information architecture component from the system by its ID.'
+      parameters:
+        - name: 'componentId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Information architecture component deleted successfully'

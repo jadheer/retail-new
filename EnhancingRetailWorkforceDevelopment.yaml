@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: Enhancing Retail Workforce Development
+  description: API for enhancing the retail workforce through training, career development programs, skill assessments, and performance tracking.
+  version: 1.0.0
+paths:
+  '/enhancing-retail-workforce':
+    get:
+      summary: Retrieve workforce development data
+      description: Fetch data on employee training programs, skill assessments, and career progression within the retail industry.
+      parameters:
+        - name: employeeId
+          in: query
+          required: false
+          schema:
+            type: string
+            example: EMP12345
+        - name: department
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "Sales"
+      responses:
+        '200':
+          description: Successfully retrieved workforce development data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  employeeId:
+                    type: string
+                  department:
+                    type: string
+                  currentSkills:
+                    type: array
+                    items:
+                      type: string
+                  trainingPrograms:
+                    type: array
+                    items:
+                      type: string
+                  careerGoals:
+                    type: string
+                example:
+                  employeeId: "EMP12345"
+                  department: "Sales"
+                  currentSkills: ["Customer Service", "Product Knowledge"]
+                  trainingPrograms: ["Leadership Training", "Advanced Sales Techniques"]
+                  careerGoals: "Become Sales Manager"
+    post:
+      summary: Submit workforce development request
+      description: Submit data related to employee development, including requested training programs, skills to develop, and career goals.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                department:
+                  type: string
+                requestedTrainingPrograms:
+                  type: array
+                  items:
+                    type: string
+                skillsToDevelop:
+                  type: array
+                  items:
+                    type: string
+                careerGoals:
+                  type: string
+      responses:
+        '201':
+          description: Workforce development request submitted successfully.
+        '400':
+          description: Invalid input data.

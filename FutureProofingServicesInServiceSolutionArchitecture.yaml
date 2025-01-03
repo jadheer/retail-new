@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: 'Future-Proofing Services in Service/Solution Architecture'
+  description: 'This API is designed to future-proof services and solutions by managing and optimizing components such as scalability planning, technology upgrades, and modular design. It ensures that services remain adaptable, scalable, and aligned with evolving business and technological needs.'
+  version: 1.0.0
+paths:
+  '/future-proofing-services':
+    get:
+      summary: 'Retrieve a list of future-proofing services'
+      description: 'Fetches a list of all future-proofing services in the service/solution architecture.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    serviceId:
+                      type: string
+                      description: 'Unique identifier for the future-proofing service'
+                    serviceName:
+                      type: string
+                      description: 'Name of the future-proofing service (e.g., scalability planning, technology upgrades, modular design)'
+                    description:
+                      type: string
+                      description: 'Description of the service'
+                    createdDate:
+                      type: string
+                      format: date
+                      description: 'Date the service was created'
+                    lastUpdatedDate:
+                      type: string
+                      format: date
+                      description: 'Date the service was last updated'
+                    status:
+                      type: string
+                      description: 'Status of the service (e.g., active, inactive, under review)'
+                  required:
+                    - serviceId
+                    - serviceName
+                    - createdDate
+                    - status
+    post:
+      summary: 'Add a new future-proofing service'
+      description: 'Adds a new future-proofing service to the service/solution architecture.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                serviceName:
+                  type: string
+                  description: 'Name of the future-proofing service (e.g., scalability planning, technology upgrades, modular design)'
+                description:
+                  type: string
+                  description: 'Description of the service'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the service was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the service was last updated'
+                status:
+                  type: string
+                  description: 'Status of the service (e.g., active, inactive, under review)'
+              required:
+                - serviceName
+                - createdDate
+                - status
+      responses:
+        '201':
+          description: 'Future-proofing service created successfully'
+  '/future-proofing-services/{serviceId}':
+    get:
+      summary: 'Retrieve details of a specific future-proofing service'
+      description: 'Fetches details of a specific future-proofing service by its ID.'
+      parameters:
+        - name: 'serviceId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  serviceId:
+                    type: string
+                    description: 'Unique identifier for the future-proofing service'
+                  serviceName:
+                    type: string
+                    description: 'Name of the future-proofing service (e.g., scalability planning, technology upgrades, modular design)'
+                  description:
+                    type: string
+                    description: 'Description of the service'
+                  createdDate:
+                    type: string
+                    format: date
+                    description: 'Date the service was created'
+                  lastUpdatedDate:
+                    type: string
+                    format: date
+                    description: 'Date the service was last updated'
+                  status:
+                    type: string
+                    description: 'Status of the service (e.g., active, inactive, under review)'
+                required:
+                  - serviceId
+                  - serviceName
+                  - createdDate
+                  - status
+    put:
+      summary: 'Update an existing future-proofing service'
+      description: 'Updates details of an existing future-proofing service by its ID.'
+      parameters:
+        - name: 'serviceId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                serviceName:
+                  type: string
+                  description: 'Name of the future-proofing service (e.g., scalability planning, technology upgrades, modular design)'
+                description:
+                  type: string
+                  description: 'Description of the service'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the service was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the service was last updated'
+                status:
+                  type: string
+                  description: 'Status of the service (e.g., active, inactive, under review)'
+              required:
+                - serviceName
+                - createdDate
+                - status
+      responses:
+        '200':
+          description: 'Future-proofing service updated successfully'
+    delete:
+      summary: 'Delete a future-proofing service'
+      description: 'Deletes a future-proofing service from the service/solution architecture by its ID.'
+      parameters:
+        - name: 'serviceId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Future-proofing service deleted successfully'

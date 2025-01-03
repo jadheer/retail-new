@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  title: Automating Retail Workforce Surveys
+  description: API for automating and managing workforce surveys to gather feedback and insights in the retail industry.
+  version: 1.0.0
+paths:
+  '/automating-retail-workforce-surveys':
+    get:
+      summary: Retrieve workforce survey data
+      description: Fetch data on workforce surveys, including responses and insights, in the retail sector.
+      parameters:
+        - name: surveyId
+          in: query
+          required: false
+          schema:
+            type: string
+            example: SURV98765
+        - name: department
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "Sales"
+      responses:
+        '200':
+          description: Successfully retrieved workforce survey data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  surveyId:
+                    type: string
+                  department:
+                    type: string
+                  question:
+                    type: string
+                  response:
+                    type: string
+                  submissionDate:
+                    type: string
+                    format: date-time
+    post:
+      summary: Submit workforce survey responses
+      description: Submit responses to workforce surveys to gather insights and feedback from employees in the retail industry.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                surveyId:
+                  type: string
+                question:
+                  type: string
+                response:
+                  type: string
+      responses:
+        '201':
+          description: Survey responses submitted successfully.
+        '400':
+          description: Invalid input data.

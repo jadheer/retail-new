@@ -1,0 +1,61 @@
+openapi: 3.0.0
+info:
+  title: Dynamic Performance Management in Retail
+  description: API for managing and dynamically optimizing employee and operational performance in the retail domain.
+  version: 1.0.0
+paths:
+  '/dynamic-performance-management':
+    get:
+      summary: Retrieve performance management data
+      description: Fetch details about employee and operational performance metrics dynamically.
+      parameters:
+        - name: employeeId
+          in: query
+          required: false
+          schema:
+            type: string
+            example: EMP12345
+        - name: metricType
+          in: query
+          required: false
+          schema:
+            type: string
+            example: productivity
+      responses:
+        '200':
+          description: Successfully retrieved performance data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  employeeId:
+                    type: string
+                  metricType:
+                    type: string
+                  metricValue:
+                    type: number
+                  timestamp:
+                    type: string
+                    format: date-time
+    post:
+      summary: Update performance metrics dynamically
+      description: Submit updates for performance metrics to dynamically adjust employee or operational targets.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                metricType:
+                  type: string
+                metricValue:
+                  type: number
+      responses:
+        '201':
+          description: Performance metrics updated successfully.
+        '400':
+          description: Invalid input data.

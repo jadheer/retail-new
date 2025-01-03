@@ -1,0 +1,198 @@
+openapi: 3.0.0
+info:
+  title: 'Enhancing Retail Performance-Driven Coaching'
+  description: 'This API is designed to improve employee performance in the retail sector through structured coaching sessions. It enables the creation, management, and tracking of coaching sessions focused on areas such as sales, customer service, and other key performance metrics.'
+  version: 1.0.0
+paths:
+  '/coaching-sessions':
+    get:
+      summary: 'Retrieve a list of performance-driven coaching sessions'
+      description: 'Fetches a list of all performance-driven coaching sessions in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    sessionId:
+                      type: string
+                      description: 'Unique identifier for the coaching session'
+                    coachId:
+                      type: string
+                      description: 'Unique identifier for the coach'
+                    employeeId:
+                      type: string
+                      description: 'Unique identifier for the employee being coached'
+                    sessionDate:
+                      type: string
+                      format: date
+                      description: 'Date of the coaching session'
+                    focusArea:
+                      type: string
+                      description: 'Area of focus for the coaching session (e.g., sales, customer service)'
+                    goals:
+                      type: array
+                      items:
+                        type: string
+                      description: 'List of goals for the coaching session'
+                    status:
+                      type: string
+                      description: 'Current status of the session (e.g., scheduled, completed)'
+                  required:
+                    - sessionId
+                    - coachId
+                    - employeeId
+                    - sessionDate
+                    - focusArea
+                    - status
+    post:
+      summary: 'Add a new coaching session'
+      description: 'Adds a new performance-driven coaching session to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                coachId:
+                  type: string
+                  description: 'Unique identifier for the coach'
+                employeeId:
+                  type: string
+                  description: 'Unique identifier for the employee being coached'
+                sessionDate:
+                  type: string
+                  format: date
+                  description: 'Date of the coaching session'
+                focusArea:
+                  type: string
+                  description: 'Area of focus for the coaching session (e.g., sales, customer service)'
+                goals:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of goals for the coaching session'
+                status:
+                  type: string
+                  description: 'Current status of the session (e.g., scheduled, completed)'
+              required:
+                - coachId
+                - employeeId
+                - sessionDate
+                - focusArea
+                - status
+      responses:
+        '201':
+          description: 'Coaching session created successfully'
+  '/coaching-sessions/{sessionId}':
+    get:
+      summary: 'Retrieve details of a specific coaching session'
+      description: 'Fetches details of a specific performance-driven coaching session by its ID.'
+      parameters:
+        - name: 'sessionId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionId:
+                    type: string
+                    description: 'Unique identifier for the coaching session'
+                  coachId:
+                    type: string
+                    description: 'Unique identifier for the coach'
+                  employeeId:
+                    type: string
+                    description: 'Unique identifier for the employee being coached'
+                  sessionDate:
+                    type: string
+                    format: date
+                    description: 'Date of the coaching session'
+                  focusArea:
+                    type: string
+                    description: 'Area of focus for the coaching session (e.g., sales, customer service)'
+                  goals:
+                    type: array
+                    items:
+                      type: string
+                    description: 'List of goals for the coaching session'
+                  status:
+                    type: string
+                    description: 'Current status of the session (e.g., scheduled, completed)'
+                required:
+                  - sessionId
+                  - coachId
+                  - employeeId
+                  - sessionDate
+                  - focusArea
+                  - status
+    put:
+      summary: 'Update an existing coaching session'
+      description: 'Updates details of an existing performance-driven coaching session by its ID.'
+      parameters:
+        - name: 'sessionId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                coachId:
+                  type: string
+                  description: 'Unique identifier for the coach'
+                employeeId:
+                  type: string
+                  description: 'Unique identifier for the employee being coached'
+                sessionDate:
+                  type: string
+                  format: date
+                  description: 'Date of the coaching session'
+                focusArea:
+                  type: string
+                  description: 'Area of focus for the coaching session (e.g., sales, customer service)'
+                goals:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of goals for the coaching session'
+                status:
+                  type: string
+                  description: 'Current status of the session (e.g., scheduled, completed)'
+              required:
+                - coachId
+                - employeeId
+                - sessionDate
+                - focusArea
+                - status
+      responses:
+        '200':
+          description: 'Coaching session updated successfully'
+    delete:
+      summary: 'Delete a coaching session'
+      description: 'Deletes a performance-driven coaching session from the retail system by its ID.'
+      parameters:
+        - name: 'sessionId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Coaching session deleted successfully'

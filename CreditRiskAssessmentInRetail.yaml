@@ -1,0 +1,142 @@
+openapi: 3.0.0
+info:
+  title: Credit Risk Assessment In Retail
+  version: 1.0.0
+  description: >
+    API to manage credit risk assessment in retail, enabling accurate evaluation of
+    creditworthiness and risk profiles for investors and stakeholders.
+
+paths:
+  '/credit-risk/assessment':
+    get:
+      summary: Retrieve credit risk assessment data
+      description: Fetch detailed credit risk assessments for retail entities.
+      responses:
+        '200':
+          description: Successful retrieval of credit risk assessment data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  assessmentId:
+                    type: string
+                    description: Unique identifier of the credit risk assessment.
+                  entityName:
+                    type: string
+                    description: Name of the retail entity being assessed.
+                  creditScore:
+                    type: number
+                    description: Credit score of the entity.
+                  riskLevel:
+                    type: string
+                    description: Risk level (e.g., low, medium, high).
+                  assessmentDate:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the assessment.
+                  recommendations:
+                    type: array
+                    items:
+                      type: string
+                    description: Recommendations for mitigating credit risk.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/credit-risk/assessment/submit':
+    post:
+      summary: Submit a credit risk assessment
+      description: Submit a new credit risk assessment for a retail entity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entityName:
+                  type: string
+                  description: Name of the retail entity being assessed.
+                creditScore:
+                  type: number
+                  description: Credit score of the entity.
+                riskLevel:
+                  type: string
+                  description: Risk level (e.g., low, medium, high).
+                assessmentDetails:
+                  type: string
+                  description: Detailed analysis of the credit risk.
+                recommendations:
+                  type: array
+                  items:
+                    type: string
+                  description: Recommendations for mitigating credit risk.
+              required:
+                - entityName
+                - creditScore
+                - riskLevel
+                - assessmentDetails
+      responses:
+        '201':
+          description: Credit risk assessment successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  assessmentId:
+                    type: string
+                    description: Unique identifier of the submitted assessment.
+                  status:
+                    type: string
+                    description: Status of the assessment (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/credit-risk/assessment/history':
+    get:
+      summary: Retrieve credit risk assessment history
+      description: Fetch historical credit risk assessments for a retail entity.
+      parameters:
+        - name: entityName
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Name of the retail entity.
+      responses:
+        '200':
+          description: Successful retrieval of credit risk assessment history.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    assessmentId:
+                      type: string
+                      description: Unique identifier of the credit risk assessment.
+                    creditScore:
+                      type: number
+                      description: Credit score of the entity at the time of assessment.
+                    riskLevel:
+                      type: string
+                      description: Risk level (e.g., low, medium, high).
+                    assessmentDate:
+                      type: string
+                      format: date-time
+                      description: Timestamp of the assessment.
+                    recommendations:
+                      type: array
+                      items:
+                        type: string
+                      description: Recommendations for mitigating credit risk.
+        '400':
+          description: Missing or invalid entityName parameter.
+        '500':
+          description: Internal server error.

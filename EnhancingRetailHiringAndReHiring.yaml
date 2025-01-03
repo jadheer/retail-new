@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: 'Enhancing Retail Hiring and Re-hiring'
+  description: 'This API is designed to streamline the hiring and re-hiring processes in the retail sector by managing candidate information, tracking hiring stages, and ensuring efficient workforce onboarding. It supports both new hires and re-hires to meet organizational staffing needs.'
+  version: 1.0.0
+paths:
+  '/hiring-process':
+    get:
+      summary: 'Retrieve a list of hiring processes'
+      description: 'Fetches a list of all hiring and re-hiring processes in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    processId:
+                      type: string
+                      description: 'Unique identifier for the hiring process'
+                    candidateId:
+                      type: string
+                      description: 'Unique identifier for the candidate'
+                    processType:
+                      type: string
+                      description: 'Type of process (e.g., new hire, re-hire)'
+                    startDate:
+                      type: string
+                      format: date
+                      description: 'Start date of the hiring process'
+                    endDate:
+                      type: string
+                      format: date
+                      description: 'End date of the hiring process'
+                    status:
+                      type: string
+                      description: 'Current status of the process (e.g., in-progress, completed)'
+                  required:
+                    - processId
+                    - candidateId
+                    - processType
+                    - startDate
+                    - status
+    post:
+      summary: 'Add a new hiring process'
+      description: 'Adds a new hiring or re-hiring process to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                candidateId:
+                  type: string
+                  description: 'Unique identifier for the candidate'
+                processType:
+                  type: string
+                  description: 'Type of process (e.g., new hire, re-hire)'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the hiring process'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the hiring process'
+                status:
+                  type: string
+                  description: 'Current status of the process (e.g., in-progress, completed)'
+              required:
+                - candidateId
+                - processType
+                - startDate
+                - status
+      responses:
+        '201':
+          description: 'Hiring process created successfully'
+  '/hiring-process/{processId}':
+    get:
+      summary: 'Retrieve details of a specific hiring process'
+      description: 'Fetches details of a specific hiring or re-hiring process by its ID.'
+      parameters:
+        - name: 'processId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: string
+                    description: 'Unique identifier for the hiring process'
+                  candidateId:
+                    type: string
+                    description: 'Unique identifier for the candidate'
+                  processType:
+                    type: string
+                    description: 'Type of process (e.g., new hire, re-hire)'
+                  startDate:
+                    type: string
+                    format: date
+                    description: 'Start date of the hiring process'
+                  endDate:
+                    type: string
+                    format: date
+                    description: 'End date of the hiring process'
+                  status:
+                    type: string
+                    description: 'Current status of the process (e.g., in-progress, completed)'
+                required:
+                  - processId
+                  - candidateId
+                  - processType
+                  - startDate
+                  - status
+    put:
+      summary: 'Update an existing hiring process'
+      description: 'Updates details of an existing hiring or re-hiring process by its ID.'
+      parameters:
+        - name: 'processId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                candidateId:
+                  type: string
+                  description: 'Unique identifier for the candidate'
+                processType:
+                  type: string
+                  description: 'Type of process (e.g., new hire, re-hire)'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the hiring process'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the hiring process'
+                status:
+                  type: string
+                  description: 'Current status of the process (e.g., in-progress, completed)'
+              required:
+                - candidateId
+                - processType
+                - startDate
+                - status
+      responses:
+        '200':
+          description: 'Hiring process updated successfully'
+    delete:
+      summary: 'Delete a hiring process'
+      description: 'Deletes a hiring or re-hiring process from the retail system by its ID.'
+      parameters:
+        - name: 'processId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Hiring process deleted successfully'

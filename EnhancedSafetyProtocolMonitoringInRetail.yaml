@@ -1,0 +1,120 @@
+openapi: 3.0.0
+info:
+  title: Enhanced Safety Protocol Monitoring In Retail
+  version: 1.0.0
+  description: >
+    API for monitoring and enhancing safety protocols in retail environments. 
+    This includes real-time updates, compliance tracking, and incident reporting.
+    
+paths:
+  '/safety/protocols':
+    get:
+      summary: Retrieve safety protocols
+      description: Fetch a list of all current safety protocols in place.
+      responses:
+        '200':
+          description: Successful response with the list of safety protocols.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Unique identifier for the protocol.
+                    name:
+                      type: string
+                      description: Name of the safety protocol.
+                    description:
+                      type: string
+                      description: Detailed description of the protocol.
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal server error
+
+  '/safety/protocols/{id}':
+    get:
+      summary: Get details of a specific safety protocol
+      description: Retrieve detailed information about a specific safety protocol by ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the safety protocol to fetch details for.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with protocol details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier for the protocol.
+                  name:
+                    type: string
+                    description: Name of the safety protocol.
+                  description:
+                    type: string
+                    description: Detailed description of the protocol.
+                  status:
+                    type: string
+                    description: Current status of the protocol (e.g., active, inactive).
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal server error
+
+  '/safety/incidents':
+    post:
+      summary: Report a safety incident
+      description: Submit a report for a safety-related incident within a retail environment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+                  description: Location of the incident.
+                description:
+                  type: string
+                  description: Detailed description of the incident.
+                reportedBy:
+                  type: string
+                  description: Name or identifier of the person reporting the incident.
+                timestamp:
+                  type: string
+                  format: date-time
+                  description: Time the incident occurred.
+              required:
+                - location
+                - description
+                - reportedBy
+                - timestamp
+      responses:
+        '201':
+          description: Incident successfully reported.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier for the reported incident.
+                  status:
+                    type: string
+                    description: Current status of the report (e.g., under review, resolved).
+        '400':
+          description: Invalid request body
+        '500':
+          description: Internal server error

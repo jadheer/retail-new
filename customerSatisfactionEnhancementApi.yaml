@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: 'Customer Satisfaction Enhancement'
+  version: 1.0.0
+  description: 'API for managing Customer Satisfaction Enhancement processes to improve customer relationships and experiences.'
+paths:
+  '/customer-satisfaction':
+    get:
+      summary: 'Retrieve customer satisfaction data'
+      description: 'Fetch available customer satisfaction data and insights.'
+      responses:
+        '200':
+          description: 'Successful retrieval of customer satisfaction data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 11
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Customer Experience'
+                  process_group:
+                    type: string
+                    example: 'Manage customer relationship'
+                  process_name:
+                    type: string
+                    example: 'Customer Satisfaction Enhancement'
+                  creation:
+                    type: string
+                    example: 'Minor'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  search:
+                    type: string
+                    example: 'Major'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/customer-satisfaction/search':
+    get:
+      summary: 'Search for customer feedback'
+      description: 'Search for specific customer feedback or satisfaction metrics.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'Product Quality'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Feedback A', 'Feedback B']
+  '/customer-satisfaction/automate':
+    post:
+      summary: 'Automate customer satisfaction analysis'
+      description: 'Trigger minor automation for analyzing customer satisfaction data.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Customer satisfaction analysis automation process started successfully.'
+  '/customer-satisfaction/summarize':
+    get:
+      summary: 'Summarize customer satisfaction data'
+      description: 'Generate a summary of customer satisfaction insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Customer satisfaction improved by 10% in the last quarter.'

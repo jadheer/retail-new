@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: 'Future Trends Prediction in Product Reviews'
+  version: 1.0.0
+  description: 'API for managing Future Trends Prediction processes to analyze product reviews and predict future trends in customer preferences.'
+paths:
+  '/future-trends-prediction':
+    get:
+      summary: 'Retrieve future trends prediction data'
+      description: 'Fetch available future trends prediction data and insights.'
+      responses:
+        '200':
+          description: 'Successful retrieval of future trends prediction data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 25
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Customer Experience'
+                  process_group:
+                    type: string
+                    example: 'Develop and manage omni channel'
+                  process_name:
+                    type: string
+                    example: 'Future Trends Prediction in Product Reviews'
+                  creation:
+                    type: string
+                    example: 'Minor'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  search:
+                    type: string
+                    example: 'Major'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/future-trends-prediction/predict':
+    post:
+      summary: 'Predict future trends from product reviews'
+      description: 'Predict future trends based on analysis of product reviews.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_category:
+                  type: string
+                  example: 'Electronics'
+                review_data:
+                  type: array
+                  items:
+                    type: string
+                  example: ['Review A', 'Review B']
+      responses:
+        '201':
+          description: 'Future trends prediction completed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Future trends prediction completed successfully.'
+  '/future-trends-prediction/automate':
+    post:
+      summary: 'Automate future trends prediction'
+      description: 'Trigger minor automation for future trends prediction processes.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Future trends prediction automation process started successfully.'
+  '/future-trends-prediction/summarize':
+    get:
+      summary: 'Summarize future trends prediction data'
+      description: 'Generate a summary of future trends prediction insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Future trends prediction shows a growing preference for eco-friendly products.'
