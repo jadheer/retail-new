@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: Strategic Investor And Partner Identification In Retail
+  version: 1.0.0
+  description: >
+    API to manage the identification of strategic investors and partners in retail,
+    enabling data-driven decision-making for building strong external relationships.
+
+paths:
+  '/investor-partner/identification':
+    get:
+      summary: Retrieve investor and partner identification data
+      description: Fetch insights and recommendations for identifying strategic investors and partners.
+      responses:
+        '200':
+          description: Successful retrieval of investor and partner identification data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  identificationId:
+                    type: string
+                    description: Unique identifier of the identification report.
+                  potentialInvestors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        investorName:
+                          type: string
+                          description: Name of the potential investor.
+                        investmentFocus:
+                          type: string
+                          description: Focus area of the investor (e.g., technology, sustainability).
+                        compatibilityScore:
+                          type: number
+                          description: Compatibility score with the retail business (0-100).
+                  potentialPartners:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        partnerName:
+                          type: string
+                          description: Name of the potential partner.
+                        partnershipType:
+                          type: string
+                          description: Type of partnership (e.g., supply chain, marketing).
+                        synergyScore:
+                          type: number
+                          description: Synergy score with the retail business (0-100).
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the identification data.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/investor-partner/identification/submit':
+    post:
+      summary: Submit data for investor and partner identification
+      description: Submit data and criteria for identifying strategic investors and partners.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                criteria:
+                  type: object
+                  properties:
+                    investmentFocus:
+                      type: array
+                      items:
+                        type: string
+                      description: Desired focus areas for investors.
+                    partnershipTypes:
+                      type: array
+                      items:
+                        type: string
+                      description: Desired types of partnerships.
+                    targetMarkets:
+                      type: array
+                      items:
+                        type: string
+                      description: Target markets for investors and partners.
+                  required:
+                    - investmentFocus
+                    - partnershipTypes
+                    - targetMarkets
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the identification criteria.
+              required:
+                - criteria
+                - analysisDetails
+      responses:
+        '201':
+          description: Data successfully submitted for investor and partner identification.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  submissionId:
+                    type: string
+                    description: Unique identifier of the submitted data.
+                  status:
+                    type: string
+                    description: Status of the submission (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/investor-partner/identification/reports':
+    get:
+      summary: Retrieve investor and partner identification reports
+      description: Fetch detailed reports on identified investors and partners.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the identification report.
+      responses:
+        '200':
+          description: Successful retrieval of investor and partner identification reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the identification report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    identifiedInvestors:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          investorName:
+                            type: string
+                            description: Name of the identified investor.
+                          investmentFocus:
+                            type: string
+                            description: Focus area of the investor.
+                          compatibilityScore:
+                            type: number
+                            description: Compatibility score with the retail business (0-100).
+                    identifiedPartners:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          partnerName:
+                            type: string
+                            description: Name of the identified partner.
+                          partnershipType:
+                            type: string
+                            description: Type of partnership.
+                          synergyScore:
+                            type: number
+                            description: Synergy score with the retail business (0-100).
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

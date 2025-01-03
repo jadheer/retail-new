@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: 'Revolutionizing Benefits Administration in Retail'
+  description: 'This API is designed to streamline the administration of employee benefits in the retail sector, enabling organizations to manage benefits such as health insurance, retirement plans, and more. It supports the creation, retrieval, updating, and deletion of benefits to ensure employees receive the support they need.'
+  version: 1.0.0
+paths:
+  '/benefits':
+    get:
+      summary: 'Retrieve a list of employee benefits'
+      description: 'Fetches a list of all employee benefits administered in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    benefitId:
+                      type: string
+                      description: 'Unique identifier for the benefit'
+                    employeeId:
+                      type: string
+                      description: 'Unique identifier for the employee'
+                    benefitType:
+                      type: string
+                      description: 'Type of benefit (e.g., health insurance, retirement plan)'
+                    startDate:
+                      type: string
+                      format: date
+                      description: 'Start date of the benefit'
+                    endDate:
+                      type: string
+                      format: date
+                      description: 'End date of the benefit'
+                    status:
+                      type: string
+                      description: 'Current status of the benefit (e.g., active, inactive)'
+                  required:
+                    - benefitId
+                    - employeeId
+                    - benefitType
+                    - startDate
+                    - status
+    post:
+      summary: 'Add a new benefit'
+      description: 'Adds a new employee benefit to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                  description: 'Unique identifier for the employee'
+                benefitType:
+                  type: string
+                  description: 'Type of benefit (e.g., health insurance, retirement plan)'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the benefit'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the benefit'
+                status:
+                  type: string
+                  description: 'Current status of the benefit (e.g., active, inactive)'
+              required:
+                - employeeId
+                - benefitType
+                - startDate
+                - status
+      responses:
+        '201':
+          description: 'Benefit created successfully'
+  '/benefits/{benefitId}':
+    get:
+      summary: 'Retrieve details of a specific benefit'
+      description: 'Fetches details of a specific employee benefit by its ID.'
+      parameters:
+        - name: 'benefitId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  benefitId:
+                    type: string
+                    description: 'Unique identifier for the benefit'
+                  employeeId:
+                    type: string
+                    description: 'Unique identifier for the employee'
+                  benefitType:
+                    type: string
+                    description: 'Type of benefit (e.g., health insurance, retirement plan)'
+                  startDate:
+                    type: string
+                    format: date
+                    description: 'Start date of the benefit'
+                  endDate:
+                    type: string
+                    format: date
+                    description: 'End date of the benefit'
+                  status:
+                    type: string
+                    description: 'Current status of the benefit (e.g., active, inactive)'
+                required:
+                  - benefitId
+                  - employeeId
+                  - benefitType
+                  - startDate
+                  - status
+    put:
+      summary: 'Update an existing benefit'
+      description: 'Updates details of an existing employee benefit by its ID.'
+      parameters:
+        - name: 'benefitId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                  description: 'Unique identifier for the employee'
+                benefitType:
+                  type: string
+                  description: 'Type of benefit (e.g., health insurance, retirement plan)'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the benefit'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the benefit'
+                status:
+                  type: string
+                  description: 'Current status of the benefit (e.g., active, inactive)'
+              required:
+                - employeeId
+                - benefitType
+                - startDate
+                - status
+      responses:
+        '200':
+          description: 'Benefit updated successfully'
+    delete:
+      summary: 'Delete a benefit'
+      description: 'Deletes an employee benefit from the retail system by its ID.'
+      parameters:
+        - name: 'benefitId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Benefit deleted successfully'

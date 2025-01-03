@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: 'Streamlining Employee Separation in Retail'
+  description: 'This API is designed to streamline employee separation processes in the retail sector, enabling organizations to manage separations such as resignations, terminations, and retirements efficiently. It supports the creation, retrieval, updating, and deletion of separation processes to ensure compliance and smooth transitions.'
+  version: 1.0.0
+paths:
+  '/employee-separations':
+    get:
+      summary: 'Retrieve a list of employee separations'
+      description: 'Fetches a list of all employee separation processes in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    separationId:
+                      type: string
+                      description: 'Unique identifier for the separation process'
+                    employeeId:
+                      type: string
+                      description: 'Unique identifier for the employee'
+                    separationType:
+                      type: string
+                      description: 'Type of separation (e.g., resignation, termination, retirement)'
+                    separationDate:
+                      type: string
+                      format: date
+                      description: 'Date of the separation'
+                    reason:
+                      type: string
+                      description: 'Reason for the separation'
+                    status:
+                      type: string
+                      description: 'Current status of the separation process (e.g., initiated, completed)'
+                  required:
+                    - separationId
+                    - employeeId
+                    - separationType
+                    - separationDate
+                    - status
+    post:
+      summary: 'Add a new separation process'
+      description: 'Adds a new employee separation process to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                  description: 'Unique identifier for the employee'
+                separationType:
+                  type: string
+                  description: 'Type of separation (e.g., resignation, termination, retirement)'
+                separationDate:
+                  type: string
+                  format: date
+                  description: 'Date of the separation'
+                reason:
+                  type: string
+                  description: 'Reason for the separation'
+                status:
+                  type: string
+                  description: 'Current status of the separation process (e.g., initiated, completed)'
+              required:
+                - employeeId
+                - separationType
+                - separationDate
+                - status
+      responses:
+        '201':
+          description: 'Separation process created successfully'
+  '/employee-separations/{separationId}':
+    get:
+      summary: 'Retrieve details of a specific separation process'
+      description: 'Fetches details of a specific employee separation process by its ID.'
+      parameters:
+        - name: 'separationId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  separationId:
+                    type: string
+                    description: 'Unique identifier for the separation process'
+                  employeeId:
+                    type: string
+                    description: 'Unique identifier for the employee'
+                  separationType:
+                    type: string
+                    description: 'Type of separation (e.g., resignation, termination, retirement)'
+                  separationDate:
+                    type: string
+                    format: date
+                    description: 'Date of the separation'
+                  reason:
+                    type: string
+                    description: 'Reason for the separation'
+                  status:
+                    type: string
+                    description: 'Current status of the separation process (e.g., initiated, completed)'
+                required:
+                  - separationId
+                  - employeeId
+                  - separationType
+                  - separationDate
+                  - status
+    put:
+      summary: 'Update an existing separation process'
+      description: 'Updates details of an existing employee separation process by its ID.'
+      parameters:
+        - name: 'separationId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                  description: 'Unique identifier for the employee'
+                separationType:
+                  type: string
+                  description: 'Type of separation (e.g., resignation, termination, retirement)'
+                separationDate:
+                  type: string
+                  format: date
+                  description: 'Date of the separation'
+                reason:
+                  type: string
+                  description: 'Reason for the separation'
+                status:
+                  type: string
+                  description: 'Current status of the separation process (e.g., initiated, completed)'
+              required:
+                - employeeId
+                - separationType
+                - separationDate
+                - status
+      responses:
+        '200':
+          description: 'Separation process updated successfully'
+    delete:
+      summary: 'Delete a separation process'
+      description: 'Deletes an employee separation process from the retail system by its ID.'
+      parameters:
+        - name: 'separationId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Separation process deleted successfully'

@@ -1,0 +1,113 @@
+openapi: 3.0.0
+info:
+  title: 'Strategic Supplier Contract Management in Retail'
+  description: 'API for managing strategic supplier contracts in retail, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/supplier/contract/strategic/manage':
+    post:
+      summary: 'Manage strategic supplier contracts'
+      description: 'Facilitates the management of strategic supplier contracts in retail.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                contract_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      supplier_id:
+                        type: string
+                      contract_terms:
+                        type: object
+                        properties:
+                          duration:
+                            type: string
+                          pricing_model:
+                            type: string
+                          payment_terms:
+                            type: string
+                      contract_status:
+                        type: string
+                        enum: ['Active', 'Expired', 'Under Review']
+      responses:
+        '200':
+          description: 'Strategic supplier contracts managed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_contract_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        supplier_id:
+                          type: string
+                        contract_terms:
+                          type: object
+                          properties:
+                            duration:
+                              type: string
+                            pricing_model:
+                              type: string
+                            payment_terms:
+                              type: string
+                        contract_status:
+                          type: string
+                          enum: ['Active', 'Expired', 'Under Review']
+  '/supplier/contract/strategic/search':
+    get:
+      summary: 'Search strategic supplier contract data'
+      description: 'Search for strategic supplier contract data based on supplier ID or contract status.'
+      parameters:
+        - name: 'supplier_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the supplier to search for'
+        - name: 'contract_status'
+          in: query
+          schema:
+            type: string
+            enum: ['Active', 'Expired', 'Under Review']
+          required: false
+          description: 'Status of the contract to search for'
+      responses:
+        '200':
+          description: 'Strategic supplier contract data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    supplier_id:
+                      type: string
+                    contract_terms:
+                      type: object
+                      properties:
+                        duration:
+                          type: string
+                        pricing_model:
+                          type: string
+                        payment_terms:
+                          type: string
+                    contract_status:
+                      type: string
+                      enum: ['Active', 'Expired', 'Under Review']

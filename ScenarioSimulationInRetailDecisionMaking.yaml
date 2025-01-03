@@ -1,0 +1,180 @@
+openapi: 3.0.0
+info:
+  title: Scenario Simulation In Retail Decision Making
+  version: 1.0.0
+  description: >
+    API to manage scenario simulation in retail decision-making, enabling businesses
+    to model and evaluate different scenarios to make informed and strategic decisions.
+
+paths:
+  '/scenario-simulation/retail-decision-making':
+    get:
+      summary: Retrieve scenario simulation data
+      description: Fetch details of simulated scenarios and their outcomes for retail decision-making.
+      responses:
+        '200':
+          description: Successful retrieval of scenario simulation data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the scenario simulation.
+                  scenarioName:
+                    type: string
+                    description: Name of the simulated scenario.
+                  scenarioDescription:
+                    type: string
+                    description: Description of the simulated scenario.
+                  simulationResults:
+                    type: object
+                    properties:
+                      projectedRevenue:
+                        type: number
+                        description: Projected revenue for the scenario.
+                      projectedCost:
+                        type: number
+                        description: Projected cost for the scenario.
+                      riskLevel:
+                        type: string
+                        description: Risk level of the scenario (e.g., low, medium, high).
+                  recommendations:
+                    type: array
+                    items:
+                      type: string
+                    description: Recommendations based on the simulation results.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the simulation.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/scenario-simulation/retail-decision-making/submit':
+    post:
+      summary: Submit data for scenario simulation
+      description: Submit data for simulating scenarios in retail decision-making.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                scenarioName:
+                  type: string
+                  description: Name of the scenario to simulate.
+                scenarioDescription:
+                  type: string
+                  description: Description of the scenario to simulate.
+                simulationParameters:
+                  type: object
+                  properties:
+                    projectedRevenue:
+                      type: number
+                      description: Projected revenue for the scenario.
+                    projectedCost:
+                      type: number
+                      description: Projected cost for the scenario.
+                    riskFactors:
+                      type: array
+                      items:
+                        type: string
+                      description: Risk factors associated with the scenario.
+                  required:
+                    - projectedRevenue
+                    - projectedCost
+                    - riskFactors
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the scenario.
+              required:
+                - scenarioName
+                - scenarioDescription
+                - simulationParameters
+      responses:
+        '201':
+          description: Scenario simulation data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the submitted simulation.
+                  status:
+                    type: string
+                    description: Status of the simulation (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/scenario-simulation/retail-decision-making/reports':
+    get:
+      summary: Retrieve scenario simulation reports
+      description: Fetch detailed reports on scenario simulations for retail decision-making.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the scenario simulation report.
+      responses:
+        '200':
+          description: Successful retrieval of scenario simulation reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the scenario simulation report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    simulatedScenarios:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          scenarioName:
+                            type: string
+                            description: Name of the simulated scenario.
+                          scenarioDescription:
+                            type: string
+                            description: Description of the simulated scenario.
+                          simulationResults:
+                            type: object
+                            properties:
+                              projectedRevenue:
+                                type: number
+                                description: Projected revenue for the scenario.
+                              projectedCost:
+                                type: number
+                                description: Projected cost for the scenario.
+                              riskLevel:
+                                type: string
+                                description: Risk level of the scenario.
+                          recommendations:
+                            type: array
+                            items:
+                              type: string
+                            description: Recommendations based on the simulation results.
+                    overallScenarioAssessment:
+                      type: string
+                      description: Overall assessment of simulated scenarios during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

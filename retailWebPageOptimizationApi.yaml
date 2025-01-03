@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: 'Retail Web Page Optimization'
+  version: 1.0.0
+  description: 'API for managing Retail Web Page Optimization processes to enhance customer experience and engagement on retail websites.'
+paths:
+  '/web-page-optimization':
+    get:
+      summary: 'Retrieve web page optimization data'
+      description: 'Fetch available web page optimization data and insights.'
+      responses:
+        '200':
+          description: 'Successful retrieval of web page optimization data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 15
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Customer Experience'
+                  process_group:
+                    type: string
+                    example: 'Manage customer relationship'
+                  process_name:
+                    type: string
+                    example: 'Retail Web Page Optimization'
+                  creation:
+                    type: string
+                    example: 'Minor'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  search:
+                    type: string
+                    example: 'Major'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/web-page-optimization/search':
+    get:
+      summary: 'Search for web page optimization metrics'
+      description: 'Search for specific web page optimization metrics based on criteria.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'Page Load Time'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Metric A', 'Metric B']
+  '/web-page-optimization/automate':
+    post:
+      summary: 'Automate web page optimization analysis'
+      description: 'Trigger minor automation for analyzing web page optimization data.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Web page optimization analysis automation process started successfully.'
+  '/web-page-optimization/summarize':
+    get:
+      summary: 'Summarize web page optimization data'
+      description: 'Generate a summary of web page optimization insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Web page optimization analysis shows a 25% improvement in page load time.'

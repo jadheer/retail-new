@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: 'Retail Store Optimization Analysis'
+  version: 1.0.0
+  description: 'API for managing Retail Store Optimization Analysis processes to enhance retail store performance and customer experience.'
+paths:
+  '/retail-store-optimization':
+    get:
+      summary: 'Retrieve retail store optimization data'
+      description: 'Fetch available retail store optimization data and insights.'
+      responses:
+        '200':
+          description: 'Successful retrieval of retail store optimization data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 13
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Customer Experience'
+                  process_group:
+                    type: string
+                    example: 'Develop and manage retail store channel'
+                  process_name:
+                    type: string
+                    example: 'Retail Store Optimization Analysis'
+                  creation:
+                    type: string
+                    example: 'Minor'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  search:
+                    type: string
+                    example: 'Major'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/retail-store-optimization/search':
+    get:
+      summary: 'Search for retail store optimization data'
+      description: 'Search for specific retail store optimization data based on criteria.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'Store Layout Efficiency'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Store A Optimization', 'Store B Optimization']
+  '/retail-store-optimization/automate':
+    post:
+      summary: 'Automate retail store optimization analysis'
+      description: 'Trigger minor automation for analyzing retail store optimization data.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Retail store optimization analysis automation process started successfully.'
+  '/retail-store-optimization/summarize':
+    get:
+      summary: 'Summarize retail store optimization data'
+      description: 'Generate a summary of retail store optimization insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Retail store optimization analysis shows a 10% improvement in customer flow.'

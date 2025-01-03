@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  title: 'Virtual Try-On for Enhanced Online Shopping'
+  version: 1.0.0
+  description: 'API for managing the Virtual Try-On process in the retail domain to enhance online shopping experiences.'
+paths:
+  '/virtual-try-on':
+    get:
+      summary: 'Retrieve virtual try-on options'
+      description: 'Fetch available virtual try-on options for online shopping.'
+      responses:
+        '200':
+          description: 'Successful retrieval of virtual try-on options'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 1
+                  retail_domain_category:
+                    type: string
+                    example: 'Deliver Products'
+                  process_group:
+                    type: string
+                    example: 'Manage direct-to-store-delivery'
+                  creation:
+                    type: string
+                    example: 'Major'
+                  automation:
+                    type: string
+                    example: 'Major'
+  '/virtual-try-on/automate':
+    post:
+      summary: 'Automate virtual try-on process'
+      description: 'Trigger automation for the virtual try-on process to enhance online shopping.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Virtual try-on automation process started successfully.'
+  '/virtual-try-on/create':
+    post:
+      summary: 'Create a new virtual try-on experience'
+      description: 'Create a new virtual try-on experience for online shoppers.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_id:
+                  type: string
+                  example: '12345'
+                try_on_type:
+                  type: string
+                  example: '3D Virtual Try-On'
+      responses:
+        '201':
+          description: 'Virtual try-on experience created successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Virtual try-on experience created successfully.'

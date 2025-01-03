@@ -1,0 +1,53 @@
+openapi: 3.0.0
+info:
+  title: Streamlining Employee Requisition in Retail
+  description: API for automating and streamlining employee requisition in the retail domain.
+  version: 1.0.0
+paths:
+  '/streamline-employee-requisition':
+    get:
+      summary: Retrieve details about employee requisitions
+      description: Fetch data related to employee requisition processes in the retail domain.
+      parameters:
+        - name: requisitionId
+          in: query
+          required: false
+          schema:
+            type: string
+            example: REQ12345
+      responses:
+        '200':
+          description: Successfully retrieved requisition details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  requisitionId:
+                    type: string
+                  employeeName:
+                    type: string
+                  status:
+                    type: string
+    post:
+      summary: Create a new employee requisition
+      description: Add a new requisition for an employee in the retail domain.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeName:
+                  type: string
+                department:
+                  type: string
+                requisitionType:
+                  type: string
+      responses:
+        '201':
+          description: Requisition created successfully.
+        '400':
+          description: Invalid input data.
+

@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: 'Testing for IT Services and Solutions'
+  description: 'This API is designed to manage testing processes for IT services and solutions, enabling organizations to conduct and track tests such as performance testing, security testing, and functional testing. It supports the creation, retrieval, updating, and deletion of test records to ensure quality and reliability of IT services.'
+  version: 1.0.0
+paths:
+  '/it-service-tests':
+    get:
+      summary: 'Retrieve a list of IT service tests'
+      description: 'Fetches a list of all tests conducted for IT services and solutions.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    testId:
+                      type: string
+                      description: 'Unique identifier for the IT service test'
+                    testName:
+                      type: string
+                      description: 'Name of the test (e.g., performance testing, security testing, functional testing)'
+                    testDate:
+                      type: string
+                      format: date
+                      description: 'Date the test was conducted'
+                    testResult:
+                      type: string
+                      description: 'Result of the test (e.g., passed, failed, inconclusive)'
+                    status:
+                      type: string
+                      description: 'Status of the test (e.g., completed, in-progress, pending)'
+                  required:
+                    - testId
+                    - testName
+                    - testDate
+                    - status
+    post:
+      summary: 'Add a new IT service test'
+      description: 'Adds a new test for IT services and solutions to the system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                testName:
+                  type: string
+                  description: 'Name of the test (e.g., performance testing, security testing, functional testing)'
+                testDate:
+                  type: string
+                  format: date
+                  description: 'Date the test was conducted'
+                testResult:
+                  type: string
+                  description: 'Result of the test (e.g., passed, failed, inconclusive)'
+                status:
+                  type: string
+                  description: 'Status of the test (e.g., completed, in-progress, pending)'
+              required:
+                - testName
+                - testDate
+                - status
+      responses:
+        '201':
+          description: 'IT service test created successfully'
+  '/it-service-tests/{testId}':
+    get:
+      summary: 'Retrieve details of a specific IT service test'
+      description: 'Fetches details of a specific IT service test by its ID.'
+      parameters:
+        - name: 'testId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  testId:
+                    type: string
+                    description: 'Unique identifier for the IT service test'
+                  testName:
+                    type: string
+                    description: 'Name of the test (e.g., performance testing, security testing, functional testing)'
+                  testDate:
+                    type: string
+                    format: date
+                    description: 'Date the test was conducted'
+                  testResult:
+                    type: string
+                    description: 'Result of the test (e.g., passed, failed, inconclusive)'
+                  status:
+                    type: string
+                    description: 'Status of the test (e.g., completed, in-progress, pending)'
+                required:
+                  - testId
+                  - testName
+                  - testDate
+                  - status
+    put:
+      summary: 'Update an existing IT service test'
+      description: 'Updates details of an existing IT service test by its ID.'
+      parameters:
+        - name: 'testId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                testName:
+                  type: string
+                  description: 'Name of the test (e.g., performance testing, security testing, functional testing)'
+                testDate:
+                  type: string
+                  format: date
+                  description: 'Date the test was conducted'
+                testResult:
+                  type: string
+                  description: 'Result of the test (e.g., passed, failed, inconclusive)'
+                status:
+                  type: string
+                  description: 'Status of the test (e.g., completed, in-progress, pending)'
+              required:
+                - testName
+                - testDate
+                - status
+      responses:
+        '200':
+          description: 'IT service test updated successfully'
+    delete:
+      summary: 'Delete an IT service test'
+      description: 'Deletes an IT service test from the system by its ID.'
+      parameters:
+        - name: 'testId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'IT service test deleted successfully'

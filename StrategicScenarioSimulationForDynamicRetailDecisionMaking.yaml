@@ -1,0 +1,121 @@
+openapi: 3.0.0
+info:
+  title: Strategic Scenario Simulation For Dynamic Retail Decision Making
+  version: 1.0.0
+  description: >
+    API to enable dynamic simulation of retail scenarios for strategic decision-making,
+    assisting in asset planning, acquisition, and efficient resource allocation.
+
+paths:
+  '/simulation/scenarios':
+    post:
+      summary: Simulate retail scenarios
+      description: Create and execute simulations to analyze various retail planning and acquisition strategies.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                scenarioName:
+                  type: string
+                  description: Name of the simulation scenario.
+                parameters:
+                  type: object
+                  additionalProperties:
+                    type: number
+                  description: Key-value pairs of simulation parameters and their values.
+                timeHorizon:
+                  type: string
+                  description: Time period for the simulation (e.g., Q1 2024, FY 2025).
+              required:
+                - scenarioName
+                - parameters
+      responses:
+        '201':
+          description: Simulation scenario successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scenarioId:
+                    type: string
+                    description: Unique identifier for the created simulation scenario.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., pending, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/simulation/results':
+    get:
+      summary: Retrieve simulation results
+      description: Fetch results and insights from executed simulation scenarios for strategic decision-making.
+      parameters:
+        - name: scenarioId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the simulation scenario.
+      responses:
+        '200':
+          description: Successful retrieval of simulation results.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scenarioId:
+                    type: string
+                    description: Unique identifier of the simulation scenario.
+                  insights:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        metric:
+                          type: string
+                          description: Name of the performance metric (e.g., ROI, cost savings).
+                        value:
+                          type: number
+                          description: Value of the metric as a result of the simulation.
+                        recommendations:
+                          type: string
+                          description: Suggested actions based on the results.
+        '400':
+          description: Missing or invalid scenarioId parameter.
+        '500':
+          description: Internal server error.
+
+  '/simulation/parameters':
+    get:
+      summary: Retrieve simulation parameters
+      description: Get a list of available parameters for creating retail simulation scenarios.
+      responses:
+        '200':
+          description: Successful retrieval of simulation parameters.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    parameterName:
+                      type: string
+                      description: Name of the simulation parameter.
+                    description:
+                      type: string
+                      description: Details about the parameter and its purpose.
+                    valueRange:
+                      type: string
+                      description: Allowed range or set of values for the parameter.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.

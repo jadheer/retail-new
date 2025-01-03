@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: 'Strategic IT Portfolio Optimization'
+  description: 'This API is designed to optimize IT portfolio management, enabling organizations to strategically manage items such as cloud migration, ERP upgrades, and cybersecurity initiatives. It supports the creation, retrieval, updating, and deletion of IT portfolio items to ensure alignment with business goals and operational efficiency.'
+  version: 1.0.0
+paths:
+  '/it-portfolio-items':
+    get:
+      summary: 'Retrieve a list of IT portfolio items'
+      description: 'Fetches a list of all IT portfolio items being optimized.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    itemId:
+                      type: string
+                      description: 'Unique identifier for the IT portfolio item'
+                    itemName:
+                      type: string
+                      description: 'Name of the portfolio item (e.g., cloud migration, ERP upgrade, cybersecurity initiative)'
+                    category:
+                      type: string
+                      description: 'Category of the item (e.g., infrastructure, applications, security)'
+                    createdDate:
+                      type: string
+                      format: date
+                      description: 'Date the item was added to the portfolio'
+                    lastUpdatedDate:
+                      type: string
+                      format: date
+                      description: 'Date the item was last updated'
+                    status:
+                      type: string
+                      description: 'Status of the item (e.g., active, completed, on hold)'
+                  required:
+                    - itemId
+                    - itemName
+                    - category
+                    - createdDate
+                    - status
+    post:
+      summary: 'Add a new IT portfolio item'
+      description: 'Adds a new IT portfolio item to the system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                itemName:
+                  type: string
+                  description: 'Name of the portfolio item (e.g., cloud migration, ERP upgrade, cybersecurity initiative)'
+                category:
+                  type: string
+                  description: 'Category of the item (e.g., infrastructure, applications, security)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the item was added to the portfolio'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the item was last updated'
+                status:
+                  type: string
+                  description: 'Status of the item (e.g., active, completed, on hold)'
+              required:
+                - itemName
+                - category
+                - createdDate
+                - status
+      responses:
+        '201':
+          description: 'IT portfolio item created successfully'
+  '/it-portfolio-items/{itemId}':
+    get:
+      summary: 'Retrieve details of a specific IT portfolio item'
+      description: 'Fetches details of a specific IT portfolio item by its ID.'
+      parameters:
+        - name: 'itemId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  itemId:
+                    type: string
+                    description: 'Unique identifier for the IT portfolio item'
+                  itemName:
+                    type: string
+                    description: 'Name of the portfolio item (e.g., cloud migration, ERP upgrade, cybersecurity initiative)'
+                  category:
+                    type: string
+                    description: 'Category of the item (e.g., infrastructure, applications, security)'
+                  createdDate:
+                    type: string
+                    format: date
+                    description: 'Date the item was added to the portfolio'
+                  lastUpdatedDate:
+                    type: string
+                    format: date
+                    description: 'Date the item was last updated'
+                  status:
+                    type: string
+                    description: 'Status of the item (e.g., active, completed, on hold)'
+                required:
+                  - itemId
+                  - itemName
+                  - category
+                  - createdDate
+                  - status
+    put:
+      summary: 'Update an existing IT portfolio item'
+      description: 'Updates details of an existing IT portfolio item by its ID.'
+      parameters:
+        - name: 'itemId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                itemName:
+                  type: string
+                  description: 'Name of the portfolio item (e.g., cloud migration, ERP upgrade, cybersecurity initiative)'
+                category:
+                  type: string
+                  description: 'Category of the item (e.g., infrastructure, applications, security)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the item was added to the portfolio'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the item was last updated'
+                status:
+                  type: string
+                  description: 'Status of the item (e.g., active, completed, on hold)'
+              required:
+                - itemName
+                - category
+                - createdDate
+                - status
+      responses:
+        '200':
+          description: 'IT portfolio item updated successfully'
+    delete:
+      summary: 'Delete an IT portfolio item'
+      description: 'Deletes an IT portfolio item from the system by its ID.'
+      parameters:
+        - name: 'itemId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'IT portfolio item deleted successfully'

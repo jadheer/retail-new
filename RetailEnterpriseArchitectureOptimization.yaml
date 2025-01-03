@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: 'Retail Enterprise Architecture Optimization'
+  description: 'This API is designed to optimize enterprise architecture in the retail sector, enabling organizations to manage and enhance their IT infrastructure, applications, and processes. It supports the creation, retrieval, updating, and deletion of architecture components to ensure alignment with business goals and operational efficiency.'
+  version: 1.0.0
+paths:
+  '/architecture-components':
+    get:
+      summary: 'Retrieve a list of architecture components'
+      description: 'Fetches a list of all architecture components being optimized in the retail enterprise architecture.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    componentId:
+                      type: string
+                      description: 'Unique identifier for the architecture component'
+                    componentName:
+                      type: string
+                      description: 'Name of the component (e.g., ERP system, cloud infrastructure, data warehouse)'
+                    category:
+                      type: string
+                      description: 'Category of the component (e.g., infrastructure, applications, data)'
+                    createdDate:
+                      type: string
+                      format: date
+                      description: 'Date the component was added to the architecture'
+                    lastUpdatedDate:
+                      type: string
+                      format: date
+                      description: 'Date the component was last updated'
+                    status:
+                      type: string
+                      description: 'Status of the component (e.g., active, deprecated, under review)'
+                  required:
+                    - componentId
+                    - componentName
+                    - category
+                    - createdDate
+                    - status
+    post:
+      summary: 'Add a new architecture component'
+      description: 'Adds a new architecture component to the retail enterprise architecture.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                componentName:
+                  type: string
+                  description: 'Name of the component (e.g., ERP system, cloud infrastructure, data warehouse)'
+                category:
+                  type: string
+                  description: 'Category of the component (e.g., infrastructure, applications, data)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the component was added to the architecture'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the component was last updated'
+                status:
+                  type: string
+                  description: 'Status of the component (e.g., active, deprecated, under review)'
+              required:
+                - componentName
+                - category
+                - createdDate
+                - status
+      responses:
+        '201':
+          description: 'Architecture component created successfully'
+  '/architecture-components/{componentId}':
+    get:
+      summary: 'Retrieve details of a specific architecture component'
+      description: 'Fetches details of a specific architecture component by its ID.'
+      parameters:
+        - name: 'componentId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  componentId:
+                    type: string
+                    description: 'Unique identifier for the architecture component'
+                  componentName:
+                    type: string
+                    description: 'Name of the component (e.g., ERP system, cloud infrastructure, data warehouse)'
+                  category:
+                    type: string
+                    description: 'Category of the component (e.g., infrastructure, applications, data)'
+                  createdDate:
+                    type: string
+                    format: date
+                    description: 'Date the component was added to the architecture'
+                  lastUpdatedDate:
+                    type: string
+                    format: date
+                    description: 'Date the component was last updated'
+                  status:
+                    type: string
+                    description: 'Status of the component (e.g., active, deprecated, under review)'
+                required:
+                  - componentId
+                  - componentName
+                  - category
+                  - createdDate
+                  - status
+    put:
+      summary: 'Update an existing architecture component'
+      description: 'Updates details of an existing architecture component by its ID.'
+      parameters:
+        - name: 'componentId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                componentName:
+                  type: string
+                  description: 'Name of the component (e.g., ERP system, cloud infrastructure, data warehouse)'
+                category:
+                  type: string
+                  description: 'Category of the component (e.g., infrastructure, applications, data)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the component was added to the architecture'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the component was last updated'
+                status:
+                  type: string
+                  description: 'Status of the component (e.g., active, deprecated, under review)'
+              required:
+                - componentName
+                - category
+                - createdDate
+                - status
+      responses:
+        '200':
+          description: 'Architecture component updated successfully'
+    delete:
+      summary: 'Delete an architecture component'
+      description: 'Deletes an architecture component from the retail enterprise architecture by its ID.'
+      parameters:
+        - name: 'componentId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Architecture component deleted successfully'

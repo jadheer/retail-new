@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Strategic Abandonment Decisions In Retail
+  version: 1.0.0
+  description: >
+    API to manage and optimize strategic abandonment decisions in retail environments,
+    ensuring efficient asset disposal, cost reduction, and alignment with business objectives.
+
+paths:
+  '/abandonment/strategic':
+    get:
+      summary: Analyze strategic abandonment decisions
+      description: Retrieve analysis and recommendations for improving strategic abandonment decisions in retail.
+      responses:
+        '200':
+          description: Successful retrieval of strategic abandonment data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalAssetsConsidered:
+                    type: integer
+                    description: Total number of assets considered for abandonment.
+                  assetsAbandoned:
+                    type: integer
+                    description: Number of assets successfully abandoned.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        assetType:
+                          type: string
+                          description: Type of asset (e.g., store locations, equipment, inventory).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the asset type.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/abandonment/simulation':
+    post:
+      summary: Simulate strategic abandonment scenarios
+      description: Create and simulate scenarios for optimizing strategic abandonment decisions in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                assetCategories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories of assets (e.g., store locations, equipment, inventory).
+                abandonmentStrategies:
+                  type: array
+                  items:
+                    type: string
+                  description: Strategies for abandonment (e.g., liquidation, resale, donation).
+              required:
+                - storeId
+                - assetCategories
+                - abandonmentStrategies
+      responses:
+        '201':
+          description: Strategic abandonment simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the strategic abandonment simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/abandonment':
+    get:
+      summary: Retrieve strategic abandonment optimization suggestions
+      description: Get strategic abandonment optimization recommendations based on analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of strategic abandonment optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    assetType:
+                      type: string
+                      description: Type of asset (e.g., store locations, equipment, inventory).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for strategic abandonment decisions.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., cost savings, improved efficiency).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

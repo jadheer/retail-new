@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Strategic Technology Forecasting in Retail'
+  description: 'This API is designed to enable strategic technology forecasting in retail, leveraging AI and machine learning to predict future technology trends. It supports the creation, retrieval, updating, and deletion of technology forecasting records.'
+  version: 1.0.0
+paths:
+  '/technology-forecasting-records':
+    get:
+      summary: 'Retrieve a list of technology forecasting records'
+      description: 'Fetches a list of all strategic technology forecasting records in retail.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the technology forecasting record'
+                    processName:
+                      type: string
+                      description: 'Name of the process (e.g., strategic technology forecasting)'
+                    forecastingDate:
+                      type: string
+                      format: date
+                      description: 'Date the technology forecasting was performed'
+                    status:
+                      type: string
+                      description: 'Status of the forecasting (e.g., active, inactive, under review)'
+                  required:
+                    - recordId
+                    - processName
+                    - forecastingDate
+                    - status
+    post:
+      summary: 'Add a new technology forecasting record'
+      description: 'Adds a new strategic technology forecasting record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., strategic technology forecasting)'
+                forecastingDate:
+                  type: string
+                  format: date
+                  description: 'Date the technology forecasting was performed'
+                status:
+                  type: string
+                  description: 'Status of the forecasting (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - forecastingDate
+                - status
+      responses:
+        '201':
+          description: 'Technology forecasting record created successfully'
+  '/technology-forecasting-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific technology forecasting record'
+      description: 'Fetches details of a specific strategic technology forecasting record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the technology forecasting record'
+                  processName:
+                    type: string
+                    description: 'Name of the process (e.g., strategic technology forecasting)'
+                  forecastingDate:
+                    type: string
+                    format: date
+                    description: 'Date the technology forecasting was performed'
+                  status:
+                    type: string
+                    description: 'Status of the forecasting (e.g., active, inactive, under review)'
+                required:
+                  - recordId
+                  - processName
+                  - forecastingDate
+                  - status
+    put:
+      summary: 'Update an existing technology forecasting record'
+      description: 'Updates details of an existing strategic technology forecasting record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., strategic technology forecasting)'
+                forecastingDate:
+                  type: string
+                  format: date
+                  description: 'Date the technology forecasting was performed'
+                status:
+                  type: string
+                  description: 'Status of the forecasting (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - forecastingDate
+                - status
+      responses:
+        '200':
+          description: 'Technology forecasting record updated successfully'
+    delete:
+      summary: 'Delete a technology forecasting record'
+      description: 'Deletes a strategic technology forecasting record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Technology forecasting record deleted successfully'

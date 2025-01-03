@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: Sentiment Analysis On Regulatory Changes In Retail
+  version: 1.0.0
+  description: >
+    API to manage sentiment analysis on regulatory changes in retail, enabling businesses
+    to gauge public and stakeholder reactions and adapt their strategies accordingly.
+
+paths:
+  '/sentiment-analysis/regulatory-changes':
+    get:
+      summary: Retrieve sentiment analysis data
+      description: Fetch sentiment analysis results on regulatory changes affecting retail.
+      responses:
+        '200':
+          description: Successful retrieval of sentiment analysis data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analysisId:
+                    type: string
+                    description: Unique identifier of the sentiment analysis.
+                  regulatoryChange:
+                    type: string
+                    description: Description of the regulatory change being analyzed.
+                  sentimentScore:
+                    type: number
+                    description: Overall sentiment score (ranging from -1 to 1).
+                  sentimentBreakdown:
+                    type: object
+                    properties:
+                      positive:
+                        type: number
+                        description: Percentage of positive sentiment.
+                      neutral:
+                        type: number
+                        description: Percentage of neutral sentiment.
+                      negative:
+                        type: number
+                        description: Percentage of negative sentiment.
+                  keyInsights:
+                    type: array
+                    items:
+                      type: string
+                    description: Key insights derived from the sentiment analysis.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the analysis.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/sentiment-analysis/regulatory-changes/submit':
+    post:
+      summary: Submit data for sentiment analysis
+      description: Submit data for sentiment analysis on regulatory changes in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                regulatoryChange:
+                  type: string
+                  description: Description of the regulatory change being analyzed.
+                dataSources:
+                  type: array
+                  items:
+                    type: string
+                  description: Sources of data for the sentiment analysis (e.g., social media, news).
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the sentiment data.
+              required:
+                - regulatoryChange
+                - dataSources
+      responses:
+        '201':
+          description: Sentiment analysis data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analysisId:
+                    type: string
+                    description: Unique identifier of the submitted analysis.
+                  status:
+                    type: string
+                    description: Status of the analysis (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/sentiment-analysis/regulatory-changes/reports':
+    get:
+      summary: Retrieve sentiment analysis reports
+      description: Fetch detailed reports on sentiment analysis for regulatory changes.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the sentiment analysis report.
+      responses:
+        '200':
+          description: Successful retrieval of sentiment analysis reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the sentiment analysis report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    analyzedChanges:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          regulatoryChange:
+                            type: string
+                            description: Description of the regulatory change.
+                          sentimentScore:
+                            type: number
+                            description: Overall sentiment score.
+                          sentimentBreakdown:
+                            type: object
+                            properties:
+                              positive:
+                                type: number
+                                description: Percentage of positive sentiment.
+                              neutral:
+                                type: number
+                                description: Percentage of neutral sentiment.
+                              negative:
+                                type: number
+                                description: Percentage of negative sentiment.
+                    overallSentimentTrend:
+                      type: string
+                      description: Overall trend in sentiment during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

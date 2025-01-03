@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Strategic Retail Forecasting and Decision-Making'
+  description: 'This API is designed to enable strategic retail forecasting and decision-making, leveraging AI and machine learning to predict trends and support decision-making processes. It supports the creation, retrieval, updating, and deletion of forecasting and decision-making records.'
+  version: 1.0.0
+paths:
+  '/forecasting-decision-records':
+    get:
+      summary: 'Retrieve a list of forecasting and decision-making records'
+      description: 'Fetches a list of all strategic retail forecasting and decision-making records.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the forecasting and decision-making record'
+                    processName:
+                      type: string
+                      description: 'Name of the process (e.g., strategic retail forecasting and decision-making)'
+                    forecastDate:
+                      type: string
+                      format: date
+                      description: 'Date the forecasting and decision-making was performed'
+                    status:
+                      type: string
+                      description: 'Status of the forecast (e.g., active, inactive, under review)'
+                  required:
+                    - recordId
+                    - processName
+                    - forecastDate
+                    - status
+    post:
+      summary: 'Add a new forecasting and decision-making record'
+      description: 'Adds a new strategic retail forecasting and decision-making record to the system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., strategic retail forecasting and decision-making)'
+                forecastDate:
+                  type: string
+                  format: date
+                  description: 'Date the forecasting and decision-making was performed'
+                status:
+                  type: string
+                  description: 'Status of the forecast (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - forecastDate
+                - status
+      responses:
+        '201':
+          description: 'Forecasting and decision-making record created successfully'
+  '/forecasting-decision-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific forecasting and decision-making record'
+      description: 'Fetches details of a specific strategic retail forecasting and decision-making record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the forecasting and decision-making record'
+                  processName:
+                    type: string
+                    description: 'Name of the process (e.g., strategic retail forecasting and decision-making)'
+                  forecastDate:
+                    type: string
+                    format: date
+                    description: 'Date the forecasting and decision-making was performed'
+                  status:
+                    type: string
+                    description: 'Status of the forecast (e.g., active, inactive, under review)'
+                required:
+                  - recordId
+                  - processName
+                  - forecastDate
+                  - status
+    put:
+      summary: 'Update an existing forecasting and decision-making record'
+      description: 'Updates details of an existing strategic retail forecasting and decision-making record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., strategic retail forecasting and decision-making)'
+                forecastDate:
+                  type: string
+                  format: date
+                  description: 'Date the forecasting and decision-making was performed'
+                status:
+                  type: string
+                  description: 'Status of the forecast (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - forecastDate
+                - status
+      responses:
+        '200':
+          description: 'Forecasting and decision-making record updated successfully'
+    delete:
+      summary: 'Delete a forecasting and decision-making record'
+      description: 'Deletes a strategic retail forecasting and decision-making record from the system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Forecasting and decision-making record deleted successfully'

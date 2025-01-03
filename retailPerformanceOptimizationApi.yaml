@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: 'Retail Performance Optimization through Multichannel Data Analysis'
+  version: 1.0.0
+  description: 'API for managing Retail Performance Optimization processes by analyzing multichannel data to enhance customer experience.'
+paths:
+  '/retail-performance':
+    get:
+      summary: 'Retrieve retail performance data'
+      description: 'Fetch available retail performance data from multichannel analysis.'
+      responses:
+        '200':
+          description: 'Successful retrieval of retail performance data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 12
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Customer Experience'
+                  process_group:
+                    type: string
+                    example: 'Develop and manage omni channel'
+                  process_name:
+                    type: string
+                    example: 'Retail Performance Optimization through Multichannel Data Analysis'
+                  creation:
+                    type: string
+                    example: 'Minor'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  search:
+                    type: string
+                    example: 'Major'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/retail-performance/search':
+    get:
+      summary: 'Search for multichannel performance data'
+      description: 'Search for specific multichannel performance data based on criteria.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'Sales Performance'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Channel A Performance', 'Channel B Performance']
+  '/retail-performance/automate':
+    post:
+      summary: 'Automate multichannel data analysis'
+      description: 'Trigger minor automation for analyzing multichannel retail performance data.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Multichannel data analysis automation process started successfully.'
+  '/retail-performance/summarize':
+    get:
+      summary: 'Summarize multichannel performance data'
+      description: 'Generate a summary of multichannel retail performance insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Multichannel analysis shows a 15% increase in online sales.'

@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Strategic Business Intelligence Enhancement'
+  description: 'This API is designed to enhance business intelligence initiatives, enabling organizations to strategically manage initiatives such as data visualization, predictive analytics, and KPI dashboards. It supports the creation, retrieval, updating, and deletion of initiatives to drive data-driven decision-making and operational efficiency.'
+  version: 1.0.0
+paths:
+  '/business-intelligence-initiatives':
+    get:
+      summary: 'Retrieve a list of business intelligence initiatives'
+      description: 'Fetches a list of all business intelligence initiatives being strategically enhanced.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    initiativeId:
+                      type: string
+                      description: 'Unique identifier for the business intelligence initiative'
+                    initiativeName:
+                      type: string
+                      description: 'Name of the initiative (e.g., data visualization, predictive analytics, KPI dashboards)'
+                    createdDate:
+                      type: string
+                      format: date
+                      description: 'Date the initiative was created'
+                    lastUpdatedDate:
+                      type: string
+                      format: date
+                      description: 'Date the initiative was last updated'
+                    status:
+                      type: string
+                      description: 'Status of the initiative (e.g., active, completed, on hold)'
+                  required:
+                    - initiativeId
+                    - initiativeName
+                    - createdDate
+                    - status
+    post:
+      summary: 'Add a new business intelligence initiative'
+      description: 'Adds a new business intelligence initiative to the system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                initiativeName:
+                  type: string
+                  description: 'Name of the initiative (e.g., data visualization, predictive analytics, KPI dashboards)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the initiative was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the initiative was last updated'
+                status:
+                  type: string
+                  description: 'Status of the initiative (e.g., active, completed, on hold)'
+              required:
+                - initiativeName
+                - createdDate
+                - status
+      responses:
+        '201':
+          description: 'Business intelligence initiative created successfully'
+  '/business-intelligence-initiatives/{initiativeId}':
+    get:
+      summary: 'Retrieve details of a specific business intelligence initiative'
+      description: 'Fetches details of a specific business intelligence initiative by its ID.'
+      parameters:
+        - name: 'initiativeId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  initiativeId:
+                    type: string
+                    description: 'Unique identifier for the business intelligence initiative'
+                  initiativeName:
+                    type: string
+                    description: 'Name of the initiative (e.g., data visualization, predictive analytics, KPI dashboards)'
+                  createdDate:
+                    type: string
+                    format: date
+                    description: 'Date the initiative was created'
+                  lastUpdatedDate:
+                    type: string
+                    format: date
+                    description: 'Date the initiative was last updated'
+                  status:
+                    type: string
+                    description: 'Status of the initiative (e.g., active, completed, on hold)'
+                required:
+                  - initiativeId
+                  - initiativeName
+                  - createdDate
+                  - status
+    put:
+      summary: 'Update an existing business intelligence initiative'
+      description: 'Updates details of an existing business intelligence initiative by its ID.'
+      parameters:
+        - name: 'initiativeId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                initiativeName:
+                  type: string
+                  description: 'Name of the initiative (e.g., data visualization, predictive analytics, KPI dashboards)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the initiative was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the initiative was last updated'
+                status:
+                  type: string
+                  description: 'Status of the initiative (e.g., active, completed, on hold)'
+              required:
+                - initiativeName
+                - createdDate
+                - status
+      responses:
+        '200':
+          description: 'Business intelligence initiative updated successfully'
+    delete:
+      summary: 'Delete a business intelligence initiative'
+      description: 'Deletes a business intelligence initiative from the system by its ID.'
+      parameters:
+        - name: 'initiativeId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Business intelligence initiative deleted successfully'

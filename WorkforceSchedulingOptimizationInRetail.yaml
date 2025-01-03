@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Workforce Scheduling Optimization In Retail
+  version: 1.0.0
+  description: >
+    API to manage and optimize workforce scheduling in retail environments,
+    ensuring efficient staff allocation, reduced labor costs, and improved employee satisfaction.
+
+paths:
+  '/workforce/scheduling':
+    get:
+      summary: Analyze workforce scheduling efficiency
+      description: Retrieve analysis and recommendations for optimizing workforce scheduling in retail.
+      responses:
+        '200':
+          description: Successful retrieval of workforce scheduling data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalEmployees:
+                    type: integer
+                    description: Total number of employees.
+                  scheduledEmployees:
+                    type: integer
+                    description: Number of employees currently scheduled.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        shift:
+                          type: string
+                          description: Shift type (e.g., morning, evening, night).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the shift.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/workforce/simulation':
+    post:
+      summary: Simulate workforce scheduling scenarios
+      description: Create and simulate scenarios for optimizing workforce scheduling in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                shiftTypes:
+                  type: array
+                  items:
+                    type: string
+                  description: Types of shifts (e.g., morning, evening, night).
+                schedulingMethods:
+                  type: array
+                  items:
+                    type: string
+                  description: Methods of scheduling (e.g., fixed, flexible, dynamic).
+              required:
+                - storeId
+                - shiftTypes
+                - schedulingMethods
+      responses:
+        '201':
+          description: Workforce scheduling simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the workforce scheduling simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/workforce':
+    get:
+      summary: Retrieve workforce scheduling optimization suggestions
+      description: Get workforce scheduling optimization recommendations based on analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of workforce scheduling optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    shift:
+                      type: string
+                      description: Shift type (e.g., morning, evening, night).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for workforce scheduling.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., reduced labor costs, improved employee satisfaction).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

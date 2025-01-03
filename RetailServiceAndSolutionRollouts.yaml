@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: 'Retail Service and Solution Rollouts'
+  description: 'This API is designed to manage the rollout of services and solutions in the retail sector, enabling organizations to efficiently deploy systems such as POS, inventory management, and customer engagement platforms. It supports the creation, retrieval, updating, and deletion of rollout records to ensure seamless implementation and operational success.'
+  version: 1.0.0
+paths:
+  '/service-rollouts':
+    get:
+      summary: 'Retrieve a list of service rollouts'
+      description: 'Fetches a list of all retail service and solution rollouts.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    rolloutId:
+                      type: string
+                      description: 'Unique identifier for the service rollout'
+                    serviceName:
+                      type: string
+                      description: 'Name of the service or solution being rolled out (e.g., POS system, inventory management, CRM)'
+                    rolloutDate:
+                      type: string
+                      format: date
+                      description: 'Date the service was rolled out'
+                    status:
+                      type: string
+                      description: 'Status of the rollout (e.g., completed, in-progress, delayed)'
+                    notes:
+                      type: string
+                      description: 'Additional notes or comments about the rollout'
+                  required:
+                    - rolloutId
+                    - serviceName
+                    - rolloutDate
+                    - status
+    post:
+      summary: 'Add a new service rollout'
+      description: 'Adds a new retail service or solution rollout to the system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                serviceName:
+                  type: string
+                  description: 'Name of the service or solution being rolled out (e.g., POS system, inventory management, CRM)'
+                rolloutDate:
+                  type: string
+                  format: date
+                  description: 'Date the service was rolled out'
+                status:
+                  type: string
+                  description: 'Status of the rollout (e.g., completed, in-progress, delayed)'
+                notes:
+                  type: string
+                  description: 'Additional notes or comments about the rollout'
+              required:
+                - serviceName
+                - rolloutDate
+                - status
+      responses:
+        '201':
+          description: 'Service rollout created successfully'
+  '/service-rollouts/{rolloutId}':
+    get:
+      summary: 'Retrieve details of a specific service rollout'
+      description: 'Fetches details of a specific retail service or solution rollout by its ID.'
+      parameters:
+        - name: 'rolloutId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rolloutId:
+                    type: string
+                    description: 'Unique identifier for the service rollout'
+                  serviceName:
+                    type: string
+                    description: 'Name of the service or solution being rolled out (e.g., POS system, inventory management, CRM)'
+                  rolloutDate:
+                    type: string
+                    format: date
+                    description: 'Date the service was rolled out'
+                  status:
+                    type: string
+                    description: 'Status of the rollout (e.g., completed, in-progress, delayed)'
+                  notes:
+                    type: string
+                    description: 'Additional notes or comments about the rollout'
+                required:
+                  - rolloutId
+                  - serviceName
+                  - rolloutDate
+                  - status
+    put:
+      summary: 'Update an existing service rollout'
+      description: 'Updates details of an existing retail service or solution rollout by its ID.'
+      parameters:
+        - name: 'rolloutId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                serviceName:
+                  type: string
+                  description: 'Name of the service or solution being rolled out (e.g., POS system, inventory management, CRM)'
+                rolloutDate:
+                  type: string
+                  format: date
+                  description: 'Date the service was rolled out'
+                status:
+                  type: string
+                  description: 'Status of the rollout (e.g., completed, in-progress, delayed)'
+                notes:
+                  type: string
+                  description: 'Additional notes or comments about the rollout'
+              required:
+                - serviceName
+                - rolloutDate
+                - status
+      responses:
+        '200':
+          description: 'Service rollout updated successfully'
+    delete:
+      summary: 'Delete a service rollout'
+      description: 'Deletes a retail service or solution rollout from the system by its ID.'
+      parameters:
+        - name: 'rolloutId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Service rollout deleted successfully'

@@ -1,0 +1,140 @@
+openapi: 3.0.0
+info:
+  title: 'Strategic Carrier Selection and Contract Negotiation in Retail'
+  description: 'API for strategic carrier selection and contract negotiation in retail, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/carrier/selection-contract/strategic/manage':
+    post:
+      summary: 'Manage strategic carrier selection and contract negotiation'
+      description: 'Facilitates the selection of carriers and negotiation of contracts for retail transportation and logistics.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                carrier_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      carrier_id:
+                        type: string
+                      selection_criteria:
+                        type: object
+                        properties:
+                          cost_efficiency:
+                            type: number
+                          delivery_reliability:
+                            type: number
+                          service_coverage:
+                            type: string
+                      contract_terms:
+                        type: object
+                        properties:
+                          duration:
+                            type: string
+                          pricing_model:
+                            type: string
+                          payment_terms:
+                            type: string
+                      negotiation_status:
+                        type: string
+                        enum: ['Pending', 'In Progress', 'Completed']
+      responses:
+        '200':
+          description: 'Strategic carrier selection and contract negotiation managed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_carrier_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        carrier_id:
+                          type: string
+                        selection_criteria:
+                          type: object
+                          properties:
+                            cost_efficiency:
+                              type: number
+                            delivery_reliability:
+                              type: number
+                            service_coverage:
+                              type: string
+                        contract_terms:
+                          type: object
+                          properties:
+                            duration:
+                              type: string
+                            pricing_model:
+                              type: string
+                            payment_terms:
+                              type: string
+                        negotiation_status:
+                          type: string
+                          enum: ['Pending', 'In Progress', 'Completed']
+  '/carrier/selection-contract/strategic/search':
+    get:
+      summary: 'Search strategic carrier selection and contract data'
+      description: 'Search for strategic carrier selection and contract data based on carrier ID or negotiation status.'
+      parameters:
+        - name: 'carrier_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the carrier to search for'
+        - name: 'negotiation_status'
+          in: query
+          schema:
+            type: string
+            enum: ['Pending', 'In Progress', 'Completed']
+          required: false
+          description: 'Status of the negotiation to search for'
+      responses:
+        '200':
+          description: 'Strategic carrier selection and contract data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    carrier_id:
+                      type: string
+                    selection_criteria:
+                      type: object
+                      properties:
+                        cost_efficiency:
+                          type: number
+                        delivery_reliability:
+                          type: number
+                        service_coverage:
+                          type: string
+                    contract_terms:
+                      type: object
+                      properties:
+                        duration:
+                          type: string
+                        pricing_model:
+                          type: string
+                        payment_terms:
+                          type: string
+                    negotiation_status:
+                      type: string
+                      enum: ['Pending', 'In Progress', 'Completed']

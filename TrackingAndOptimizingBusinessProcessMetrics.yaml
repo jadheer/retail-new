@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: Tracking And Optimizing Business Process Metrics
+  version: 1.0.0
+  description: >
+    API to manage tracking and optimizing business process metrics, enabling businesses
+    to monitor, analyze, and improve their operational processes for greater efficiency
+    and effectiveness.
+
+paths:
+  '/business-process/metrics':
+    get:
+      summary: Retrieve business process metrics
+      description: Fetch tracked metrics and optimization insights for business processes.
+      responses:
+        '200':
+          description: Successful retrieval of business process metrics.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: string
+                    description: Unique identifier of the business process.
+                  processName:
+                    type: string
+                    description: Name of the business process being tracked.
+                  processMetrics:
+                    type: object
+                    properties:
+                      efficiencyScore:
+                        type: number
+                        description: Efficiency score of the process (0-100).
+                      throughputTime:
+                        type: number
+                        description: Average throughput time of the process.
+                      errorRate:
+                        type: number
+                        description: Error rate in the process.
+                      costPerExecution:
+                        type: number
+                        description: Cost per execution of the process.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: string
+                    description: Recommendations for optimizing the process.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the metrics.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/business-process/metrics/submit':
+    post:
+      summary: Submit data for tracking and optimizing business process metrics
+      description: Submit process data for tracking and optimization analysis.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: Name of the business process being tracked.
+                processMetrics:
+                  type: object
+                  properties:
+                    efficiencyScore:
+                      type: number
+                      description: Efficiency score of the process (0-100).
+                    throughputTime:
+                      type: number
+                      description: Average throughput time of the process.
+                    errorRate:
+                      type: number
+                      description: Error rate in the process.
+                    costPerExecution:
+                      type: number
+                      description: Cost per execution of the process.
+                  required:
+                    - efficiencyScore
+                    - throughputTime
+                    - errorRate
+                    - costPerExecution
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the process data.
+              required:
+                - processName
+                - processMetrics
+      responses:
+        '201':
+          description: Business process metrics data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trackingId:
+                    type: string
+                    description: Unique identifier of the submitted tracking session.
+                  status:
+                    type: string
+                    description: Status of the tracking (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/business-process/metrics/reports':
+    get:
+      summary: Retrieve business process metrics reports
+      description: Fetch detailed reports on tracked business process metrics and optimization results.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the business process metrics report.
+      responses:
+        '200':
+          description: Successful retrieval of business process metrics reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the business process metrics report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    trackedProcesses:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          processName:
+                            type: string
+                            description: Name of the business process.
+                          processMetrics:
+                            type: object
+                            properties:
+                              efficiencyScore:
+                                type: number
+                                description: Efficiency score of the process.
+                              throughputTime:
+                                type: number
+                                description: Average throughput time of the process.
+                              errorRate:
+                                type: number
+                                description: Error rate in the process.
+                              costPerExecution:
+                                type: number
+                                description: Cost per execution of the process.
+                          optimizationSuggestions:
+                            type: array
+                            items:
+                              type: string
+                            description: Recommendations for optimizing the process.
+                    overallProcessPerformance:
+                      type: string
+                      description: Overall assessment of business process performance during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.
