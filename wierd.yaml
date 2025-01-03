@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Hyper-Personalized Retail Service Delivery'
+  description: 'This API is designed to enable hyper-personalized service delivery in the retail sector, allowing organizations to tailor services to individual customer preferences and behaviors. It supports the creation, retrieval, updating, and deletion of personalized service records to enhance customer experiences and drive engagement.'
+  version: 1.0.0
+paths:
+  '/personalized-services':
+    get:
+      summary: 'Retrieve a list of personalized services'
+      description: 'Fetches a list of all hyper-personalized services being delivered in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    serviceId:
+                      type: string
+                      description: 'Unique identifier for the personalized service'
+                    customerId:
+                      type: string
+                      description: 'Unique identifier for the customer'
+                    serviceType:
+                      type: string
+                      description: 'Type of service (e.g., product recommendations, personalized offers, tailored support)'
+                    deliveryDate:
+                      type: string
+                      format: date
+                      description: 'Date the service was delivered'
+                    status:
+                      type: string
+                      description: 'Status of the service (e.g., delivered, pending, canceled)'
+                  required:
+                    - serviceId
+                    - customerId
+                    - serviceType
+                    - deliveryDate
+                    - status
+    post:
+      summary: 'Add a new personalized service'
+      description: 'Adds a new hyper-personalized service to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                  description: 'Unique identifier for the customer'
+                serviceType:
+                  type: string
+                  description: 'Type of service (e.g., product recommendations, personalized offers, tailored support)'
+                deliveryDate:
+                  type: string
+                  format: date
+                  description: 'Date the service was delivered'
+                status:
+                  type: string
+                  description: 'Status of the service (e.g., delivered, pending, canceled)'
+              required:
+                - customerId
+                - serviceType
+                - deliveryDate
+                - status
+      responses:
+        '201':
+          description: 'Personalized service created successfully'
+  '/personalized-services/{serviceId}':
+    get:
+      summary: 'Retrieve details of a specific personalized service'
+      description: 'Fetches details of a specific hyper-personalized service by its ID.'
+      parameters:
+        - name: 'serviceId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  serviceId:
+                    type: string
+                    description: 'Unique identifier for the personalized service'
+                  customerId:
+                    type: string
+                    description: 'Unique identifier for the customer'
+                  serviceType:
+                    type: string
+                    description: 'Type of service (e.g., product recommendations, personalized offers, tailored support)'
+                  deliveryDate:
+                    type: string
+                    format: date
+                    description: 'Date the service was delivered'
+                  status:
+                    type: string
+                    description: 'Status of the service (e.g., delivered, pending, canceled)'
+                required:
+                  - serviceId
+                  - customerId
+                  - serviceType
+                  - deliveryDate
+                  - status
+    put:
+      summary: 'Update an existing personalized service'
+      description: 'Updates details of an existing hyper-personalized service by its ID.'
+      parameters:
+        - name: 'serviceId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                  description: 'Unique identifier for the customer'
+                serviceType:
+                  type: string
+                  description: 'Type of service (e.g., product recommendations, personalized offers, tailored support)'
+                deliveryDate:
+                  type: string
+                  format: date
+                  description: 'Date the service was delivered'
+                status:
+                  type: string
+                  description: 'Status of the service (e.g., delivered, pending, canceled)'
+              required:
+                - customerId
+                - serviceType
+                - deliveryDate
+                - status
+      responses:
+        '200':
+          description: 'Personalized service updated successfully'
+    delete:
+      summary: 'Delete a personalized service'
+      description: 'Deletes a hyper-personalized service from the retail system by its ID.'
+      parameters:
+        - name: 'serviceId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Personalized service deleted successfully'
