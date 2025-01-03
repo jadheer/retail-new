@@ -1,0 +1,154 @@
+openapi: 3.0.0
+info:
+  title: Proactive Legal Risk Management In Retail
+  version: 1.0.0
+  description: >
+    API to manage proactive legal risk management in retail, ensuring compliance with
+    legal standards and minimizing risks through early identification and mitigation strategies.
+
+paths:
+  '/legal-risk/management':
+    get:
+      summary: Retrieve legal risk management data
+      description: Fetch details of identified legal risks and their mitigation strategies.
+      responses:
+        '200':
+          description: Successful retrieval of legal risk management data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  riskId:
+                    type: string
+                    description: Unique identifier of the legal risk.
+                  riskDescription:
+                    type: string
+                    description: Description of the legal risk.
+                  riskCategory:
+                    type: string
+                    description: Category of the risk (e.g., contractual, regulatory).
+                  severity:
+                    type: string
+                    description: Severity level of the risk (e.g., low, medium, high).
+                  mitigationStrategies:
+                    type: array
+                    items:
+                      type: string
+                    description: Strategies to mitigate the legal risk.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the risk assessment.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/legal-risk/management/submit':
+    post:
+      summary: Submit a legal risk assessment
+      description: Submit a new legal risk assessment for proactive management.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                riskDescription:
+                  type: string
+                  description: Description of the legal risk.
+                riskCategory:
+                  type: string
+                  description: Category of the risk (e.g., contractual, regulatory).
+                severity:
+                  type: string
+                  description: Severity level of the risk (e.g., low, medium, high).
+                mitigationStrategies:
+                  type: array
+                  items:
+                    type: string
+                  description: Strategies to mitigate the legal risk.
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the legal risk.
+              required:
+                - riskDescription
+                - riskCategory
+                - severity
+                - mitigationStrategies
+      responses:
+        '201':
+          description: Legal risk assessment successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  riskId:
+                    type: string
+                    description: Unique identifier of the submitted legal risk.
+                  status:
+                    type: string
+                    description: Status of the assessment (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/legal-risk/management/reports':
+    get:
+      summary: Retrieve legal risk management reports
+      description: Fetch detailed reports on identified legal risks and their mitigation status.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the legal risk management report.
+      responses:
+        '200':
+          description: Successful retrieval of legal risk management reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the legal risk report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    identifiedRisks:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          riskId:
+                            type: string
+                            description: Unique identifier of the legal risk.
+                          riskDescription:
+                            type: string
+                            description: Description of the legal risk.
+                          riskCategory:
+                            type: string
+                            description: Category of the risk.
+                          severity:
+                            type: string
+                            description: Severity level of the risk.
+                          mitigationStatus:
+                            type: string
+                            description: Status of mitigation efforts (e.g., in-progress, completed).
+                    overallRiskLevel:
+                      type: string
+                      description: Overall risk level for the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

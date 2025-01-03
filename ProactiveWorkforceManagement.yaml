@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: 'Proactive Workforce Management in Retail'
+  description: 'API for proactive workforce management in retail, focusing on automation and search functionalities to optimize workforce allocation and scheduling.'
+  version: 1.0.0
+paths:
+  '/workforce/proactive/manage':
+    post:
+      summary: 'Manage workforce proactively'
+      description: 'Proactively manages workforce allocation and scheduling in retail to enhance productivity and reduce costs.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                workforce_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      employee_id:
+                        type: string
+                      role:
+                        type: string
+                      shift_schedule:
+                        type: string
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Workforce management executed proactively'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_workforce_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        employee_id:
+                          type: string
+                        role:
+                          type: string
+                        shift_schedule:
+                          type: string
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/workforce/proactive/search':
+    get:
+      summary: 'Search proactive workforce management data'
+      description: 'Search for proactive workforce management data based on employee ID or role.'
+      parameters:
+        - name: 'employee_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the employee to search for'
+        - name: 'role'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'Role of the employee to search for'
+      responses:
+        '200':
+          description: 'Proactive workforce management data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    employee_id:
+                      type: string
+                    role:
+                      type: string
+                    shift_schedule:
+                      type: string
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

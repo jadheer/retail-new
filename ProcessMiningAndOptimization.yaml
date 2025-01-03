@@ -1,0 +1,181 @@
+openapi: 3.0.0
+info:
+  title: Process Mining And Optimization
+  version: 1.0.0
+  description: >
+    API to manage process mining and optimization, enabling businesses to analyze,
+    visualize, and improve their operational processes for greater efficiency and effectiveness.
+
+paths:
+  '/process-mining/optimization':
+    get:
+      summary: Retrieve process mining and optimization data
+      description: Fetch insights and recommendations for process optimization.
+      responses:
+        '200':
+          description: Successful retrieval of process mining and optimization data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: string
+                    description: Unique identifier of the process.
+                  processName:
+                    type: string
+                    description: Name of the process being analyzed.
+                  processMetrics:
+                    type: object
+                    properties:
+                      efficiencyScore:
+                        type: number
+                        description: Efficiency score of the process (0-100).
+                      throughputTime:
+                        type: number
+                        description: Average throughput time of the process.
+                      errorRate:
+                        type: number
+                        description: Error rate in the process.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: string
+                    description: Recommendations for optimizing the process.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the process analysis.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/process-mining/optimization/submit':
+    post:
+      summary: Submit data for process mining and optimization
+      description: Submit process data for mining and optimization analysis.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: Name of the process being analyzed.
+                processData:
+                  type: object
+                  properties:
+                    activities:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          activityName:
+                            type: string
+                            description: Name of the activity.
+                          duration:
+                            type: number
+                            description: Duration of the activity.
+                          resourcesUsed:
+                            type: array
+                            items:
+                              type: string
+                            description: Resources used in the activity.
+                    throughputTime:
+                      type: number
+                      description: Average throughput time of the process.
+                    errorRate:
+                      type: number
+                      description: Error rate in the process.
+                  required:
+                    - activities
+                    - throughputTime
+                    - errorRate
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the process data.
+              required:
+                - processName
+                - processData
+      responses:
+        '201':
+          description: Process mining and optimization data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analysisId:
+                    type: string
+                    description: Unique identifier of the submitted analysis.
+                  status:
+                    type: string
+                    description: Status of the analysis (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/process-mining/optimization/reports':
+    get:
+      summary: Retrieve process mining and optimization reports
+      description: Fetch detailed reports on process mining and optimization.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the process mining and optimization report.
+      responses:
+        '200':
+          description: Successful retrieval of process mining and optimization reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the process mining and optimization report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    analyzedProcesses:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          processName:
+                            type: string
+                            description: Name of the process.
+                          processMetrics:
+                            type: object
+                            properties:
+                              efficiencyScore:
+                                type: number
+                                description: Efficiency score of the process.
+                              throughputTime:
+                                type: number
+                                description: Average throughput time of the process.
+                              errorRate:
+                                type: number
+                                description: Error rate in the process.
+                          optimizationSuggestions:
+                            type: array
+                            items:
+                              type: string
+                            description: Recommendations for optimizing the process.
+                    overallProcessEfficiency:
+                      type: string
+                      description: Overall assessment of process efficiency during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

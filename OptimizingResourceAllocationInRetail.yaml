@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: 'Optimizing Resource Allocation in Retail'
+  description: 'This API is designed to optimize resource allocation in the retail sector, enabling efficient management of resources such as staff, inventory, and equipment. It supports the creation, retrieval, updating, and deletion of resource allocations to ensure effective utilization and operational efficiency.'
+  version: 1.0.0
+paths:
+  '/resource-allocations':
+    get:
+      summary: 'Retrieve a list of resource allocations'
+      description: 'Fetches a list of all resource allocations being optimized in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    allocationId:
+                      type: string
+                      description: 'Unique identifier for the resource allocation'
+                    resourceType:
+                      type: string
+                      description: 'Type of resource (e.g., staff, inventory, equipment)'
+                    allocatedTo:
+                      type: string
+                      description: 'Department or project the resource is allocated to'
+                    startDate:
+                      type: string
+                      format: date
+                      description: 'Start date of the allocation'
+                    endDate:
+                      type: string
+                      format: date
+                      description: 'End date of the allocation'
+                    status:
+                      type: string
+                      description: 'Status of the allocation (e.g., active, completed, pending)'
+                  required:
+                    - allocationId
+                    - resourceType
+                    - allocatedTo
+                    - startDate
+                    - status
+    post:
+      summary: 'Add a new resource allocation'
+      description: 'Adds a new resource allocation to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                resourceType:
+                  type: string
+                  description: 'Type of resource (e.g., staff, inventory, equipment)'
+                allocatedTo:
+                  type: string
+                  description: 'Department or project the resource is allocated to'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the allocation'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the allocation'
+                status:
+                  type: string
+                  description: 'Status of the allocation (e.g., active, completed, pending)'
+              required:
+                - resourceType
+                - allocatedTo
+                - startDate
+                - status
+      responses:
+        '201':
+          description: 'Resource allocation created successfully'
+  '/resource-allocations/{allocationId}':
+    get:
+      summary: 'Retrieve details of a specific resource allocation'
+      description: 'Fetches details of a specific resource allocation by its ID.'
+      parameters:
+        - name: 'allocationId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  allocationId:
+                    type: string
+                    description: 'Unique identifier for the resource allocation'
+                  resourceType:
+                    type: string
+                    description: 'Type of resource (e.g., staff, inventory, equipment)'
+                  allocatedTo:
+                    type: string
+                    description: 'Department or project the resource is allocated to'
+                  startDate:
+                    type: string
+                    format: date
+                    description: 'Start date of the allocation'
+                  endDate:
+                    type: string
+                    format: date
+                    description: 'End date of the allocation'
+                  status:
+                    type: string
+                    description: 'Status of the allocation (e.g., active, completed, pending)'
+                required:
+                  - allocationId
+                  - resourceType
+                  - allocatedTo
+                  - startDate
+                  - status
+    put:
+      summary: 'Update an existing resource allocation'
+      description: 'Updates details of an existing resource allocation by its ID.'
+      parameters:
+        - name: 'allocationId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                resourceType:
+                  type: string
+                  description: 'Type of resource (e.g., staff, inventory, equipment)'
+                allocatedTo:
+                  type: string
+                  description: 'Department or project the resource is allocated to'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the allocation'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the allocation'
+                status:
+                  type: string
+                  description: 'Status of the allocation (e.g., active, completed, pending)'
+              required:
+                - resourceType
+                - allocatedTo
+                - startDate
+                - status
+      responses:
+        '200':
+          description: 'Resource allocation updated successfully'
+    delete:
+      summary: 'Delete a resource allocation'
+      description: 'Deletes a resource allocation from the retail system by its ID.'
+      parameters:
+        - name: 'allocationId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Resource allocation deleted successfully'

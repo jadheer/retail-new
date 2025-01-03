@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Proactive Maintenance In Retail Equipment
+  version: 1.0.0
+  description: >
+    API to manage and optimize proactive maintenance processes for retail equipment,
+    ensuring efficient equipment utilization, reduced downtime, and cost-effective maintenance strategies.
+
+paths:
+  '/maintenance/proactive':
+    get:
+      summary: Analyze proactive maintenance efficiency for retail equipment
+      description: Retrieve analysis and recommendations for improving proactive maintenance processes for retail equipment.
+      responses:
+        '200':
+          description: Successful retrieval of proactive maintenance data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalEquipment:
+                    type: integer
+                    description: Total number of retail equipment under proactive maintenance.
+                  equipmentUnderMaintenance:
+                    type: integer
+                    description: Number of equipment currently under maintenance.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        equipmentType:
+                          type: string
+                          description: Type of retail equipment (e.g., POS systems, refrigeration units, lighting).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the equipment type.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/maintenance/simulation':
+    post:
+      summary: Simulate proactive maintenance scenarios for retail equipment
+      description: Create and simulate scenarios for optimizing proactive maintenance in retail equipment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                equipmentCategories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories of retail equipment (e.g., POS systems, refrigeration units, lighting).
+                maintenanceStrategies:
+                  type: array
+                  items:
+                    type: string
+                  description: Strategies for proactive maintenance (e.g., condition-based, usage-based, time-based).
+              required:
+                - storeId
+                - equipmentCategories
+                - maintenanceStrategies
+      responses:
+        '201':
+          description: Proactive maintenance simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the proactive maintenance simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/maintenance/proactive':
+    get:
+      summary: Retrieve proactive maintenance optimization suggestions for retail equipment
+      description: Get proactive maintenance optimization recommendations based on analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of proactive maintenance optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    equipmentType:
+                      type: string
+                      description: Type of retail equipment (e.g., POS systems, refrigeration units, lighting).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for proactive maintenance.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., reduced downtime, cost savings).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

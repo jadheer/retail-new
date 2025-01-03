@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  title: Optimizing Space Utilization And Customer Flow In Retail
+  version: 1.0.0
+  description: >
+    API to enhance space utilization and improve customer flow within retail environments,
+    ensuring efficient layout planning and optimized resource allocation.
+
+paths:
+  '/space/utilization':
+    get:
+      summary: Analyze space utilization
+      description: Retrieve analysis and recommendations for improving retail space utilization.
+      responses:
+        '200':
+          description: Successful retrieval of space utilization data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalArea:
+                    type: number
+                    description: Total area of the retail space in square meters.
+                  utilizedArea:
+                    type: number
+                    description: Area currently being utilized effectively.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        section:
+                          type: string
+                          description: Retail section (e.g., aisles, storage).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the section.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/customer/flow':
+    post:
+      summary: Simulate customer flow
+      description: Create and simulate customer flow scenarios for enhanced layout planning.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                layoutId:
+                  type: string
+                  description: Unique identifier of the store layout.
+                peakHours:
+                  type: array
+                  items:
+                    type: string
+                    format: date-time
+                  description: Times of expected peak customer traffic.
+                entryPoints:
+                  type: array
+                  items:
+                    type: string
+                  description: Entry points in the retail space.
+              required:
+                - layoutId
+                - peakHours
+                - entryPoints
+      responses:
+        '201':
+          description: Customer flow simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the customer flow simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/layouts':
+    get:
+      summary: Retrieve layout optimization suggestions
+      description: Get layout optimization recommendations based on space and customer flow analysis.
+      parameters:
+        - name: layoutId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the store layout.
+      responses:
+        '200':
+          description: Successful retrieval of layout optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    section:
+                      type: string
+                      description: Retail section (e.g., checkout, aisles).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for the section.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., increased sales, improved traffic flow).
+        '400':
+          description: Missing or invalid layoutId parameter.
+        '500':
+          description: Internal server error.

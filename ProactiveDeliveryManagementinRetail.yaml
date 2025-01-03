@@ -1,0 +1,107 @@
+openapi: 3.0.0
+info:
+  title: 'Proactive Delivery Management in Retail'
+  description: 'API for proactive delivery management in retail, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/delivery/proactive/manage':
+    post:
+      summary: 'Manage proactive delivery'
+      description: 'Facilitates proactive management of deliveries in retail to ensure timely and efficient logistics operations.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                delivery_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      order_id:
+                        type: string
+                      delivery_status:
+                        type: string
+                        enum: ['Pending', 'In Transit', 'Delivered']
+                      estimated_delivery_time:
+                        type: string
+                        format: date-time
+                      proactive_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Proactive delivery managed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_delivery_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        order_id:
+                          type: string
+                        delivery_status:
+                          type: string
+                          enum: ['Pending', 'In Transit', 'Delivered']
+                        estimated_delivery_time:
+                          type: string
+                          format: date-time
+                        proactive_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/delivery/proactive/search':
+    get:
+      summary: 'Search proactive delivery data'
+      description: 'Search for proactive delivery data based on order ID or delivery status.'
+      parameters:
+        - name: 'order_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the order to search for'
+        - name: 'delivery_status'
+          in: query
+          schema:
+            type: string
+            enum: ['Pending', 'In Transit', 'Delivered']
+          required: false
+          description: 'Status of the delivery to search for'
+      responses:
+        '200':
+          description: 'Proactive delivery data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    order_id:
+                      type: string
+                    delivery_status:
+                      type: string
+                      enum: ['Pending', 'In Transit', 'Delivered']
+                    estimated_delivery_time:
+                      type: string
+                      format: date-time
+                    proactive_recommendations:
+                      type: array
+                      items:
+                        type: string

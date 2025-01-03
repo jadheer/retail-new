@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: 'Personalization of IT Service Communication in Retail'
+  description: 'This API is designed to personalize IT service communication in the retail sector, enabling organizations to deliver tailored messages and notifications to customers and employees. It supports the creation, retrieval, updating, and deletion of personalized communication records to enhance engagement and satisfaction.'
+  version: 1.0.0
+paths:
+  '/personalized-communications':
+    get:
+      summary: 'Retrieve a list of personalized communications'
+      description: 'Fetches a list of all personalized IT service communications in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    communicationId:
+                      type: string
+                      description: 'Unique identifier for the personalized communication'
+                    recipientId:
+                      type: string
+                      description: 'Unique identifier for the recipient (e.g., customer or employee)'
+                    communicationType:
+                      type: string
+                      description: 'Type of communication (e.g., email, SMS, push notification)'
+                    message:
+                      type: string
+                      description: 'Content of the personalized message'
+                    sentDate:
+                      type: string
+                      format: date-time
+                      description: 'Date and time the communication was sent'
+                    status:
+                      type: string
+                      description: 'Status of the communication (e.g., sent, delivered, failed)'
+                  required:
+                    - communicationId
+                    - recipientId
+                    - communicationType
+                    - message
+                    - sentDate
+                    - status
+    post:
+      summary: 'Add a new personalized communication'
+      description: 'Adds a new personalized IT service communication to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipientId:
+                  type: string
+                  description: 'Unique identifier for the recipient (e.g., customer or employee)'
+                communicationType:
+                  type: string
+                  description: 'Type of communication (e.g., email, SMS, push notification)'
+                message:
+                  type: string
+                  description: 'Content of the personalized message'
+                sentDate:
+                  type: string
+                  format: date-time
+                  description: 'Date and time the communication was sent'
+                status:
+                  type: string
+                  description: 'Status of the communication (e.g., sent, delivered, failed)'
+              required:
+                - recipientId
+                - communicationType
+                - message
+                - sentDate
+                - status
+      responses:
+        '201':
+          description: 'Personalized communication created successfully'
+  '/personalized-communications/{communicationId}':
+    get:
+      summary: 'Retrieve details of a specific personalized communication'
+      description: 'Fetches details of a specific personalized IT service communication by its ID.'
+      parameters:
+        - name: 'communicationId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  communicationId:
+                    type: string
+                    description: 'Unique identifier for the personalized communication'
+                  recipientId:
+                    type: string
+                    description: 'Unique identifier for the recipient (e.g., customer or employee)'
+                  communicationType:
+                    type: string
+                    description: 'Type of communication (e.g., email, SMS, push notification)'
+                  message:
+                    type: string
+                    description: 'Content of the personalized message'
+                  sentDate:
+                    type: string
+                    format: date-time
+                    description: 'Date and time the communication was sent'
+                  status:
+                    type: string
+                    description: 'Status of the communication (e.g., sent, delivered, failed)'
+                required:
+                  - communicationId
+                  - recipientId
+                  - communicationType
+                  - message
+                  - sentDate
+                  - status
+    put:
+      summary: 'Update an existing personalized communication'
+      description: 'Updates details of an existing personalized IT service communication by its ID.'
+      parameters:
+        - name: 'communicationId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipientId:
+                  type: string
+                  description: 'Unique identifier for the recipient (e.g., customer or employee)'
+                communicationType:
+                  type: string
+                  description: 'Type of communication (e.g., email, SMS, push notification)'
+                message:
+                  type: string
+                  description: 'Content of the personalized message'
+                sentDate:
+                  type: string
+                  format: date-time
+                  description: 'Date and time the communication was sent'
+                status:
+                  type: string
+                  description: 'Status of the communication (e.g., sent, delivered, failed)'
+              required:
+                - recipientId
+                - communicationType
+                - message
+                - sentDate
+                - status
+      responses:
+        '200':
+          description: 'Personalized communication updated successfully'
+    delete:
+      summary: 'Delete a personalized communication'
+      description: 'Deletes a personalized IT service communication from the retail system by its ID.'
+      parameters:
+        - name: 'communicationId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Personalized communication deleted successfully'

@@ -1,0 +1,172 @@
+openapi: 3.0.0
+info:
+  title: Real Time Business Process Monitoring
+  version: 1.0.0
+  description: >
+    API to manage real-time business process monitoring, enabling businesses to
+    track, analyze, and optimize their operational processes for improved efficiency
+    and performance.
+
+paths:
+  '/business-process/monitoring':
+    get:
+      summary: Retrieve real-time business process monitoring data
+      description: Fetch real-time data on business process metrics and performance.
+      responses:
+        '200':
+          description: Successful retrieval of real-time business process monitoring data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: string
+                    description: Unique identifier of the business process.
+                  processName:
+                    type: string
+                    description: Name of the business process being monitored.
+                  processMetrics:
+                    type: object
+                    properties:
+                      throughputTime:
+                        type: number
+                        description: Real-time throughput time of the process.
+                      errorRate:
+                        type: number
+                        description: Real-time error rate in the process.
+                      resourceUtilization:
+                        type: number
+                        description: Real-time resource utilization percentage.
+                      costPerExecution:
+                        type: number
+                        description: Real-time cost per execution of the process.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the monitoring data.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/business-process/monitoring/submit':
+    post:
+      summary: Submit data for real-time business process monitoring
+      description: Submit real-time data for business process monitoring and analysis.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: Name of the business process being monitored.
+                processMetrics:
+                  type: object
+                  properties:
+                    throughputTime:
+                      type: number
+                      description: Real-time throughput time of the process.
+                    errorRate:
+                      type: number
+                      description: Real-time error rate in the process.
+                    resourceUtilization:
+                      type: number
+                      description: Real-time resource utilization percentage.
+                    costPerExecution:
+                      type: number
+                      description: Real-time cost per execution of the process.
+                  required:
+                    - throughputTime
+                    - errorRate
+                    - resourceUtilization
+                    - costPerExecution
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the process data.
+              required:
+                - processName
+                - processMetrics
+      responses:
+        '201':
+          description: Real-time business process monitoring data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  monitoringId:
+                    type: string
+                    description: Unique identifier of the submitted monitoring session.
+                  status:
+                    type: string
+                    description: Status of the monitoring (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/business-process/monitoring/reports':
+    get:
+      summary: Retrieve real-time business process monitoring reports
+      description: Fetch detailed reports on real-time business process monitoring.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [daily, weekly, monthly]
+          description: Timeframe for the business process monitoring report.
+      responses:
+        '200':
+          description: Successful retrieval of real-time business process monitoring reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the business process monitoring report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    monitoredProcesses:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          processName:
+                            type: string
+                            description: Name of the business process.
+                          processMetrics:
+                            type: object
+                            properties:
+                              throughputTime:
+                                type: number
+                                description: Average throughput time of the process during the timeframe.
+                              errorRate:
+                                type: number
+                                description: Average error rate in the process during the timeframe.
+                              resourceUtilization:
+                                type: number
+                                description: Average resource utilization percentage during the timeframe.
+                              costPerExecution:
+                                type: number
+                                description: Average cost per execution of the process during the timeframe.
+                          overallProcessPerformance:
+                            type: string
+                            description: Overall assessment of process performance during the timeframe.
+                    overallBusinessProcessAssessment:
+                      type: string
+                      description: Overall assessment of business process performance during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

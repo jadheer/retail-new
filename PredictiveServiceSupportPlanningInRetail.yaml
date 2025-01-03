@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Predictive Service Support Planning in Retail'
+  description: 'This API is designed to enable predictive service support planning in the retail sector, leveraging data analytics to anticipate customer needs and optimize resource allocation. It supports the creation, retrieval, updating, and deletion of support plans to ensure proactive and efficient service delivery.'
+  version: 1.0.0
+paths:
+  '/support-plans':
+    get:
+      summary: 'Retrieve a list of support plans'
+      description: 'Fetches a list of all predictive service support plans in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    planId:
+                      type: string
+                      description: 'Unique identifier for the support plan'
+                    planName:
+                      type: string
+                      description: 'Name of the support plan (e.g., customer service optimization, resource allocation)'
+                    createdDate:
+                      type: string
+                      format: date
+                      description: 'Date the support plan was created'
+                    status:
+                      type: string
+                      description: 'Status of the support plan (e.g., active, inactive, under review)'
+                  required:
+                    - planId
+                    - planName
+                    - createdDate
+                    - status
+    post:
+      summary: 'Add a new support plan'
+      description: 'Adds a new predictive service support plan to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                planName:
+                  type: string
+                  description: 'Name of the support plan (e.g., customer service optimization, resource allocation)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the support plan was created'
+                status:
+                  type: string
+                  description: 'Status of the support plan (e.g., active, inactive, under review)'
+              required:
+                - planName
+                - createdDate
+                - status
+      responses:
+        '201':
+          description: 'Support plan created successfully'
+  '/support-plans/{planId}':
+    get:
+      summary: 'Retrieve details of a specific support plan'
+      description: 'Fetches details of a specific predictive service support plan by its ID.'
+      parameters:
+        - name: 'planId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  planId:
+                    type: string
+                    description: 'Unique identifier for the support plan'
+                  planName:
+                    type: string
+                    description: 'Name of the support plan (e.g., customer service optimization, resource allocation)'
+                  createdDate:
+                    type: string
+                    format: date
+                    description: 'Date the support plan was created'
+                  status:
+                    type: string
+                    description: 'Status of the support plan (e.g., active, inactive, under review)'
+                required:
+                  - planId
+                  - planName
+                  - createdDate
+                  - status
+    put:
+      summary: 'Update an existing support plan'
+      description: 'Updates details of an existing predictive service support plan by its ID.'
+      parameters:
+        - name: 'planId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                planName:
+                  type: string
+                  description: 'Name of the support plan (e.g., customer service optimization, resource allocation)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the support plan was created'
+                status:
+                  type: string
+                  description: 'Status of the support plan (e.g., active, inactive, under review)'
+              required:
+                - planName
+                - createdDate
+                - status
+      responses:
+        '200':
+          description: 'Support plan updated successfully'
+    delete:
+      summary: 'Delete a support plan'
+      description: 'Deletes a predictive service support plan from the retail system by its ID.'
+      parameters:
+        - name: 'planId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Support plan deleted successfully'

@@ -1,0 +1,142 @@
+openapi: 3.0.0
+info:
+  title: Real Time Compliance Monitoring In Retail
+  version: 1.0.0
+  description: >
+    API to manage real-time compliance monitoring in retail environments,
+    ensuring adherence to legal and ethical standards through automated tracking and reporting.
+
+paths:
+  '/compliance/monitoring':
+    get:
+      summary: Retrieve compliance monitoring data
+      description: Fetch real-time compliance data and status for retail operations.
+      responses:
+        '200':
+          description: Successful retrieval of compliance monitoring data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  complianceStatus:
+                    type: string
+                    description: Current compliance status (e.g., compliant, non-compliant).
+                  monitoredAreas:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        area:
+                          type: string
+                          description: Retail area being monitored (e.g., sales floor, storage).
+                        status:
+                          type: string
+                          description: Compliance status of the area.
+                        lastCheck:
+                          type: string
+                          format: date-time
+                          description: Timestamp of the last compliance check.
+                  alerts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        alertId:
+                          type: string
+                          description: Unique identifier of the compliance alert.
+                        description:
+                          type: string
+                          description: Details of the compliance issue.
+                        severity:
+                          type: string
+                          description: Severity level of the alert (e.g., minor, major).
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/compliance/alerts':
+    post:
+      summary: Create a compliance alert
+      description: Log a new compliance alert for further investigation and resolution.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                area:
+                  type: string
+                  description: Retail area where the compliance issue was detected.
+                description:
+                  type: string
+                  description: Detailed description of the compliance issue.
+                severity:
+                  type: string
+                  description: Severity level of the alert (e.g., minor, major).
+              required:
+                - area
+                - description
+                - severity
+      responses:
+        '201':
+          description: Compliance alert successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  alertId:
+                    type: string
+                    description: Unique identifier of the created compliance alert.
+                  status:
+                    type: string
+                    description: Status of the alert (e.g., open, resolved).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/compliance/reports':
+    get:
+      summary: Generate compliance reports
+      description: Retrieve detailed compliance reports for auditing and analysis.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [daily, weekly, monthly]
+          description: Timeframe for the compliance report.
+      responses:
+        '200':
+          description: Successful retrieval of compliance reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the compliance report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    summary:
+                      type: string
+                      description: Summary of compliance status for the period.
+                    issuesDetected:
+                      type: integer
+                      description: Number of compliance issues detected.
+                    resolvedIssues:
+                      type: integer
+                      description: Number of issues resolved during the period.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

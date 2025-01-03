@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Predictive Maintenance In Retail Construction Equipment
+  version: 1.0.0
+  description: >
+    API to manage and optimize predictive maintenance processes for retail construction equipment,
+    ensuring efficient equipment utilization, reduced downtime, and cost-effective maintenance strategies.
+
+paths:
+  '/maintenance/construction':
+    get:
+      summary: Analyze predictive maintenance efficiency for construction equipment
+      description: Retrieve analysis and recommendations for improving predictive maintenance processes for retail construction equipment.
+      responses:
+        '200':
+          description: Successful retrieval of predictive maintenance data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalEquipment:
+                    type: integer
+                    description: Total number of construction equipment under predictive maintenance.
+                  equipmentUnderMaintenance:
+                    type: integer
+                    description: Number of equipment currently under maintenance.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        equipmentType:
+                          type: string
+                          description: Type of construction equipment (e.g., excavators, cranes, bulldozers).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the equipment type.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/maintenance/simulation':
+    post:
+      summary: Simulate predictive maintenance scenarios for construction equipment
+      description: Create and simulate scenarios for optimizing predictive maintenance in retail construction equipment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                equipmentCategories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories of construction equipment (e.g., excavators, cranes, bulldozers).
+                maintenanceStrategies:
+                  type: array
+                  items:
+                    type: string
+                  description: Strategies for predictive maintenance (e.g., condition-based, usage-based, time-based).
+              required:
+                - storeId
+                - equipmentCategories
+                - maintenanceStrategies
+      responses:
+        '201':
+          description: Predictive maintenance simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the predictive maintenance simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/maintenance/construction':
+    get:
+      summary: Retrieve predictive maintenance optimization suggestions for construction equipment
+      description: Get predictive maintenance optimization recommendations based on analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of predictive maintenance optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    equipmentType:
+                      type: string
+                      description: Type of construction equipment (e.g., excavators, cranes, bulldozers).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for predictive maintenance.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., reduced downtime, cost savings).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

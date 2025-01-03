@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Proactive Maintenance in Retail Services'
+  description: 'This API is designed to enable proactive maintenance in retail services, leveraging predictive analytics to identify and address potential issues before they impact operations. It supports the creation, retrieval, updating, and deletion of maintenance records to ensure system reliability and uptime.'
+  version: 1.0.0
+paths:
+  '/maintenance-records':
+    get:
+      summary: 'Retrieve a list of maintenance records'
+      description: 'Fetches a list of all proactive maintenance records in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the maintenance record'
+                    systemName:
+                      type: string
+                      description: 'Name of the system being maintained (e.g., POS system, inventory management)'
+                    maintenanceDate:
+                      type: string
+                      format: date
+                      description: 'Date the maintenance was performed'
+                    status:
+                      type: string
+                      description: 'Status of the maintenance (e.g., completed, in-progress, pending)'
+                  required:
+                    - recordId
+                    - systemName
+                    - maintenanceDate
+                    - status
+    post:
+      summary: 'Add a new maintenance record'
+      description: 'Adds a new proactive maintenance record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                systemName:
+                  type: string
+                  description: 'Name of the system being maintained (e.g., POS system, inventory management)'
+                maintenanceDate:
+                  type: string
+                  format: date
+                  description: 'Date the maintenance was performed'
+                status:
+                  type: string
+                  description: 'Status of the maintenance (e.g., completed, in-progress, pending)'
+              required:
+                - systemName
+                - maintenanceDate
+                - status
+      responses:
+        '201':
+          description: 'Maintenance record created successfully'
+  '/maintenance-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific maintenance record'
+      description: 'Fetches details of a specific proactive maintenance record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the maintenance record'
+                  systemName:
+                    type: string
+                    description: 'Name of the system being maintained (e.g., POS system, inventory management)'
+                  maintenanceDate:
+                    type: string
+                    format: date
+                    description: 'Date the maintenance was performed'
+                  status:
+                    type: string
+                    description: 'Status of the maintenance (e.g., completed, in-progress, pending)'
+                required:
+                  - recordId
+                  - systemName
+                  - maintenanceDate
+                  - status
+    put:
+      summary: 'Update an existing maintenance record'
+      description: 'Updates details of an existing proactive maintenance record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                systemName:
+                  type: string
+                  description: 'Name of the system being maintained (e.g., POS system, inventory management)'
+                maintenanceDate:
+                  type: string
+                  format: date
+                  description: 'Date the maintenance was performed'
+                status:
+                  type: string
+                  description: 'Status of the maintenance (e.g., completed, in-progress, pending)'
+              required:
+                - systemName
+                - maintenanceDate
+                - status
+      responses:
+        '200':
+          description: 'Maintenance record updated successfully'
+    delete:
+      summary: 'Delete a maintenance record'
+      description: 'Deletes a proactive maintenance record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Maintenance record deleted successfully'

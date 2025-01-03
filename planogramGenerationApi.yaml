@@ -1,0 +1,138 @@
+openapi: 3.0.0
+info:
+  title: 'Planogram Generation'
+  version: 1.0.0
+  description: 'API for managing Planogram Generation processes to optimize product layouts for enterprise inventory management.'
+paths:
+  '/planogram':
+    get:
+      summary: 'Retrieve generated planograms'
+      description: 'Fetch available planograms for enterprise inventory management.'
+      responses:
+        '200':
+          description: 'Successful retrieval of planograms'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 6
+                  retail_domain_category:
+                    type: string
+                    example: 'Deliver Products'
+                  process_group:
+                    type: string
+                    example: 'Manage enterprise inventory'
+                  creation:
+                    type: string
+                    example: 'Major'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  search:
+                    type: string
+                    example: 'Minor'
+                  summarization:
+                    type: string
+                    example: 'Major'
+  '/planogram/generate':
+    post:
+      summary: 'Generate a new planogram'
+      description: 'Create a new planogram for optimizing product layouts in enterprise inventory.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store_id:
+                  type: string
+                  example: 'STORE123'
+                product_list:
+                  type: array
+                  items:
+                    type: string
+                  example: ['Product A', 'Product B', 'Product C']
+                layout_preferences:
+                  type: object
+                  properties:
+                    aisle_width:
+                      type: number
+                      example: 2.5
+                    shelf_height:
+                      type: number
+                      example: 1.8
+                    product_grouping:
+                      type: string
+                      example: 'By Category'
+      responses:
+        '201':
+          description: 'Planogram generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Planogram generated successfully.'
+                  planogram_id:
+                    type: string
+                    example: 'PLANO123'
+  '/planogram/automate':
+    post:
+      summary: 'Automate planogram generation'
+      description: 'Trigger minor automation for generating planograms.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Planogram automation process started successfully.'
+  '/planogram/search':
+    get:
+      summary: 'Search for planograms'
+      description: 'Search for specific planograms based on criteria.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'By Category'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Planogram A', 'Planogram B']
+  '/planogram/summarize':
+    get:
+      summary: 'Summarize planogram data'
+      description: 'Generate a summary of the planogram data.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Planogram data indicates optimal layout for 85% of products.'

@@ -1,0 +1,104 @@
+openapi: 3.0.0
+info:
+  title: 'Predictive Return Management in Retail'
+  description: 'API for predictive return management in retail, focusing on automation and search functionalities to optimize return processes.'
+  version: 1.0.0
+paths:
+  '/returns/predictive/manage':
+    post:
+      summary: 'Manage predictive returns'
+      description: 'Uses predictive analytics to optimize return processes, including return authorization, inspection, and restocking.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                return_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      return_id:
+                        type: string
+                      return_reason:
+                        type: string
+                      predicted_restocking_time:
+                        type: string
+                        format: date-time
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Predictive return management executed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_return_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        return_id:
+                          type: string
+                        return_reason:
+                          type: string
+                        predicted_restocking_time:
+                          type: string
+                          format: date-time
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/returns/predictive/search':
+    get:
+      summary: 'Search predictive return data'
+      description: 'Search for predictive return data based on return ID or predicted restocking time.'
+      parameters:
+        - name: 'return_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the return to search for'
+        - name: 'predicted_restocking_time'
+          in: query
+          schema:
+            type: string
+            format: date-time
+          required: false
+          description: 'Predicted restocking time to search for'
+      responses:
+        '200':
+          description: 'Predictive return data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    return_id:
+                      type: string
+                    return_reason:
+                      type: string
+                    predicted_restocking_time:
+                      type: string
+                      format: date-time
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

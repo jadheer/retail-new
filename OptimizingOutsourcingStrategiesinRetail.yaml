@@ -1,0 +1,115 @@
+openapi: 3.0.0
+info:
+  title: 'Optimizing Outsourcing Strategies in Retail'
+  description: 'API for optimizing outsourcing strategies in retail, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/outsourcing/strategy/optimize':
+    post:
+      summary: 'Optimize outsourcing strategies'
+      description: 'Optimizes outsourcing strategies to improve efficiency and cost-effectiveness in retail.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                outsourcing_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      vendor_id:
+                        type: string
+                      outsourcing_scope:
+                        type: string
+                      cost_analysis:
+                        type: object
+                        properties:
+                          current_cost:
+                            type: number
+                          projected_cost:
+                            type: number
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Outsourcing strategies optimized successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  optimized_outsourcing_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        vendor_id:
+                          type: string
+                        outsourcing_scope:
+                          type: string
+                        cost_analysis:
+                          type: object
+                          properties:
+                            current_cost:
+                              type: number
+                            projected_cost:
+                              type: number
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/outsourcing/strategy/search':
+    get:
+      summary: 'Search outsourcing strategy data'
+      description: 'Search for outsourcing strategy data based on vendor ID or outsourcing scope.'
+      parameters:
+        - name: 'vendor_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the vendor to search for'
+        - name: 'outsourcing_scope'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'Scope of the outsourcing to search for'
+      responses:
+        '200':
+          description: 'Outsourcing strategy data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    vendor_id:
+                      type: string
+                    outsourcing_scope:
+                      type: string
+                    cost_analysis:
+                      type: object
+                      properties:
+                        current_cost:
+                          type: number
+                        projected_cost:
+                          type: number
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Real-Time IT Management Optimization in Retail'
+  description: 'This API is designed to optimize real-time IT management in the retail sector, enabling organizations to monitor, manage, and enhance IT systems and processes dynamically. It supports the creation, retrieval, updating, and deletion of real-time IT management records to ensure operational efficiency and responsiveness.'
+  version: 1.0.0
+paths:
+  '/it-management-records':
+    get:
+      summary: 'Retrieve a list of real-time IT management records'
+      description: 'Fetches a list of all real-time IT management records being optimized in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the IT management record'
+                    systemName:
+                      type: string
+                      description: 'Name of the IT system being managed (e.g., POS system, inventory management, CRM)'
+                    monitoringMetric:
+                      type: string
+                      description: 'Metric being monitored (e.g., uptime, response time, error rate)'
+                    timestamp:
+                      type: string
+                      format: date-time
+                      description: 'Timestamp of the record'
+                    status:
+                      type: string
+                      description: 'Status of the system (e.g., normal, warning, critical)'
+                  required:
+                    - recordId
+                    - systemName
+                    - monitoringMetric
+                    - timestamp
+                    - status
+    post:
+      summary: 'Add a new real-time IT management record'
+      description: 'Adds a new real-time IT management record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                systemName:
+                  type: string
+                  description: 'Name of the IT system being managed (e.g., POS system, inventory management, CRM)'
+                monitoringMetric:
+                  type: string
+                  description: 'Metric being monitored (e.g., uptime, response time, error rate)'
+                timestamp:
+                  type: string
+                  format: date-time
+                  description: 'Timestamp of the record'
+                status:
+                  type: string
+                  description: 'Status of the system (e.g., normal, warning, critical)'
+              required:
+                - systemName
+                - monitoringMetric
+                - timestamp
+                - status
+      responses:
+        '201':
+          description: 'IT management record created successfully'
+  '/it-management-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific IT management record'
+      description: 'Fetches details of a specific real-time IT management record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the IT management record'
+                  systemName:
+                    type: string
+                    description: 'Name of the IT system being managed (e.g., POS system, inventory management, CRM)'
+                  monitoringMetric:
+                    type: string
+                    description: 'Metric being monitored (e.g., uptime, response time, error rate)'
+                  timestamp:
+                    type: string
+                    format: date-time
+                    description: 'Timestamp of the record'
+                  status:
+                    type: string
+                    description: 'Status of the system (e.g., normal, warning, critical)'
+                required:
+                  - recordId
+                  - systemName
+                  - monitoringMetric
+                  - timestamp
+                  - status
+    put:
+      summary: 'Update an existing IT management record'
+      description: 'Updates details of an existing real-time IT management record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                systemName:
+                  type: string
+                  description: 'Name of the IT system being managed (e.g., POS system, inventory management, CRM)'
+                monitoringMetric:
+                  type: string
+                  description: 'Metric being monitored (e.g., uptime, response time, error rate)'
+                timestamp:
+                  type: string
+                  format: date-time
+                  description: 'Timestamp of the record'
+                status:
+                  type: string
+                  description: 'Status of the system (e.g., normal, warning, critical)'
+              required:
+                - systemName
+                - monitoringMetric
+                - timestamp
+                - status
+      responses:
+        '200':
+          description: 'IT management record updated successfully'
+    delete:
+      summary: 'Delete an IT management record'
+      description: 'Deletes a real-time IT management record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'IT management record deleted successfully'

@@ -1,0 +1,183 @@
+openapi: 3.0.0
+info:
+  title: Program Management In Retail
+  version: 1.0.0
+  description: >
+    API to manage program management in retail, enabling businesses to plan, execute,
+    and monitor multiple projects and initiatives to achieve strategic objectives.
+
+paths:
+  '/program-management/retail':
+    get:
+      summary: Retrieve program management data
+      description: Fetch details of programs and their associated projects in retail.
+      responses:
+        '200':
+          description: Successful retrieval of program management data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  programId:
+                    type: string
+                    description: Unique identifier of the program.
+                  programName:
+                    type: string
+                    description: Name of the program.
+                  programObjectives:
+                    type: array
+                    items:
+                      type: string
+                    description: Objectives of the program.
+                  associatedProjects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        projectId:
+                          type: string
+                          description: Unique identifier of the project.
+                        projectName:
+                          type: string
+                          description: Name of the project.
+                        projectStatus:
+                          type: string
+                          description: Status of the project (e.g., planned, in-progress, completed).
+                  programStatus:
+                    type: string
+                    description: Status of the program (e.g., active, completed, on-hold).
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the program.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/program-management/retail/submit':
+    post:
+      summary: Submit data for program management
+      description: Submit program data for management and monitoring in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                programName:
+                  type: string
+                  description: Name of the program.
+                programObjectives:
+                  type: array
+                  items:
+                    type: string
+                  description: Objectives of the program.
+                associatedProjects:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      projectName:
+                        type: string
+                        description: Name of the project.
+                      projectDescription:
+                        type: string
+                        description: Description of the project.
+                      projectStatus:
+                        type: string
+                        description: Status of the project (e.g., planned, in-progress, completed).
+                  required:
+                    - projectName
+                    - projectDescription
+                    - projectStatus
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the program data.
+              required:
+                - programName
+                - programObjectives
+                - associatedProjects
+      responses:
+        '201':
+          description: Program management data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  programId:
+                    type: string
+                    description: Unique identifier of the submitted program.
+                  status:
+                    type: string
+                    description: Status of the program (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/program-management/retail/reports':
+    get:
+      summary: Retrieve program management reports
+      description: Fetch detailed reports on program management in retail.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the program management report.
+      responses:
+        '200':
+          description: Successful retrieval of program management reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the program management report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    managedPrograms:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          programName:
+                            type: string
+                            description: Name of the program.
+                          programObjectives:
+                            type: array
+                            items:
+                              type: string
+                            description: Objectives of the program.
+                          associatedProjects:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                projectName:
+                                  type: string
+                                  description: Name of the project.
+                                projectStatus:
+                                  type: string
+                                  description: Status of the project.
+                          programStatus:
+                            type: string
+                            description: Status of the program.
+                    overallProgramPerformance:
+                      type: string
+                      description: Overall assessment of program performance during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

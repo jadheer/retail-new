@@ -1,0 +1,160 @@
+openapi: 3.0.0
+info:
+  title: Real Time EHS Monitoring And Compliance
+  version: 1.0.0
+  description: >
+    API to manage real-time environmental, health, and safety (EHS) monitoring and
+    compliance, enabling businesses to ensure adherence to regulations and maintain
+    a safe and sustainable operational environment.
+
+paths:
+  '/ehs-monitoring/compliance':
+    get:
+      summary: Retrieve real-time EHS monitoring and compliance data
+      description: Fetch real-time data on EHS metrics and compliance status.
+      responses:
+        '200':
+          description: Successful retrieval of real-time EHS monitoring and compliance data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  monitoringId:
+                    type: string
+                    description: Unique identifier of the monitoring session.
+                  ehsMetrics:
+                    type: object
+                    properties:
+                      airQualityIndex:
+                        type: number
+                        description: Real-time air quality index (AQI).
+                      noiseLevel:
+                        type: number
+                        description: Real-time noise level in decibels (dB).
+                      hazardousMaterialLevel:
+                        type: number
+                        description: Level of hazardous materials detected.
+                      incidentRate:
+                        type: number
+                        description: Rate of EHS incidents per month.
+                  complianceStatus:
+                    type: string
+                    description: Compliance status with EHS regulations (e.g., compliant, non-compliant).
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the monitoring data.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/ehs-monitoring/compliance/submit':
+    post:
+      summary: Submit data for real-time EHS monitoring and compliance
+      description: Submit real-time data for EHS monitoring and compliance analysis.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ehsMetrics:
+                  type: object
+                  properties:
+                    airQualityIndex:
+                      type: number
+                      description: Real-time air quality index (AQI).
+                    noiseLevel:
+                      type: number
+                      description: Real-time noise level in decibels (dB).
+                    hazardousMaterialLevel:
+                      type: number
+                      description: Level of hazardous materials detected.
+                    incidentRate:
+                      type: number
+                      description: Rate of EHS incidents per month.
+                  required:
+                    - airQualityIndex
+                    - noiseLevel
+                    - hazardousMaterialLevel
+                    - incidentRate
+                complianceDetails:
+                  type: string
+                  description: Detailed analysis of compliance with EHS regulations.
+              required:
+                - ehsMetrics
+      responses:
+        '201':
+          description: Real-time EHS monitoring and compliance data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  monitoringId:
+                    type: string
+                    description: Unique identifier of the submitted monitoring session.
+                  status:
+                    type: string
+                    description: Status of the monitoring (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/ehs-monitoring/compliance/reports':
+    get:
+      summary: Retrieve real-time EHS monitoring and compliance reports
+      description: Fetch detailed reports on real-time EHS monitoring and compliance.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [daily, weekly, monthly]
+          description: Timeframe for the EHS monitoring and compliance report.
+      responses:
+        '200':
+          description: Successful retrieval of real-time EHS monitoring and compliance reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the EHS monitoring and compliance report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    ehsMetrics:
+                      type: object
+                      properties:
+                        airQualityIndex:
+                          type: number
+                          description: Average air quality index (AQI) during the timeframe.
+                        noiseLevel:
+                          type: number
+                          description: Average noise level in decibels (dB) during the timeframe.
+                        hazardousMaterialLevel:
+                          type: number
+                          description: Average level of hazardous materials detected during the timeframe.
+                        incidentRate:
+                          type: number
+                          description: Rate of EHS incidents during the timeframe.
+                    complianceStatus:
+                      type: string
+                      description: Overall compliance status with EHS regulations during the timeframe.
+                    overallEHSAssessment:
+                      type: string
+                      description: Overall assessment of EHS performance during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: 'Predictive Inventory Management in Warehousing'
+  description: 'API for predictive inventory management in warehousing, focusing on automation and search functionalities to optimize stock levels and reduce costs.'
+  version: 1.0.0
+paths:
+  '/inventory/predictive/manage':
+    post:
+      summary: 'Manage predictive inventory'
+      description: 'Uses predictive analytics to manage inventory levels in warehousing, ensuring optimal stock levels and reducing overstock or stockouts.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                inventory_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: string
+                      current_stock:
+                        type: number
+                      predicted_demand:
+                        type: number
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Predictive inventory management executed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_inventory_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_id:
+                          type: string
+                        current_stock:
+                          type: number
+                        predicted_demand:
+                          type: number
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/inventory/predictive/search':
+    get:
+      summary: 'Search predictive inventory management data'
+      description: 'Search for predictive inventory management data based on product ID or predicted demand.'
+      parameters:
+        - name: 'product_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the product to search for'
+        - name: 'predicted_demand'
+          in: query
+          schema:
+            type: number
+          required: false
+          description: 'Predicted demand to search for'
+      responses:
+        '200':
+          description: 'Predictive inventory management data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    product_id:
+                      type: string
+                    current_stock:
+                      type: number
+                    predicted_demand:
+                      type: number
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

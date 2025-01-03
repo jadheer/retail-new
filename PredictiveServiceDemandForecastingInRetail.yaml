@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Predictive Service Demand Forecasting in Retail'
+  description: 'This API is designed to enable predictive service demand forecasting in retail, leveraging AI and machine learning to predict future service demand based on historical data and trends. It supports the creation, retrieval, updating, and deletion of forecasting records to enhance efficiency and customer satisfaction.'
+  version: 1.0.0
+paths:
+  '/forecasting-records':
+    get:
+      summary: 'Retrieve a list of forecasting records'
+      description: 'Fetches a list of all predictive service demand forecasting records in retail.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the forecasting record'
+                    processName:
+                      type: string
+                      description: 'Name of the forecasting process (e.g., service demand forecasting)'
+                    forecastingDate:
+                      type: string
+                      format: date
+                      description: 'Date the forecasting was performed'
+                    status:
+                      type: string
+                      description: 'Status of the forecasting (e.g., active, inactive, under review)'
+                  required:
+                    - recordId
+                    - processName
+                    - forecastingDate
+                    - status
+    post:
+      summary: 'Add a new forecasting record'
+      description: 'Adds a new predictive service demand forecasting record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the forecasting process (e.g., service demand forecasting)'
+                forecastingDate:
+                  type: string
+                  format: date
+                  description: 'Date the forecasting was performed'
+                status:
+                  type: string
+                  description: 'Status of the forecasting (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - forecastingDate
+                - status
+      responses:
+        '201':
+          description: 'Forecasting record created successfully'
+  '/forecasting-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific forecasting record'
+      description: 'Fetches details of a specific predictive service demand forecasting record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the forecasting record'
+                  processName:
+                    type: string
+                    description: 'Name of the forecasting process (e.g., service demand forecasting)'
+                  forecastingDate:
+                    type: string
+                    format: date
+                    description: 'Date the forecasting was performed'
+                  status:
+                    type: string
+                    description: 'Status of the forecasting (e.g., active, inactive, under review)'
+                required:
+                  - recordId
+                  - processName
+                  - forecastingDate
+                  - status
+    put:
+      summary: 'Update an existing forecasting record'
+      description: 'Updates details of an existing predictive service demand forecasting record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the forecasting process (e.g., service demand forecasting)'
+                forecastingDate:
+                  type: string
+                  format: date
+                  description: 'Date the forecasting was performed'
+                status:
+                  type: string
+                  description: 'Status of the forecasting (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - forecastingDate
+                - status
+      responses:
+        '200':
+          description: 'Forecasting record updated successfully'
+    delete:
+      summary: 'Delete a forecasting record'
+      description: 'Deletes a predictive service demand forecasting record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Forecasting record deleted successfully'

@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  title: Optimizing Retail Inventory Allocation
+  description: API for optimizing the allocation of inventory across retail locations to maximize efficiency and meet demand.
+  version: 1.0.0
+paths:
+  '/inventory-allocation/optimize':
+    post:
+      summary: Optimize inventory allocation
+      description: Submit inventory and demand data to optimize allocation across retail locations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                inventoryData:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      locationId:
+                        type: string
+                        description: Unique identifier for the retail location.
+                      productId:
+                        type: string
+                        description: Unique identifier for the product.
+                      currentStock:
+                        type: number
+                        description: Current stock level at the location.
+                demandForecast:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      locationId:
+                        type: string
+                        description: Unique identifier for the retail location.
+                      productId:
+                        type: string
+                        description: Unique identifier for the product.
+                      forecastedDemand:
+                        type: number
+                        description: Forecasted demand for the product at the location.
+      responses:
+        '200':
+          description: Optimization results successfully generated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  optimizedAllocations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        locationId:
+                          type: string
+                          description: Retail location ID.
+                        productId:
+                          type: string
+                          description: Product ID.
+                        allocatedStock:
+                          type: number
+                          description: Recommended stock level to allocate.
+                  insights:
+                    type: array
+                    items:
+                      type: string
+                      description: Insights from the allocation optimization.
+  '/inventory-allocation/status':
+    get:
+      summary: Retrieve allocation status
+      description: Get the status and details of inventory allocation for specific products and locations.
+      parameters:
+        - name: locationId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: ID of the retail location.
+        - name: productId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: ID of the product.
+      responses:
+        '200':
+          description: Allocation status retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  allocations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        locationId:
+                          type: string
+                          description: Retail location ID.
+                        productId:
+                          type: string
+                          description: Product ID.
+                        currentStock:
+                          type: number
+                          description: Current stock level at the location.
+                        allocatedStock:
+                          type: number
+                          description: Stock allocated to the location.

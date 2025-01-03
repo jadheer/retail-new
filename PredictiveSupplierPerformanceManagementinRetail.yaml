@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  title: 'Predictive Supplier Performance Management in Retail'
+  description: 'API for predictive management of supplier performance in retail, focusing on automation and search functionalities.'
+  version: 1.0.0
+paths:
+  '/supplier/performance/predictive':
+    post:
+      summary: 'Manage supplier performance predictively'
+      description: 'Uses predictive analytics to monitor and optimize supplier performance.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                supplier_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      supplier_id:
+                        type: string
+                      performance_metrics:
+                        type: object
+                        properties:
+                          delivery_time:
+                            type: number
+                          quality_score:
+                            type: number
+                          cost_efficiency:
+                            type: number
+                      predictive_insights:
+                        type: object
+                        properties:
+                          risk_level:
+                            type: string
+                          recommended_actions:
+                            type: array
+                            items:
+                              type: string
+      responses:
+        '200':
+          description: 'Supplier performance managed predictively'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_supplier_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        supplier_id:
+                          type: string
+                        performance_metrics:
+                          type: object
+                          properties:
+                            delivery_time:
+                              type: number
+                            quality_score:
+                              type: number
+                            cost_efficiency:
+                              type: number
+                        predictive_insights:
+                          type: object
+                          properties:
+                            risk_level:
+                              type: string
+                            recommended_actions:
+                              type: array
+                              items:
+                                type: string
+  '/supplier/performance/search':
+    get:
+      summary: 'Search supplier performance data'
+      description: 'Search for supplier performance data based on supplier ID or risk level.'
+      parameters:
+        - name: 'supplier_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the supplier to search for'
+        - name: 'risk_level'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'Risk level of the supplier to search for'
+      responses:
+        '200':
+          description: 'Supplier performance data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    supplier_id:
+                      type: string
+                    performance_metrics:
+                      type: object
+                      properties:
+                        delivery_time:
+                          type: number
+                        quality_score:
+                          type: number
+                        cost_efficiency:
+                          type: number
+                    predictive_insights:
+                      type: object
+                      properties:
+                        risk_level:
+                          type: string
+                        recommended_actions:
+                          type: array
+                          items:
+                            type: string

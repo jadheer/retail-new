@@ -1,0 +1,139 @@
+openapi: 3.0.0
+info:
+  title: Personalized Trade Options And Market Trends Prediction For Retail Investors
+  version: 1.0.0
+  description: >
+    API for providing personalized trade options and predicting market trends tailored to retail investors,
+    enhancing investment decision-making and portfolio management.
+
+paths:
+  '/investors/trade-options':
+    get:
+      summary: Retrieve personalized trade options
+      description: Fetch a list of trade options personalized for the retail investor based on their preferences and portfolio.
+      parameters:
+        - name: investorId
+          in: query
+          description: Unique identifier for the retail investor.
+          required: true
+          schema:
+            type: string
+        - name: riskAppetite
+          in: query
+          description: Risk appetite of the investor (e.g., low, medium, high).
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of personalized trade options.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    tradeId:
+                      type: string
+                      description: Unique identifier for the trade option.
+                    symbol:
+                      type: string
+                      description: Stock or asset symbol.
+                    potentialReturn:
+                      type: number
+                      description: Potential return percentage for the trade option.
+                    riskLevel:
+                      type: string
+                      description: Risk level associated with the trade option.
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal server error
+
+  '/investors/market-trends':
+    get:
+      summary: Retrieve market trend predictions
+      description: Fetch predictions for market trends based on current data and historical analysis.
+      responses:
+        '200':
+          description: Successful retrieval of market trend predictions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    trendId:
+                      type: string
+                      description: Unique identifier for the market trend.
+                    sector:
+                      type: string
+                      description: Market sector associated with the trend.
+                    trendDirection:
+                      type: string
+                      description: Direction of the trend (e.g., upward, downward, stable).
+                    confidenceLevel:
+                      type: number
+                      description: Confidence level of the trend prediction (in percentage).
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal server error
+
+  '/investors/trade-simulation':
+    post:
+      summary: Simulate a trade
+      description: Submit details to simulate a trade and receive predicted outcomes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                investorId:
+                  type: string
+                  description: Unique identifier for the retail investor.
+                tradeDetails:
+                  type: object
+                  description: Details of the trade to be simulated.
+                  properties:
+                    symbol:
+                      type: string
+                      description: Stock or asset symbol.
+                    quantity:
+                      type: number
+                      description: Number of units to trade.
+                    tradeType:
+                      type: string
+                      description: Type of trade (e.g., buy, sell).
+              required:
+                - investorId
+                - tradeDetails
+      responses:
+        '200':
+          description: Trade simulation successfully completed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier for the trade simulation.
+                  predictedOutcome:
+                    type: object
+                    description: Predicted outcomes of the trade.
+                    properties:
+                      potentialProfit:
+                        type: number
+                        description: Potential profit from the trade.
+                      riskAssessment:
+                        type: string
+                        description: Assessment of risk for the trade.
+        '400':
+          description: Invalid request body
+        '500':
+          description: Internal server error

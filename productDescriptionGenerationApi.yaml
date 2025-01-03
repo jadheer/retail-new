@@ -1,0 +1,105 @@
+openapi: 3.0.0
+info:
+  title: 'Product Description Generation'
+  version: 1.0.0
+  description: 'API for managing Product Description Generation processes to create optimized and engaging product descriptions for enterprise inventory.'
+paths:
+  '/product-descriptions':
+    get:
+      summary: 'Retrieve generated product descriptions'
+      description: 'Fetch available product descriptions for enterprise inventory.'
+      responses:
+        '200':
+          description: 'Successful retrieval of product descriptions'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 8
+                  retail_domain_category:
+                    type: string
+                    example: 'Deliver Products'
+                  process_group:
+                    type: string
+                    example: 'Manage enterprise inventory'
+                  creation:
+                    type: string
+                    example: 'Major'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/product-descriptions/generate':
+    post:
+      summary: 'Generate a new product description'
+      description: 'Create a new product description for enterprise inventory.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_id:
+                  type: string
+                  example: 'PROD123'
+                product_name:
+                  type: string
+                  example: 'Smart Home Device'
+                key_features:
+                  type: array
+                  items:
+                    type: string
+                  example: ['Voice Control', 'Energy Efficient', 'Compact Design']
+                target_audience:
+                  type: string
+                  example: 'Tech Enthusiasts'
+      responses:
+        '201':
+          description: 'Product description generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Product description generated successfully.'
+                  description_id:
+                    type: string
+                    example: 'DESC123'
+  '/product-descriptions/automate':
+    post:
+      summary: 'Automate product description generation'
+      description: 'Trigger minor automation for generating product descriptions.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Product description automation process started successfully.'
+  '/product-descriptions/summarize':
+    get:
+      summary: 'Summarize product descriptions'
+      description: 'Generate a summary of product descriptions.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Generated descriptions cover 90% of inventory products.'

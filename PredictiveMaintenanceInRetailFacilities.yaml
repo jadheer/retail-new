@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Predictive Maintenance In Retail Facilities
+  version: 1.0.0
+  description: >
+    API to manage and optimize predictive maintenance processes in retail facilities,
+    ensuring efficient facility utilization, reduced downtime, and cost-effective maintenance strategies.
+
+paths:
+  '/facilities/maintenance/predictive':
+    get:
+      summary: Analyze predictive maintenance efficiency in retail facilities
+      description: Retrieve analysis and recommendations for improving predictive maintenance processes in retail facilities.
+      responses:
+        '200':
+          description: Successful retrieval of predictive maintenance data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalFacilities:
+                    type: integer
+                    description: Total number of facilities under predictive maintenance.
+                  facilitiesUnderMaintenance:
+                    type: integer
+                    description: Number of facilities currently under maintenance.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        facilityType:
+                          type: string
+                          description: Type of facility (e.g., store, warehouse, distribution center).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the facility type.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/facilities/maintenance/simulation':
+    post:
+      summary: Simulate predictive maintenance scenarios in retail facilities
+      description: Create and simulate scenarios for optimizing predictive maintenance in retail facilities.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                facilityCategories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories of facilities (e.g., store, warehouse, distribution center).
+                maintenanceStrategies:
+                  type: array
+                  items:
+                    type: string
+                  description: Strategies for predictive maintenance (e.g., condition-based, usage-based, time-based).
+              required:
+                - storeId
+                - facilityCategories
+                - maintenanceStrategies
+      responses:
+        '201':
+          description: Predictive maintenance simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the predictive maintenance simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/facilities/maintenance/predictive':
+    get:
+      summary: Retrieve predictive maintenance optimization suggestions for retail facilities
+      description: Get predictive maintenance optimization recommendations based on analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of predictive maintenance optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    facilityType:
+                      type: string
+                      description: Type of facility (e.g., store, warehouse, distribution center).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for predictive maintenance.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., reduced downtime, cost savings).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

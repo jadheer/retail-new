@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: Proactive Change Scenario Planning
+  version: 1.0.0
+  description: >
+    API to manage proactive change scenario planning, enabling businesses to anticipate
+    and prepare for potential changes in the market, operations, or environment.
+
+paths:
+  '/change-scenario/planning':
+    get:
+      summary: Retrieve change scenario planning data
+      description: Fetch details of proactive change scenarios and their planning status.
+      responses:
+        '200':
+          description: Successful retrieval of change scenario planning data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scenarioId:
+                    type: string
+                    description: Unique identifier of the change scenario.
+                  scenarioName:
+                    type: string
+                    description: Name of the change scenario.
+                  scenarioDescription:
+                    type: string
+                    description: Description of the change scenario.
+                  likelihood:
+                    type: string
+                    description: Likelihood of the scenario occurring (e.g., low, medium, high).
+                  impact:
+                    type: string
+                    description: Potential impact of the scenario (e.g., minor, major, critical).
+                  preparednessActions:
+                    type: array
+                    items:
+                      type: string
+                    description: Actions planned to prepare for the scenario.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the scenario.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/change-scenario/planning/submit':
+    post:
+      summary: Submit data for change scenario planning
+      description: Submit data for proactive change scenario planning.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                scenarioName:
+                  type: string
+                  description: Name of the change scenario.
+                scenarioDescription:
+                  type: string
+                  description: Description of the change scenario.
+                likelihood:
+                  type: string
+                  description: Likelihood of the scenario occurring (e.g., low, medium, high).
+                impact:
+                  type: string
+                  description: Potential impact of the scenario (e.g., minor, major, critical).
+                preparednessActions:
+                  type: array
+                  items:
+                    type: string
+                  description: Actions planned to prepare for the scenario.
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the scenario.
+              required:
+                - scenarioName
+                - scenarioDescription
+                - likelihood
+                - impact
+      responses:
+        '201':
+          description: Change scenario planning data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scenarioId:
+                    type: string
+                    description: Unique identifier of the submitted scenario.
+                  status:
+                    type: string
+                    description: Status of the scenario planning (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/change-scenario/planning/reports':
+    get:
+      summary: Retrieve change scenario planning reports
+      description: Fetch detailed reports on proactive change scenario planning.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the change scenario planning report.
+      responses:
+        '200':
+          description: Successful retrieval of change scenario planning reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the change scenario planning report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    plannedScenarios:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          scenarioName:
+                            type: string
+                            description: Name of the change scenario.
+                          scenarioDescription:
+                            type: string
+                            description: Description of the change scenario.
+                          likelihood:
+                            type: string
+                            description: Likelihood of the scenario occurring.
+                          impact:
+                            type: string
+                            description: Potential impact of the scenario.
+                          preparednessActions:
+                            type: array
+                            items:
+                              type: string
+                            description: Actions planned to prepare for the scenario.
+                    overallScenarioPreparedness:
+                      type: string
+                      description: Overall assessment of scenario preparedness during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

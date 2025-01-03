@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Proactive Service Delivery Management in Retail'
+  description: 'This API is designed to enable proactive service delivery management in retail, leveraging AI and machine learning to monitor and predict service delivery performance based on real-time data. It supports the creation, retrieval, updating, and deletion of service delivery management records to enhance efficiency and customer satisfaction.'
+  version: 1.0.0
+paths:
+  '/service-delivery-records':
+    get:
+      summary: 'Retrieve a list of service delivery records'
+      description: 'Fetches a list of all proactive service delivery management records in retail.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the service delivery record'
+                    processName:
+                      type: string
+                      description: 'Name of the service delivery management process (e.g., service delivery management)'
+                    deliveryDate:
+                      type: string
+                      format: date
+                      description: 'Date the service delivery was monitored'
+                    status:
+                      type: string
+                      description: 'Status of the service delivery management (e.g., active, inactive, under review)'
+                  required:
+                    - recordId
+                    - processName
+                    - deliveryDate
+                    - status
+    post:
+      summary: 'Add a new service delivery record'
+      description: 'Adds a new proactive service delivery management record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the service delivery management process (e.g., service delivery management)'
+                deliveryDate:
+                  type: string
+                  format: date
+                  description: 'Date the service delivery was monitored'
+                status:
+                  type: string
+                  description: 'Status of the service delivery management (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - deliveryDate
+                - status
+      responses:
+        '201':
+          description: 'Service delivery record created successfully'
+  '/service-delivery-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific service delivery record'
+      description: 'Fetches details of a specific proactive service delivery management record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the service delivery record'
+                  processName:
+                    type: string
+                    description: 'Name of the service delivery management process (e.g., service delivery management)'
+                  deliveryDate:
+                    type: string
+                    format: date
+                    description: 'Date the service delivery was monitored'
+                  status:
+                    type: string
+                    description: 'Status of the service delivery management (e.g., active, inactive, under review)'
+                required:
+                  - recordId
+                  - processName
+                  - deliveryDate
+                  - status
+    put:
+      summary: 'Update an existing service delivery record'
+      description: 'Updates details of an existing proactive service delivery management record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the service delivery management process (e.g., service delivery management)'
+                deliveryDate:
+                  type: string
+                  format: date
+                  description: 'Date the service delivery was monitored'
+                status:
+                  type: string
+                  description: 'Status of the service delivery management (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - deliveryDate
+                - status
+      responses:
+        '200':
+          description: 'Service delivery record updated successfully'
+    delete:
+      summary: 'Delete a service delivery record'
+      description: 'Deletes a proactive service delivery management record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Service delivery record deleted successfully'

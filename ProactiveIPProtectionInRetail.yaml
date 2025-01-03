@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Proactive IP Protection In Retail
+  version: 1.0.0
+  description: >
+    API to manage and optimize proactive intellectual property (IP) protection in retail,
+    ensuring the safeguarding of IP assets, compliance with regulations, and mitigation of risks.
+
+paths:
+  '/ip/protection':
+    get:
+      summary: Analyze proactive IP protection efficiency
+      description: Retrieve analysis and recommendations for improving proactive IP protection in retail.
+      responses:
+        '200':
+          description: Successful retrieval of IP protection data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalIPAssetsProtected:
+                    type: integer
+                    description: Total number of IP assets protected.
+                  ipInfringementsPrevented:
+                    type: integer
+                    description: Number of IP infringements successfully prevented.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ipType:
+                          type: string
+                          description: Type of IP asset (e.g., trademarks, patents, copyrights).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the IP type.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/ip/protection/simulation':
+    post:
+      summary: Simulate proactive IP protection scenarios
+      description: Create and simulate scenarios for optimizing proactive IP protection in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                ipCategories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories of IP assets (e.g., trademarks, patents, copyrights).
+                protectionStrategies:
+                  type: array
+                  items:
+                    type: string
+                  description: Strategies for proactive IP protection (e.g., monitoring, enforcement, legal actions).
+              required:
+                - storeId
+                - ipCategories
+                - protectionStrategies
+      responses:
+        '201':
+          description: Proactive IP protection simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the proactive IP protection simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/ip/protection':
+    get:
+      summary: Retrieve proactive IP protection optimization suggestions
+      description: Get proactive IP protection optimization recommendations based on analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of proactive IP protection optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ipType:
+                      type: string
+                      description: Type of IP asset (e.g., trademarks, patents, copyrights).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for proactive IP protection.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., improved IP safeguarding, reduced risks).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

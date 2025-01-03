@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Optimizing IT Continuity in Retail'
+  description: 'This API is designed to manage IT continuity plans in the retail sector, ensuring business resilience through disaster recovery, backup strategies, and failover plans. It enables the creation, retrieval, updating, and deletion of IT continuity plans to maintain operational efficiency and minimize downtime.'
+  version: 1.0.0
+paths:
+  '/it-continuity-plans':
+    get:
+      summary: 'Retrieve a list of IT continuity plans'
+      description: 'Fetches a list of all IT continuity plans in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    planId:
+                      type: string
+                      description: 'Unique identifier for the IT continuity plan'
+                    planName:
+                      type: string
+                      description: 'Name of the continuity plan (e.g., disaster recovery, backup strategy, failover plan)'
+                    createdDate:
+                      type: string
+                      format: date
+                      description: 'Date the plan was created'
+                    lastUpdatedDate:
+                      type: string
+                      format: date
+                      description: 'Date the plan was last updated'
+                    status:
+                      type: string
+                      description: 'Status of the plan (e.g., active, inactive, under review)'
+                  required:
+                    - planId
+                    - planName
+                    - createdDate
+                    - status
+    post:
+      summary: 'Add a new IT continuity plan'
+      description: 'Adds a new IT continuity plan to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                planName:
+                  type: string
+                  description: 'Name of the continuity plan (e.g., disaster recovery, backup strategy, failover plan)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the plan was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the plan was last updated'
+                status:
+                  type: string
+                  description: 'Status of the plan (e.g., active, inactive, under review)'
+              required:
+                - planName
+                - createdDate
+                - status
+      responses:
+        '201':
+          description: 'IT continuity plan created successfully'
+  '/it-continuity-plans/{planId}':
+    get:
+      summary: 'Retrieve details of a specific IT continuity plan'
+      description: 'Fetches details of a specific IT continuity plan by its ID.'
+      parameters:
+        - name: 'planId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  planId:
+                    type: string
+                    description: 'Unique identifier for the IT continuity plan'
+                  planName:
+                    type: string
+                    description: 'Name of the continuity plan (e.g., disaster recovery, backup strategy, failover plan)'
+                  createdDate:
+                    type: string
+                    format: date
+                    description: 'Date the plan was created'
+                  lastUpdatedDate:
+                    type: string
+                    format: date
+                    description: 'Date the plan was last updated'
+                  status:
+                    type: string
+                    description: 'Status of the plan (e.g., active, inactive, under review)'
+                required:
+                  - planId
+                  - planName
+                  - createdDate
+                  - status
+    put:
+      summary: 'Update an existing IT continuity plan'
+      description: 'Updates details of an existing IT continuity plan by its ID.'
+      parameters:
+        - name: 'planId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                planName:
+                  type: string
+                  description: 'Name of the continuity plan (e.g., disaster recovery, backup strategy, failover plan)'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the plan was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the plan was last updated'
+                status:
+                  type: string
+                  description: 'Status of the plan (e.g., active, inactive, under review)'
+              required:
+                - planName
+                - createdDate
+                - status
+      responses:
+        '200':
+          description: 'IT continuity plan updated successfully'
+    delete:
+      summary: 'Delete an IT continuity plan'
+      description: 'Deletes an IT continuity plan from the retail system by its ID.'
+      parameters:
+        - name: 'planId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'IT continuity plan deleted successfully'

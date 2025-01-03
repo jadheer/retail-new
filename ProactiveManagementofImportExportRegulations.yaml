@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: 'Proactive Management of Import/Export Regulations in Supply Chain'
+  description: 'API for proactive management of import/export regulations in the supply chain, focusing on automation and search functionalities to ensure compliance and reduce risks.'
+  version: 1.0.0
+paths:
+  '/import-export/regulations/proactive/manage':
+    post:
+      summary: 'Manage import/export regulations proactively'
+      description: 'Proactively manages import/export regulations in the supply chain to ensure compliance and reduce operational risks.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                regulation_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      shipment_id:
+                        type: string
+                      country_of_origin:
+                        type: string
+                      country_of_destination:
+                        type: string
+                      compliance_status:
+                        type: string
+                        enum: ['Compliant', 'Non-Compliant', 'Under Review']
+                      risk_mitigation_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Import/export regulations managed proactively'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_regulation_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        shipment_id:
+                          type: string
+                        country_of_origin:
+                          type: string
+                        country_of_destination:
+                          type: string
+                        compliance_status:
+                          type: string
+                          enum: ['Compliant', 'Non-Compliant', 'Under Review']
+                        risk_mitigation_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/import-export/regulations/proactive/search':
+    get:
+      summary: 'Search proactive import/export regulations data'
+      description: 'Search for proactive import/export regulations data based on shipment ID or compliance status.'
+      parameters:
+        - name: 'shipment_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the shipment to search for'
+        - name: 'compliance_status'
+          in: query
+          schema:
+            type: string
+            enum: ['Compliant', 'Non-Compliant', 'Under Review']
+          required: false
+          description: 'Compliance status to search for'
+      responses:
+        '200':
+          description: 'Proactive import/export regulations data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    shipment_id:
+                      type: string
+                    country_of_origin:
+                      type: string
+                    country_of_destination:
+                      type: string
+                    compliance_status:
+                      type: string
+                      enum: ['Compliant', 'Non-Compliant', 'Under Review']
+                    risk_mitigation_recommendations:
+                      type: array
+                      items:
+                        type: string

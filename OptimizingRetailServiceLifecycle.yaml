@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Optimizing Retail Service Lifecycle'
+  description: 'This API is designed to manage the lifecycle of retail services, enabling businesses to plan, execute, monitor, and optimize service stages efficiently. It supports the creation, retrieval, updating, and deletion of lifecycle stages to ensure seamless service delivery and continuous improvement.'
+  version: 1.0.0
+paths:
+  '/service-lifecycle':
+    get:
+      summary: 'Retrieve a list of service lifecycle stages'
+      description: 'Fetches a list of all stages in the retail service lifecycle.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    stageId:
+                      type: string
+                      description: 'Unique identifier for the service lifecycle stage'
+                    stageName:
+                      type: string
+                      description: 'Name of the lifecycle stage (e.g., planning, execution, monitoring, optimization)'
+                    startDate:
+                      type: string
+                      format: date
+                      description: 'Start date of the lifecycle stage'
+                    endDate:
+                      type: string
+                      format: date
+                      description: 'End date of the lifecycle stage'
+                    status:
+                      type: string
+                      description: 'Current status of the lifecycle stage (e.g., active, completed)'
+                  required:
+                    - stageId
+                    - stageName
+                    - startDate
+                    - status
+    post:
+      summary: 'Add a new lifecycle stage'
+      description: 'Adds a new stage to the retail service lifecycle.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stageName:
+                  type: string
+                  description: 'Name of the lifecycle stage (e.g., planning, execution, monitoring, optimization)'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the lifecycle stage'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the lifecycle stage'
+                status:
+                  type: string
+                  description: 'Current status of the lifecycle stage (e.g., active, completed)'
+              required:
+                - stageName
+                - startDate
+                - status
+      responses:
+        '201':
+          description: 'Lifecycle stage created successfully'
+  '/service-lifecycle/{stageId}':
+    get:
+      summary: 'Retrieve details of a specific lifecycle stage'
+      description: 'Fetches details of a specific service lifecycle stage by its ID.'
+      parameters:
+        - name: 'stageId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stageId:
+                    type: string
+                    description: 'Unique identifier for the service lifecycle stage'
+                  stageName:
+                    type: string
+                    description: 'Name of the lifecycle stage (e.g., planning, execution, monitoring, optimization)'
+                  startDate:
+                    type: string
+                    format: date
+                    description: 'Start date of the lifecycle stage'
+                  endDate:
+                    type: string
+                    format: date
+                    description: 'End date of the lifecycle stage'
+                  status:
+                    type: string
+                    description: 'Current status of the lifecycle stage (e.g., active, completed)'
+                required:
+                  - stageId
+                  - stageName
+                  - startDate
+                  - status
+    put:
+      summary: 'Update an existing lifecycle stage'
+      description: 'Updates details of an existing service lifecycle stage by its ID.'
+      parameters:
+        - name: 'stageId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stageName:
+                  type: string
+                  description: 'Name of the lifecycle stage (e.g., planning, execution, monitoring, optimization)'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the lifecycle stage'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the lifecycle stage'
+                status:
+                  type: string
+                  description: 'Current status of the lifecycle stage (e.g., active, completed)'
+              required:
+                - stageName
+                - startDate
+                - status
+      responses:
+        '200':
+          description: 'Lifecycle stage updated successfully'
+    delete:
+      summary: 'Delete a lifecycle stage'
+      description: 'Deletes a service lifecycle stage from the retail system by its ID.'
+      parameters:
+        - name: 'stageId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Lifecycle stage deleted successfully'

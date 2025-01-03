@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Proactive Financial Management in Retail'
+  description: 'This API is designed to enable proactive financial management in retail, leveraging AI and machine learning to monitor and manage financial performance. It supports the creation, retrieval, updating, and deletion of financial management records.'
+  version: 1.0.0
+paths:
+  '/financial-management-records':
+    get:
+      summary: 'Retrieve a list of financial management records'
+      description: 'Fetches a list of all proactive financial management records in retail.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the financial management record'
+                    processName:
+                      type: string
+                      description: 'Name of the process (e.g., proactive financial management)'
+                    managementDate:
+                      type: string
+                      format: date
+                      description: 'Date the financial management was performed'
+                    status:
+                      type: string
+                      description: 'Status of the management (e.g., active, inactive, under review)'
+                  required:
+                    - recordId
+                    - processName
+                    - managementDate
+                    - status
+    post:
+      summary: 'Add a new financial management record'
+      description: 'Adds a new proactive financial management record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., proactive financial management)'
+                managementDate:
+                  type: string
+                  format: date
+                  description: 'Date the financial management was performed'
+                status:
+                  type: string
+                  description: 'Status of the management (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - managementDate
+                - status
+      responses:
+        '201':
+          description: 'Financial management record created successfully'
+  '/financial-management-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific financial management record'
+      description: 'Fetches details of a specific proactive financial management record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the financial management record'
+                  processName:
+                    type: string
+                    description: 'Name of the process (e.g., proactive financial management)'
+                  managementDate:
+                    type: string
+                    format: date
+                    description: 'Date the financial management was performed'
+                  status:
+                    type: string
+                    description: 'Status of the management (e.g., active, inactive, under review)'
+                required:
+                  - recordId
+                  - processName
+                  - managementDate
+                  - status
+    put:
+      summary: 'Update an existing financial management record'
+      description: 'Updates details of an existing proactive financial management record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the process (e.g., proactive financial management)'
+                managementDate:
+                  type: string
+                  format: date
+                  description: 'Date the financial management was performed'
+                status:
+                  type: string
+                  description: 'Status of the management (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - managementDate
+                - status
+      responses:
+        '200':
+          description: 'Financial management record updated successfully'
+    delete:
+      summary: 'Delete a financial management record'
+      description: 'Deletes a proactive financial management record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Financial management record deleted successfully'

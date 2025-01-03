@@ -1,0 +1,163 @@
+openapi: 3.0.0
+info:
+  title: Policy Impact Analysis In Retail
+  version: 1.0.0
+  description: >
+    API to manage policy impact analysis in retail, enabling businesses to assess
+    the effects of government and industry policies and make informed decisions.
+
+paths:
+  '/policy/impact-analysis':
+    get:
+      summary: Retrieve policy impact analysis data
+      description: Fetch insights and analysis of the impact of policies on retail operations.
+      responses:
+        '200':
+          description: Successful retrieval of policy impact analysis data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analysisId:
+                    type: string
+                    description: Unique identifier of the policy impact analysis.
+                  policyName:
+                    type: string
+                    description: Name of the policy being analyzed.
+                  policyType:
+                    type: string
+                    description: Type of policy (e.g., government, industry).
+                  impactAreas:
+                    type: array
+                    items:
+                      type: string
+                    description: Areas of the retail business impacted by the policy.
+                  impactLevel:
+                    type: string
+                    description: Level of impact (e.g., low, medium, high).
+                  recommendations:
+                    type: array
+                    items:
+                      type: string
+                    description: Recommendations for adapting to the policy impact.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the analysis.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/policy/impact-analysis/submit':
+    post:
+      summary: Submit a policy impact analysis
+      description: Submit a new analysis of the impact of a policy on retail operations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                policyName:
+                  type: string
+                  description: Name of the policy being analyzed.
+                policyType:
+                  type: string
+                  description: Type of policy (e.g., government, industry).
+                impactAreas:
+                  type: array
+                  items:
+                    type: string
+                  description: Areas of the retail business impacted by the policy.
+                impactLevel:
+                  type: string
+                  description: Level of impact (e.g., low, medium, high).
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the policy impact.
+                recommendations:
+                  type: array
+                  items:
+                    type: string
+                  description: Recommendations for adapting to the policy impact.
+              required:
+                - policyName
+                - policyType
+                - impactAreas
+                - impactLevel
+      responses:
+        '201':
+          description: Policy impact analysis successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analysisId:
+                    type: string
+                    description: Unique identifier of the submitted analysis.
+                  status:
+                    type: string
+                    description: Status of the analysis (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/policy/impact-analysis/reports':
+    get:
+      summary: Retrieve policy impact analysis reports
+      description: Fetch detailed reports on the impact of policies on retail operations.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the policy impact analysis report.
+      responses:
+        '200':
+          description: Successful retrieval of policy impact analysis reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the policy impact report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    analyzedPolicies:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          policyName:
+                            type: string
+                            description: Name of the policy.
+                          policyType:
+                            type: string
+                            description: Type of policy.
+                          impactLevel:
+                            type: string
+                            description: Level of impact.
+                          recommendations:
+                            type: array
+                            items:
+                              type: string
+                            description: Recommendations for adapting to the policy impact.
+                    overallImpactAssessment:
+                      type: string
+                      description: Overall assessment of policy impacts during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

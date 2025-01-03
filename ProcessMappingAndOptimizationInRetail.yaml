@@ -1,0 +1,213 @@
+openapi: 3.0.0
+info:
+  title: Process Mapping And Optimization In Retail
+  version: 1.0.0
+  description: >
+    API to manage process mapping and optimization in retail, enabling businesses to
+    visualize, analyze, and improve their operational processes for greater efficiency
+    and effectiveness.
+
+paths:
+  '/process-mapping/optimization':
+    get:
+      summary: Retrieve process mapping and optimization data
+      description: Fetch mapped processes and optimization insights for retail operations.
+      responses:
+        '200':
+          description: Successful retrieval of process mapping and optimization data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: string
+                    description: Unique identifier of the process.
+                  processName:
+                    type: string
+                    description: Name of the process being mapped.
+                  processMap:
+                    type: object
+                    properties:
+                      activities:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            activityName:
+                              type: string
+                              description: Name of the activity.
+                            sequence:
+                              type: integer
+                              description: Sequence of the activity in the process.
+                            duration:
+                              type: number
+                              description: Duration of the activity.
+                            resources:
+                              type: array
+                              items:
+                                type: string
+                              description: Resources used in the activity.
+                      dependencies:
+                        type: array
+                        items:
+                          type: string
+                        description: Dependencies between activities.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: string
+                    description: Recommendations for optimizing the process.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the process map.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/process-mapping/optimization/submit':
+    post:
+      summary: Submit data for process mapping and optimization
+      description: Submit process data for mapping and optimization analysis.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: Name of the process being mapped.
+                processData:
+                  type: object
+                  properties:
+                    activities:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          activityName:
+                            type: string
+                            description: Name of the activity.
+                          sequence:
+                            type: integer
+                            description: Sequence of the activity in the process.
+                          duration:
+                            type: number
+                            description: Duration of the activity.
+                          resources:
+                            type: array
+                            items:
+                              type: string
+                            description: Resources used in the activity.
+                    dependencies:
+                      type: array
+                      items:
+                        type: string
+                      description: Dependencies between activities.
+                  required:
+                    - activities
+                    - dependencies
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the process data.
+              required:
+                - processName
+                - processData
+      responses:
+        '201':
+          description: Process mapping and optimization data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mappingId:
+                    type: string
+                    description: Unique identifier of the submitted process map.
+                  status:
+                    type: string
+                    description: Status of the mapping (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/process-mapping/optimization/reports':
+    get:
+      summary: Retrieve process mapping and optimization reports
+      description: Fetch detailed reports on process mapping and optimization.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the process mapping and optimization report.
+      responses:
+        '200':
+          description: Successful retrieval of process mapping and optimization reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the process mapping and optimization report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    mappedProcesses:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          processName:
+                            type: string
+                            description: Name of the process.
+                          processMap:
+                            type: object
+                            properties:
+                              activities:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    activityName:
+                                      type: string
+                                      description: Name of the activity.
+                                    sequence:
+                                      type: integer
+                                      description: Sequence of the activity in the process.
+                                    duration:
+                                      type: number
+                                      description: Duration of the activity.
+                                    resources:
+                                      type: array
+                                      items:
+                                        type: string
+                                      description: Resources used in the activity.
+                              dependencies:
+                                type: array
+                                items:
+                                  type: string
+                                description: Dependencies between activities.
+                          optimizationSuggestions:
+                            type: array
+                            items:
+                              type: string
+                            description: Recommendations for optimizing the process.
+                    overallProcessEfficiency:
+                      type: string
+                      description: Overall assessment of process efficiency during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

@@ -1,0 +1,191 @@
+openapi: 3.0.0
+info:
+  title: Predictive Maintenance Of Knowledge Management Systems
+  version: 1.0.0
+  description: >
+    API to manage predictive maintenance of knowledge management systems, ensuring
+    optimal performance and minimizing downtime through proactive monitoring and
+    maintenance strategies.
+
+paths:
+  '/predictive-maintenance/knowledge-management':
+    get:
+      summary: Retrieve predictive maintenance data
+      description: Fetch predictive maintenance insights for knowledge management systems.
+      responses:
+        '200':
+          description: Successful retrieval of predictive maintenance data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  maintenanceId:
+                    type: string
+                    description: Unique identifier of the maintenance session.
+                  systemId:
+                    type: string
+                    description: Unique identifier of the knowledge management system.
+                  predictedIssues:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        issueType:
+                          type: string
+                          description: Type of issue (e.g., hardware, software, network).
+                        likelihood:
+                          type: string
+                          description: Likelihood of the issue occurring (e.g., low, medium, high).
+                        impact:
+                          type: string
+                          description: Potential impact of the issue (e.g., minor, major, critical).
+                  maintenanceActions:
+                    type: array
+                    items:
+                      type: string
+                    description: Recommended maintenance actions to prevent issues.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the maintenance data.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/predictive-maintenance/knowledge-management/submit':
+    post:
+      summary: Submit data for predictive maintenance
+      description: Submit system data for predictive maintenance of knowledge management systems.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                systemId:
+                  type: string
+                  description: Unique identifier of the knowledge management system.
+                systemData:
+                  type: object
+                  properties:
+                    hardwareMetrics:
+                      type: object
+                      properties:
+                        cpuUsage:
+                          type: number
+                          description: CPU usage percentage.
+                        memoryUsage:
+                          type: number
+                          description: Memory usage percentage.
+                    softwareMetrics:
+                      type: object
+                      properties:
+                        errorRate:
+                          type: number
+                          description: Error rate in the software.
+                        responseTime:
+                          type: number
+                          description: Average response time of the software.
+                    networkMetrics:
+                      type: object
+                      properties:
+                        bandwidthUsage:
+                          type: number
+                          description: Bandwidth usage percentage.
+                        latency:
+                          type: number
+                          description: Network latency in milliseconds.
+                  required:
+                    - hardwareMetrics
+                    - softwareMetrics
+                    - networkMetrics
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the system data.
+              required:
+                - systemId
+                - systemData
+      responses:
+        '201':
+          description: Predictive maintenance data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  maintenanceId:
+                    type: string
+                    description: Unique identifier of the submitted maintenance session.
+                  status:
+                    type: string
+                    description: Status of the maintenance (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/predictive-maintenance/knowledge-management/reports':
+    get:
+      summary: Retrieve predictive maintenance reports
+      description: Fetch detailed reports on predictive maintenance for knowledge management systems.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the predictive maintenance report.
+      responses:
+        '200':
+          description: Successful retrieval of predictive maintenance reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the predictive maintenance report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    analyzedSystems:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          systemId:
+                            type: string
+                            description: Unique identifier of the knowledge management system.
+                          predictedIssues:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                issueType:
+                                  type: string
+                                  description: Type of issue.
+                                likelihood:
+                                  type: string
+                                  description: Likelihood of the issue occurring.
+                                impact:
+                                  type: string
+                                  description: Potential impact of the issue.
+                          maintenanceActions:
+                            type: array
+                            items:
+                              type: string
+                            description: Recommended maintenance actions.
+                    overallSystemHealth:
+                      type: string
+                      description: Overall health assessment of knowledge management systems during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

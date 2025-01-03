@@ -1,0 +1,144 @@
+openapi: 3.0.0
+info:
+  title: 'Proactive Production Management in Retail'
+  description: 'API for proactive production management in retail, focusing on monitoring and optimizing production processes.'
+  version: 1.0.0
+paths:
+  '/production/manage/proactive':
+    post:
+      summary: 'Manage production proactively'
+      description: 'Monitors and optimizes production processes to ensure efficiency and meet demand.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                  example: 119
+                retail_domain_category:
+                  type: string
+                  example: 'Merchandise Products and Services'
+                process_group:
+                  type: string
+                  example: 'Manage product development lifecycle'
+                production_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: string
+                      production_plan:
+                        type: object
+                        properties:
+                          target_quantity:
+                            type: integer
+                          start_date:
+                            type: string
+                            format: date
+                          end_date:
+                            type: string
+                            format: date
+                      current_status:
+                        type: string
+                        enum: ['On Track', 'Delayed', 'Ahead of Schedule']
+                  example:
+                    - product_id: 'prod789'
+                      production_plan:
+                        target_quantity: 1000
+                        start_date: '2023-10-01'
+                        end_date: '2023-10-15'
+                      current_status: 'On Track'
+      responses:
+        '200':
+          description: 'Production managed proactively'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Production managed proactively'
+                  updated_production_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_id:
+                          type: string
+                        production_plan:
+                          type: object
+                          properties:
+                            target_quantity:
+                              type: integer
+                            start_date:
+                              type: string
+                              format: date
+                            end_date:
+                              type: string
+                              format: date
+                        current_status:
+                          type: string
+                          enum: ['On Track', 'Delayed', 'Ahead of Schedule']
+                    example:
+                      - product_id: 'prod789'
+                        production_plan:
+                          target_quantity: 1000
+                          start_date: '2023-10-01'
+                          end_date: '2023-10-15'
+                        current_status: 'Ahead of Schedule'
+  '/production/manage/search':
+    get:
+      summary: 'Search production management data'
+      description: 'Search for production management data based on product ID or status.'
+      parameters:
+        - name: 'product_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the product to search for'
+        - name: 'status'
+          in: query
+          schema:
+            type: string
+            enum: ['On Track', 'Delayed', 'Ahead of Schedule']
+          required: false
+          description: 'Status of the production process to search for'
+      responses:
+        '200':
+          description: 'Production management data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    product_id:
+                      type: string
+                    production_plan:
+                      type: object
+                      properties:
+                        target_quantity:
+                          type: integer
+                        start_date:
+                          type: string
+                          format: date
+                        end_date:
+                          type: string
+                          format: date
+                    current_status:
+                      type: string
+                      enum: ['On Track', 'Delayed', 'Ahead of Schedule']
+                example:
+                  - product_id: 'prod789'
+                    production_plan:
+                      target_quantity: 1000
+                      start_date: '2023-10-01'
+                      end_date: '2023-10-15'
+                    current_status: 'Ahead of Schedule'

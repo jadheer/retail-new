@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: 'Optimizing Tech and Governance with Strategic Advantage'
+  description: 'This API is designed to manage technology and governance strategies, enabling organizations to gain a strategic advantage through initiatives such as cloud adoption, data governance, and agile transformation. It supports the creation, retrieval, updating, and deletion of strategies to ensure alignment with business objectives and operational efficiency.'
+  version: 1.0.0
+paths:
+  '/tech-governance-strategies':
+    get:
+      summary: 'Retrieve a list of tech and governance strategies'
+      description: 'Fetches a list of all technology and governance strategies aimed at gaining strategic advantage.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    strategyId:
+                      type: string
+                      description: 'Unique identifier for the tech and governance strategy'
+                    strategyName:
+                      type: string
+                      description: 'Name of the strategy (e.g., cloud adoption, data governance, agile transformation)'
+                    description:
+                      type: string
+                      description: 'Description of the strategy'
+                    createdDate:
+                      type: string
+                      format: date
+                      description: 'Date the strategy was created'
+                    lastUpdatedDate:
+                      type: string
+                      format: date
+                      description: 'Date the strategy was last updated'
+                    status:
+                      type: string
+                      description: 'Status of the strategy (e.g., active, inactive, under review)'
+                  required:
+                    - strategyId
+                    - strategyName
+                    - createdDate
+                    - status
+    post:
+      summary: 'Add a new tech and governance strategy'
+      description: 'Adds a new technology and governance strategy to the system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                strategyName:
+                  type: string
+                  description: 'Name of the strategy (e.g., cloud adoption, data governance, agile transformation)'
+                description:
+                  type: string
+                  description: 'Description of the strategy'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was last updated'
+                status:
+                  type: string
+                  description: 'Status of the strategy (e.g., active, inactive, under review)'
+              required:
+                - strategyName
+                - createdDate
+                - status
+      responses:
+        '201':
+          description: 'Tech and governance strategy created successfully'
+  '/tech-governance-strategies/{strategyId}':
+    get:
+      summary: 'Retrieve details of a specific tech and governance strategy'
+      description: 'Fetches details of a specific tech and governance strategy by its ID.'
+      parameters:
+        - name: 'strategyId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  strategyId:
+                    type: string
+                    description: 'Unique identifier for the tech and governance strategy'
+                  strategyName:
+                    type: string
+                    description: 'Name of the strategy (e.g., cloud adoption, data governance, agile transformation)'
+                  description:
+                    type: string
+                    description: 'Description of the strategy'
+                  createdDate:
+                    type: string
+                    format: date
+                    description: 'Date the strategy was created'
+                  lastUpdatedDate:
+                    type: string
+                    format: date
+                    description: 'Date the strategy was last updated'
+                  status:
+                    type: string
+                    description: 'Status of the strategy (e.g., active, inactive, under review)'
+                required:
+                  - strategyId
+                  - strategyName
+                  - createdDate
+                  - status
+    put:
+      summary: 'Update an existing tech and governance strategy'
+      description: 'Updates details of an existing tech and governance strategy by its ID.'
+      parameters:
+        - name: 'strategyId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                strategyName:
+                  type: string
+                  description: 'Name of the strategy (e.g., cloud adoption, data governance, agile transformation)'
+                description:
+                  type: string
+                  description: 'Description of the strategy'
+                createdDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was created'
+                lastUpdatedDate:
+                  type: string
+                  format: date
+                  description: 'Date the strategy was last updated'
+                status:
+                  type: string
+                  description: 'Status of the strategy (e.g., active, inactive, under review)'
+              required:
+                - strategyName
+                - createdDate
+                - status
+      responses:
+        '200':
+          description: 'Tech and governance strategy updated successfully'
+    delete:
+      summary: 'Delete a tech and governance strategy'
+      description: 'Deletes a tech and governance strategy from the system by its ID.'
+      parameters:
+        - name: 'strategyId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Tech and governance strategy deleted successfully'

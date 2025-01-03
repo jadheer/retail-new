@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title: 'Optimizing Cross-Docking Operations in Retail Logistics'
+  description: 'API for optimizing cross-docking operations in retail logistics, focusing on automation and search functionalities to improve efficiency.'
+  version: 1.0.0
+paths:
+  '/cross-docking/operations/optimize':
+    post:
+      summary: 'Optimize cross-docking operations'
+      description: 'Optimizes cross-docking operations in retail logistics to reduce handling time and improve throughput.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                cross_docking_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      shipment_id:
+                        type: string
+                      inbound_dock:
+                        type: string
+                      outbound_dock:
+                        type: string
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Cross-docking operations optimized successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_cross_docking_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        shipment_id:
+                          type: string
+                        inbound_dock:
+                          type: string
+                        outbound_dock:
+                          type: string
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/cross-docking/operations/search':
+    get:
+      summary: 'Search cross-docking operations data'
+      description: 'Search for cross-docking operations data based on shipment ID or inbound/outbound dock.'
+      parameters:
+        - name: 'shipment_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the shipment to search for'
+        - name: 'inbound_dock'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'Inbound dock to search for'
+        - name: 'outbound_dock'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'Outbound dock to search for'
+      responses:
+        '200':
+          description: 'Cross-docking operations data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    shipment_id:
+                      type: string
+                    inbound_dock:
+                      type: string
+                    outbound_dock:
+                      type: string
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

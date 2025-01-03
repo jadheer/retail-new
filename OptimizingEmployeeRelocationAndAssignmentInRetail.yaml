@@ -1,0 +1,70 @@
+openapi: 3.0.0
+info:
+  title: Optimizing Employee Relocation and Assignment in Retail
+  description: API for managing and optimizing employee relocation and assignment processes in the retail industry to enhance operational efficiency.
+  version: 1.0.0
+paths:
+  '/optimizing-employee-relocation':
+    get:
+      summary: Retrieve employee relocation and assignment details
+      description: Fetch data related to employee relocation, assignment status, and upcoming relocation plans within the retail industry.
+      parameters:
+        - name: employeeId
+          in: query
+          required: false
+          schema:
+            type: string
+            example: EMP12345
+        - name: department
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "Sales"
+      responses:
+        '200':
+          description: Successfully retrieved employee relocation and assignment data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  employeeId:
+                    type: string
+                  employeeName:
+                    type: string
+                  currentAssignment:
+                    type: string
+                    example: "New York Store"
+                  relocationStatus:
+                    type: string
+                    example: "Scheduled"
+                  relocationDate:
+                    type: string
+                    format: date
+    post:
+      summary: Submit employee relocation and assignment request
+      description: Submit a request for employee relocation and assignment, including the desired location, new role, and timeline.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                currentAssignment:
+                  type: string
+                newRole:
+                  type: string
+                newLocation:
+                  type: string
+                relocationDate:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: Employee relocation and assignment request submitted successfully.
+        '400':
+          description: Invalid input data.

@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  title: 'Proactive Carrier Performance Management'
+  description: 'API for proactive carrier performance management, focusing on automation and search functionalities to monitor and improve carrier performance.'
+  version: 1.0.0
+paths:
+  '/carrier/performance/proactive/manage':
+    post:
+      summary: 'Manage carrier performance proactively'
+      description: 'Proactively monitors and manages carrier performance to ensure efficient and reliable logistics operations.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                carrier_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      carrier_id:
+                        type: string
+                      performance_metrics:
+                        type: object
+                        properties:
+                          on_time_delivery_rate:
+                            type: number
+                          cost_efficiency:
+                            type: number
+                      improvement_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Carrier performance managed proactively'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_carrier_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        carrier_id:
+                          type: string
+                        performance_metrics:
+                          type: object
+                          properties:
+                            on_time_delivery_rate:
+                              type: number
+                            cost_efficiency:
+                              type: number
+                        improvement_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/carrier/performance/proactive/search':
+    get:
+      summary: 'Search proactive carrier performance data'
+      description: 'Search for proactive carrier performance data based on carrier ID or performance metrics.'
+      parameters:
+        - name: 'carrier_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the carrier to search for'
+        - name: 'on_time_delivery_rate'
+          in: query
+          schema:
+            type: number
+          required: false
+          description: 'On-time delivery rate to search for'
+      responses:
+        '200':
+          description: 'Proactive carrier performance data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    carrier_id:
+                      type: string
+                    performance_metrics:
+                      type: object
+                      properties:
+                        on_time_delivery_rate:
+                          type: number
+                        cost_efficiency:
+                          type: number
+                    improvement_recommendations:
+                      type: array
+                      items:
+                        type: string

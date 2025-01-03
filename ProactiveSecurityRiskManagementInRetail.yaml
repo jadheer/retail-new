@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: 'Proactive Security Risk Management in Retail'
+  description: 'This API is designed to enable proactive security risk management in retail, leveraging AI and machine learning to assess and manage security risks based on threat intelligence and historical data. It supports the creation, retrieval, updating, and deletion of security risk management records to enhance system security and reliability.'
+  version: 1.0.0
+paths:
+  '/security-risk-records':
+    get:
+      summary: 'Retrieve a list of security risk records'
+      description: 'Fetches a list of all proactive security risk management records in retail.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    recordId:
+                      type: string
+                      description: 'Unique identifier for the security risk record'
+                    processName:
+                      type: string
+                      description: 'Name of the security risk management process (e.g., security risk management)'
+                    riskDate:
+                      type: string
+                      format: date
+                      description: 'Date the security risk was assessed'
+                    status:
+                      type: string
+                      description: 'Status of the security risk management (e.g., active, inactive, under review)'
+                  required:
+                    - recordId
+                    - processName
+                    - riskDate
+                    - status
+    post:
+      summary: 'Add a new security risk record'
+      description: 'Adds a new proactive security risk management record to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the security risk management process (e.g., security risk management)'
+                riskDate:
+                  type: string
+                  format: date
+                  description: 'Date the security risk was assessed'
+                status:
+                  type: string
+                  description: 'Status of the security risk management (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - riskDate
+                - status
+      responses:
+        '201':
+          description: 'Security risk record created successfully'
+  '/security-risk-records/{recordId}':
+    get:
+      summary: 'Retrieve details of a specific security risk record'
+      description: 'Fetches details of a specific proactive security risk management record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recordId:
+                    type: string
+                    description: 'Unique identifier for the security risk record'
+                  processName:
+                    type: string
+                    description: 'Name of the security risk management process (e.g., security risk management)'
+                  riskDate:
+                    type: string
+                    format: date
+                    description: 'Date the security risk was assessed'
+                  status:
+                    type: string
+                    description: 'Status of the security risk management (e.g., active, inactive, under review)'
+                required:
+                  - recordId
+                  - processName
+                  - riskDate
+                  - status
+    put:
+      summary: 'Update an existing security risk record'
+      description: 'Updates details of an existing proactive security risk management record by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: 'Name of the security risk management process (e.g., security risk management)'
+                riskDate:
+                  type: string
+                  format: date
+                  description: 'Date the security risk was assessed'
+                status:
+                  type: string
+                  description: 'Status of the security risk management (e.g., active, inactive, under review)'
+              required:
+                - processName
+                - riskDate
+                - status
+      responses:
+        '200':
+          description: 'Security risk record updated successfully'
+    delete:
+      summary: 'Delete a security risk record'
+      description: 'Deletes a proactive security risk management record from the retail system by its ID.'
+      parameters:
+        - name: 'recordId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Security risk record deleted successfully'

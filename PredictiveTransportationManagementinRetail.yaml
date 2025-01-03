@@ -1,0 +1,104 @@
+openapi: 3.0.0
+info:
+  title: 'Predictive Transportation Management in Retail'
+  description: 'API for predictive transportation management in retail, focusing on automation and search functionalities to optimize logistics operations.'
+  version: 1.0.0
+paths:
+  '/transportation/predictive/manage':
+    post:
+      summary: 'Manage predictive transportation'
+      description: 'Uses predictive analytics to optimize transportation logistics, including route planning, carrier selection, and delivery scheduling.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                transportation_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      shipment_id:
+                        type: string
+                      predicted_delivery_time:
+                        type: string
+                        format: date-time
+                      optimal_route:
+                        type: string
+                      cost_optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Predictive transportation management executed successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_transportation_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        shipment_id:
+                          type: string
+                        predicted_delivery_time:
+                          type: string
+                          format: date-time
+                        optimal_route:
+                          type: string
+                        cost_optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/transportation/predictive/search':
+    get:
+      summary: 'Search predictive transportation data'
+      description: 'Search for predictive transportation data based on shipment ID or predicted delivery time.'
+      parameters:
+        - name: 'shipment_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the shipment to search for'
+        - name: 'predicted_delivery_time'
+          in: query
+          schema:
+            type: string
+            format: date-time
+          required: false
+          description: 'Predicted delivery time to search for'
+      responses:
+        '200':
+          description: 'Predictive transportation data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    shipment_id:
+                      type: string
+                    predicted_delivery_time:
+                      type: string
+                      format: date-time
+                    optimal_route:
+                      type: string
+                    cost_optimization_recommendations:
+                      type: array
+                      items:
+                        type: string

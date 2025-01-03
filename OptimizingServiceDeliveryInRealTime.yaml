@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Optimizing Service Delivery in Real-Time'
+  description: 'This API is designed to optimize real-time service delivery, enabling businesses to manage live support, real-time monitoring, and instant notifications efficiently. It supports the creation, retrieval, updating, and deletion of real-time service deliveries to ensure seamless and responsive customer experiences.'
+  version: 1.0.0
+paths:
+  '/real-time-services':
+    get:
+      summary: 'Retrieve a list of real-time service deliveries'
+      description: 'Fetches a list of all real-time service deliveries being optimized.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    serviceId:
+                      type: string
+                      description: 'Unique identifier for the real-time service delivery'
+                    serviceName:
+                      type: string
+                      description: 'Name of the service (e.g., live support, real-time monitoring, instant notifications)'
+                    startTime:
+                      type: string
+                      format: date-time
+                      description: 'Start time of the service delivery'
+                    endTime:
+                      type: string
+                      format: date-time
+                      description: 'End time of the service delivery'
+                    status:
+                      type: string
+                      description: 'Status of the service delivery (e.g., active, completed, failed)'
+                  required:
+                    - serviceId
+                    - serviceName
+                    - startTime
+                    - status
+    post:
+      summary: 'Add a new real-time service delivery'
+      description: 'Adds a new real-time service delivery to the system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                serviceName:
+                  type: string
+                  description: 'Name of the service (e.g., live support, real-time monitoring, instant notifications)'
+                startTime:
+                  type: string
+                  format: date-time
+                  description: 'Start time of the service delivery'
+                endTime:
+                  type: string
+                  format: date-time
+                  description: 'End time of the service delivery'
+                status:
+                  type: string
+                  description: 'Status of the service delivery (e.g., active, completed, failed)'
+              required:
+                - serviceName
+                - startTime
+                - status
+      responses:
+        '201':
+          description: 'Real-time service delivery created successfully'
+  '/real-time-services/{serviceId}':
+    get:
+      summary: 'Retrieve details of a specific real-time service delivery'
+      description: 'Fetches details of a specific real-time service delivery by its ID.'
+      parameters:
+        - name: 'serviceId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  serviceId:
+                    type: string
+                    description: 'Unique identifier for the real-time service delivery'
+                  serviceName:
+                    type: string
+                    description: 'Name of the service (e.g., live support, real-time monitoring, instant notifications)'
+                  startTime:
+                    type: string
+                    format: date-time
+                    description: 'Start time of the service delivery'
+                  endTime:
+                    type: string
+                    format: date-time
+                    description: 'End time of the service delivery'
+                  status:
+                    type: string
+                    description: 'Status of the service delivery (e.g., active, completed, failed)'
+                required:
+                  - serviceId
+                  - serviceName
+                  - startTime
+                  - status
+    put:
+      summary: 'Update an existing real-time service delivery'
+      description: 'Updates details of an existing real-time service delivery by its ID.'
+      parameters:
+        - name: 'serviceId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                serviceName:
+                  type: string
+                  description: 'Name of the service (e.g., live support, real-time monitoring, instant notifications)'
+                startTime:
+                  type: string
+                  format: date-time
+                  description: 'Start time of the service delivery'
+                endTime:
+                  type: string
+                  format: date-time
+                  description: 'End time of the service delivery'
+                status:
+                  type: string
+                  description: 'Status of the service delivery (e.g., active, completed, failed)'
+              required:
+                - serviceName
+                - startTime
+                - status
+      responses:
+        '200':
+          description: 'Real-time service delivery updated successfully'
+    delete:
+      summary: 'Delete a real-time service delivery'
+      description: 'Deletes a real-time service delivery from the system by its ID.'
+      parameters:
+        - name: 'serviceId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Real-time service delivery deleted successfully'

@@ -1,0 +1,175 @@
+openapi: 3.0.0
+info:
+  title: Real Time Monitoring And Governance Of Retail Processes
+  version: 1.0.0
+  description: >
+    API to manage real-time monitoring and governance of retail processes, enabling
+    businesses to ensure compliance, optimize performance, and maintain operational
+    efficiency.
+
+paths:
+  '/process-monitoring/governance':
+    get:
+      summary: Retrieve real-time process monitoring and governance data
+      description: Fetch real-time data on retail processes and their governance status.
+      responses:
+        '200':
+          description: Successful retrieval of real-time process monitoring and governance data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: string
+                    description: Unique identifier of the retail process.
+                  processName:
+                    type: string
+                    description: Name of the retail process being monitored.
+                  processMetrics:
+                    type: object
+                    properties:
+                      throughputTime:
+                        type: number
+                        description: Real-time throughput time of the process.
+                      errorRate:
+                        type: number
+                        description: Real-time error rate in the process.
+                      complianceScore:
+                        type: number
+                        description: Real-time compliance score of the process (0-100).
+                      resourceUtilization:
+                        type: number
+                        description: Real-time resource utilization percentage.
+                  governanceStatus:
+                    type: string
+                    description: Governance status of the process (e.g., compliant, non-compliant).
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the monitoring data.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/process-monitoring/governance/submit':
+    post:
+      summary: Submit data for real-time process monitoring and governance
+      description: Submit real-time data for monitoring and governance of retail processes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                processName:
+                  type: string
+                  description: Name of the retail process being monitored.
+                processMetrics:
+                  type: object
+                  properties:
+                    throughputTime:
+                      type: number
+                      description: Real-time throughput time of the process.
+                    errorRate:
+                      type: number
+                      description: Real-time error rate in the process.
+                    complianceScore:
+                      type: number
+                      description: Real-time compliance score of the process (0-100).
+                    resourceUtilization:
+                      type: number
+                      description: Real-time resource utilization percentage.
+                  required:
+                    - throughputTime
+                    - errorRate
+                    - complianceScore
+                    - resourceUtilization
+                governanceDetails:
+                  type: string
+                  description: Detailed analysis of the governance status.
+              required:
+                - processName
+                - processMetrics
+      responses:
+        '201':
+          description: Real-time process monitoring and governance data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  monitoringId:
+                    type: string
+                    description: Unique identifier of the submitted monitoring session.
+                  status:
+                    type: string
+                    description: Status of the monitoring (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/process-monitoring/governance/reports':
+    get:
+      summary: Retrieve real-time process monitoring and governance reports
+      description: Fetch detailed reports on real-time monitoring and governance of retail processes.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [daily, weekly, monthly]
+          description: Timeframe for the process monitoring and governance report.
+      responses:
+        '200':
+          description: Successful retrieval of real-time process monitoring and governance reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the process monitoring and governance report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    monitoredProcesses:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          processName:
+                            type: string
+                            description: Name of the retail process.
+                          processMetrics:
+                            type: object
+                            properties:
+                              throughputTime:
+                                type: number
+                                description: Average throughput time of the process during the timeframe.
+                              errorRate:
+                                type: number
+                                description: Average error rate in the process during the timeframe.
+                              complianceScore:
+                                type: number
+                                description: Average compliance score of the process during the timeframe.
+                              resourceUtilization:
+                                type: number
+                                description: Average resource utilization percentage during the timeframe.
+                          governanceStatus:
+                            type: string
+                            description: Governance status of the process during the timeframe.
+                    overallProcessGovernance:
+                      type: string
+                      description: Overall assessment of process governance during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

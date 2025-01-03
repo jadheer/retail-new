@@ -1,0 +1,194 @@
+openapi: 3.0.0
+info:
+  title: 'Optimizing Workforce Relationships in Retail'
+  description: 'This API is designed to manage workforce relationships in the retail sector, enabling organizations to efficiently handle employee-manager relationships, such as reporting, mentoring, and collaboration. It supports the creation, retrieval, updating, and deletion of workforce relationships to foster a productive and harmonious work environment.'
+  version: 1.0.0
+paths:
+  '/workforce-relationships':
+    get:
+      summary: 'Retrieve a list of workforce relationships'
+      description: 'Fetches a list of all workforce relationships in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    relationshipId:
+                      type: string
+                      description: 'Unique identifier for the workforce relationship'
+                    employeeId:
+                      type: string
+                      description: 'Unique identifier for the employee'
+                    managerId:
+                      type: string
+                      description: 'Unique identifier for the manager'
+                    relationshipType:
+                      type: string
+                      description: 'Type of relationship (e.g., reporting, mentoring, collaboration)'
+                    startDate:
+                      type: string
+                      format: date
+                      description: 'Start date of the relationship'
+                    endDate:
+                      type: string
+                      format: date
+                      description: 'End date of the relationship'
+                    status:
+                      type: string
+                      description: 'Current status of the relationship (e.g., active, inactive)'
+                  required:
+                    - relationshipId
+                    - employeeId
+                    - managerId
+                    - relationshipType
+                    - startDate
+                    - status
+    post:
+      summary: 'Add a new workforce relationship'
+      description: 'Adds a new workforce relationship to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                  description: 'Unique identifier for the employee'
+                managerId:
+                  type: string
+                  description: 'Unique identifier for the manager'
+                relationshipType:
+                  type: string
+                  description: 'Type of relationship (e.g., reporting, mentoring, collaboration)'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the relationship'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the relationship'
+                status:
+                  type: string
+                  description: 'Current status of the relationship (e.g., active, inactive)'
+              required:
+                - employeeId
+                - managerId
+                - relationshipType
+                - startDate
+                - status
+      responses:
+        '201':
+          description: 'Workforce relationship created successfully'
+  '/workforce-relationships/{relationshipId}':
+    get:
+      summary: 'Retrieve details of a specific workforce relationship'
+      description: 'Fetches details of a specific workforce relationship by its ID.'
+      parameters:
+        - name: 'relationshipId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  relationshipId:
+                    type: string
+                    description: 'Unique identifier for the workforce relationship'
+                  employeeId:
+                    type: string
+                    description: 'Unique identifier for the employee'
+                  managerId:
+                    type: string
+                    description: 'Unique identifier for the manager'
+                  relationshipType:
+                    type: string
+                    description: 'Type of relationship (e.g., reporting, mentoring, collaboration)'
+                  startDate:
+                    type: string
+                    format: date
+                    description: 'Start date of the relationship'
+                  endDate:
+                    type: string
+                    format: date
+                    description: 'End date of the relationship'
+                  status:
+                    type: string
+                    description: 'Current status of the relationship (e.g., active, inactive)'
+                required:
+                  - relationshipId
+                  - employeeId
+                  - managerId
+                  - relationshipType
+                  - startDate
+                  - status
+    put:
+      summary: 'Update an existing workforce relationship'
+      description: 'Updates details of an existing workforce relationship by its ID.'
+      parameters:
+        - name: 'relationshipId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employeeId:
+                  type: string
+                  description: 'Unique identifier for the employee'
+                managerId:
+                  type: string
+                  description: 'Unique identifier for the manager'
+                relationshipType:
+                  type: string
+                  description: 'Type of relationship (e.g., reporting, mentoring, collaboration)'
+                startDate:
+                  type: string
+                  format: date
+                  description: 'Start date of the relationship'
+                endDate:
+                  type: string
+                  format: date
+                  description: 'End date of the relationship'
+                status:
+                  type: string
+                  description: 'Current status of the relationship (e.g., active, inactive)'
+              required:
+                - employeeId
+                - managerId
+                - relationshipType
+                - startDate
+                - status
+      responses:
+        '200':
+          description: 'Workforce relationship updated successfully'
+    delete:
+      summary: 'Delete a workforce relationship'
+      description: 'Deletes a workforce relationship from the retail system by its ID.'
+      parameters:
+        - name: 'relationshipId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Workforce relationship deleted successfully'

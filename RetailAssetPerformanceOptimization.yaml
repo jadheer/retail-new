@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Retail Asset Performance Optimization
+  version: 1.0.0
+  description: >
+    API to manage and optimize the performance of retail assets, ensuring efficient maintenance,
+    utilization, and lifecycle management of productive assets.
+
+paths:
+  '/asset/performance':
+    get:
+      summary: Analyze asset performance
+      description: Retrieve analysis and recommendations for improving the performance of retail assets.
+      responses:
+        '200':
+          description: Successful retrieval of asset performance data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalAssets:
+                    type: integer
+                    description: Total number of productive assets.
+                  activeAssets:
+                    type: integer
+                    description: Number of assets currently in use.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        assetType:
+                          type: string
+                          description: Type of asset (e.g., equipment, machinery, fixtures).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the asset type.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/asset/maintenance':
+    post:
+      summary: Simulate asset maintenance scenarios
+      description: Create and simulate maintenance scenarios for enhanced asset performance planning.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                assetCategories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories of assets (e.g., equipment, machinery, fixtures).
+                maintenanceMethods:
+                  type: array
+                  items:
+                    type: string
+                  description: Methods of maintenance (e.g., preventive, corrective, predictive).
+              required:
+                - storeId
+                - assetCategories
+                - maintenanceMethods
+      responses:
+        '201':
+          description: Asset maintenance simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the asset maintenance simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/asset':
+    get:
+      summary: Retrieve asset optimization suggestions
+      description: Get asset optimization recommendations based on performance and maintenance analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of asset optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    assetType:
+                      type: string
+                      description: Type of asset (e.g., equipment, machinery, fixtures).
+                    recommendation:
+                      type: string
+                      description: Suggested improvement for asset performance.
+                    expectedImpact:
+                      type: string
+                      description: Anticipated outcome of the recommendation (e.g., increased uptime, reduced costs).
+        '400':
+          description: Missing or invalid storeId parameter.
+        '500':
+          description: Internal server error.

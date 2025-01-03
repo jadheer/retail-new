@@ -1,0 +1,188 @@
+openapi: 3.0.0
+info:
+  title: Predictive Portfolio Management In Finance
+  version: 1.0.0
+  description: >
+    API to manage predictive portfolio management in finance, enabling businesses to
+    forecast portfolio performance, optimize asset allocation, and mitigate risks.
+
+paths:
+  '/predictive-portfolio/management':
+    get:
+      summary: Retrieve predictive portfolio management data
+      description: Fetch predictive insights and recommendations for portfolio management.
+      responses:
+        '200':
+          description: Successful retrieval of predictive portfolio management data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  portfolioId:
+                    type: string
+                    description: Unique identifier of the portfolio.
+                  predictedPerformance:
+                    type: object
+                    properties:
+                      expectedReturn:
+                        type: number
+                        description: Expected return on the portfolio.
+                      riskLevel:
+                        type: string
+                        description: Predicted risk level (e.g., low, medium, high).
+                  assetAllocation:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        assetType:
+                          type: string
+                          description: Type of asset (e.g., stocks, bonds, commodities).
+                        allocationPercentage:
+                          type: number
+                          description: Percentage allocation of the asset.
+                  riskMitigationStrategies:
+                    type: array
+                    items:
+                      type: string
+                    description: Strategies to mitigate portfolio risks.
+                  lastUpdated:
+                    type: string
+                    format: date-time
+                    description: Timestamp of the last update to the portfolio analysis.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/predictive-portfolio/management/submit':
+    post:
+      summary: Submit data for predictive portfolio management
+      description: Submit portfolio data for predictive analysis and optimization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                portfolioId:
+                  type: string
+                  description: Unique identifier of the portfolio.
+                portfolioData:
+                  type: object
+                  properties:
+                    assets:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          assetType:
+                            type: string
+                            description: Type of asset (e.g., stocks, bonds, commodities).
+                          currentValue:
+                            type: number
+                            description: Current value of the asset.
+                          allocationPercentage:
+                            type: number
+                            description: Percentage allocation of the asset.
+                    riskTolerance:
+                      type: string
+                      description: Risk tolerance level (e.g., low, medium, high).
+                  required:
+                    - assets
+                    - riskTolerance
+                analysisDetails:
+                  type: string
+                  description: Detailed analysis of the portfolio data.
+              required:
+                - portfolioId
+                - portfolioData
+      responses:
+        '201':
+          description: Predictive portfolio management data successfully submitted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analysisId:
+                    type: string
+                    description: Unique identifier of the submitted analysis.
+                  status:
+                    type: string
+                    description: Status of the analysis (e.g., submitted, under review).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/predictive-portfolio/management/reports':
+    get:
+      summary: Retrieve predictive portfolio management reports
+      description: Fetch detailed reports on predictive portfolio management.
+      parameters:
+        - name: timeframe
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [monthly, quarterly, yearly]
+          description: Timeframe for the predictive portfolio management report.
+      responses:
+        '200':
+          description: Successful retrieval of predictive portfolio management reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportId:
+                      type: string
+                      description: Unique identifier of the predictive portfolio management report.
+                    timeframe:
+                      type: string
+                      description: Timeframe covered by the report.
+                    analyzedPortfolios:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          portfolioId:
+                            type: string
+                            description: Unique identifier of the portfolio.
+                          predictedPerformance:
+                            type: object
+                            properties:
+                              expectedReturn:
+                                type: number
+                                description: Expected return on the portfolio.
+                              riskLevel:
+                                type: string
+                                description: Predicted risk level.
+                          assetAllocation:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                assetType:
+                                  type: string
+                                  description: Type of asset.
+                                allocationPercentage:
+                                  type: number
+                                  description: Percentage allocation of the asset.
+                          riskMitigationStrategies:
+                            type: array
+                            items:
+                              type: string
+                            description: Strategies to mitigate portfolio risks.
+                    overallPortfolioPerformance:
+                      type: string
+                      description: Overall assessment of portfolio performance during the timeframe.
+        '400':
+          description: Missing or invalid timeframe parameter.
+        '500':
+          description: Internal server error.

@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: 'Optimizing Retail Customer Relationships Policy Analysis'
+  version: 1.0.0
+  description: 'API for managing Optimizing Retail Customer Relationships Policy Analysis processes to enhance customer relationships and experiences.'
+paths:
+  '/customer-relationships':
+    get:
+      summary: 'Retrieve customer relationship policy data'
+      description: 'Fetch available customer relationship policy data and insights.'
+      responses:
+        '200':
+          description: 'Successful retrieval of customer relationship policy data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    example: 14
+                  retail_domain_category:
+                    type: string
+                    example: 'Develop and Manage Customer Experience'
+                  process_group:
+                    type: string
+                    example: 'Manage customer relationship'
+                  process_name:
+                    type: string
+                    example: 'Optimizing Retail Customer Relationships Policy Analysis'
+                  creation:
+                    type: string
+                    example: 'Minor'
+                  automation:
+                    type: string
+                    example: 'Minor'
+                  search:
+                    type: string
+                    example: 'Major'
+                  summarization:
+                    type: string
+                    example: 'Minor'
+  '/customer-relationships/search':
+    get:
+      summary: 'Search for customer relationship policies'
+      description: 'Search for specific customer relationship policies based on criteria.'
+      parameters:
+        - name: 'query'
+          in: 'query'
+          required: true
+          schema:
+            type: string
+            example: 'Loyalty Program Policy'
+      responses:
+        '200':
+          description: 'Search results returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: string
+                    example: ['Policy A', 'Policy B']
+  '/customer-relationships/automate':
+    post:
+      summary: 'Automate customer relationship policy analysis'
+      description: 'Trigger minor automation for analyzing customer relationship policies.'
+      responses:
+        '202':
+          description: 'Automation request accepted'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Customer relationship policy analysis automation process started successfully.'
+  '/customer-relationships/summarize':
+    get:
+      summary: 'Summarize customer relationship policy data'
+      description: 'Generate a summary of customer relationship policy insights.'
+      responses:
+        '200':
+          description: 'Summary generated successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  summary:
+                    type: string
+                    example: 'Customer relationship policy analysis shows a 20% increase in customer retention.'

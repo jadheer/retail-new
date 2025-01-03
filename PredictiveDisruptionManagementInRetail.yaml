@@ -1,0 +1,115 @@
+openapi: 3.0.0
+info:
+  title: Predictive Disruption Management In Retail
+  version: 1.0.0
+  description: >
+    API to manage and optimize predictive disruption management in retail,
+    ensuring proactive identification of disruptions, effective mitigation strategies, and improved operational resilience.
+
+paths:
+  '/disruption/predictive':
+    get:
+      summary: Analyze predictive disruption management efficiency
+      description: Retrieve analysis and recommendations for improving predictive disruption management in retail.
+      responses:
+        '200':
+          description: Successful retrieval of predictive disruption management data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalDisruptionsPredicted:
+                    type: integer
+                    description: Total number of disruptions predicted.
+                  disruptionsMitigated:
+                    type: integer
+                    description: Number of disruptions successfully mitigated.
+                  optimizationSuggestions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        disruptionType:
+                          type: string
+                          description: Type of disruption (e.g., supply chain, workforce, technology).
+                        suggestion:
+                          type: string
+                          description: Optimization recommendation for the disruption type.
+        '400':
+          description: Invalid request parameters.
+        '500':
+          description: Internal server error.
+
+  '/disruption/predictive/simulation':
+    post:
+      summary: Simulate predictive disruption management scenarios
+      description: Create and simulate scenarios for optimizing predictive disruption management in retail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storeId:
+                  type: string
+                  description: Unique identifier of the retail store.
+                disruptionCategories:
+                  type: array
+                  items:
+                    type: string
+                  description: Categories of disruptions (e.g., supply chain, workforce, technology).
+                managementStrategies:
+                  type: array
+                  items:
+                    type: string
+                  description: Strategies for predictive disruption management (e.g., predictive analytics, scenario planning, risk assessment).
+              required:
+                - storeId
+                - disruptionCategories
+                - managementStrategies
+      responses:
+        '201':
+          description: Predictive disruption management simulation successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simulationId:
+                    type: string
+                    description: Unique identifier of the predictive disruption management simulation.
+                  status:
+                    type: string
+                    description: Current status of the simulation (e.g., in-progress, completed).
+        '400':
+          description: Invalid request body.
+        '500':
+          description: Internal server error.
+
+  '/optimization/disruption/predictive':
+    get:
+      summary: Retrieve predictive disruption management optimization suggestions
+      description: Get predictive disruption management optimization recommendations based on analysis.
+      parameters:
+        - name: storeId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the retail store.
+      responses:
+        '200':
+          description: Successful retrieval of predictive disruption management optimization suggestions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    disruptionType:
+                      type: string
+                      description: Type of disruption (e.g., supply chain, workforce, technology).
+                   

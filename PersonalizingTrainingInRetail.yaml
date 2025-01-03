@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: 'Personalizing Training in Retail'
+  description: 'This API is designed to manage personalized training programs in the retail sector, enabling organizations to create, retrieve, update, and delete training programs tailored to specific roles. It ensures that employees receive relevant and effective training to enhance their skills and performance.'
+  version: 1.0.0
+paths:
+  '/training-programs':
+    get:
+      summary: 'Retrieve a list of training programs'
+      description: 'Fetches a list of all personalized training programs in the retail system.'
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    programId:
+                      type: string
+                      description: 'Unique identifier for the training program'
+                    programName:
+                      type: string
+                      description: 'Name of the training program'
+                    targetRole:
+                      type: string
+                      description: 'Role for which the training program is designed'
+                    duration:
+                      type: string
+                      description: 'Duration of the training program'
+                    personalizedModules:
+                      type: array
+                      items:
+                        type: string
+                      description: 'List of personalized modules in the program'
+                  required:
+                    - programId
+                    - programName
+                    - targetRole
+                    - duration
+    post:
+      summary: 'Add a new training program'
+      description: 'Adds a new personalized training program to the retail system.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                programName:
+                  type: string
+                  description: 'Name of the training program'
+                targetRole:
+                  type: string
+                  description: 'Role for which the training program is designed'
+                duration:
+                  type: string
+                  description: 'Duration of the training program'
+                personalizedModules:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of personalized modules in the program'
+              required:
+                - programName
+                - targetRole
+                - duration
+      responses:
+        '201':
+          description: 'Training program created successfully'
+  '/training-programs/{programId}':
+    get:
+      summary: 'Retrieve details of a specific training program'
+      description: 'Fetches details of a specific training program by its ID.'
+      parameters:
+        - name: 'programId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  programId:
+                    type: string
+                    description: 'Unique identifier for the training program'
+                  programName:
+                    type: string
+                    description: 'Name of the training program'
+                  targetRole:
+                    type: string
+                    description: 'Role for which the training program is designed'
+                  duration:
+                    type: string
+                    description: 'Duration of the training program'
+                  personalizedModules:
+                    type: array
+                    items:
+                      type: string
+                    description: 'List of personalized modules in the program'
+                required:
+                  - programId
+                  - programName
+                  - targetRole
+                  - duration
+    put:
+      summary: 'Update an existing training program'
+      description: 'Updates details of an existing training program by its ID.'
+      parameters:
+        - name: 'programId'
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                programName:
+                  type: string
+                  description: 'Name of the training program'
+                targetRole:
+                  type: string
+                  description: 'Role for which the training program is designed'
+                duration:
+                  type: string
+                  description: 'Duration of the training program'
+                personalizedModules:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of personalized modules in the program'
+              required:
+                - programName
+                - targetRole
+                - duration
+      responses:
+        '200':
+          description: 'Training program updated successfully'
+    delete:
+      summary: 'Delete a training program'
+      description: 'Deletes a training program from the retail system by its ID.'
+      parameters:
+        - name: 'programId'
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Training program deleted successfully'

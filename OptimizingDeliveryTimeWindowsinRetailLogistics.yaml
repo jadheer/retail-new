@@ -1,0 +1,94 @@
+openapi: 3.0.0
+info:
+  title: 'Optimizing Delivery Time Windows in Retail Logistics'
+  description: 'API for optimizing delivery time windows in retail logistics, focusing on automation and search functionalities to improve delivery efficiency.'
+  version: 1.0.0
+paths:
+  '/delivery/time-windows/optimize':
+    post:
+      summary: 'Optimize delivery time windows'
+      description: 'Optimizes delivery time windows to ensure timely and efficient delivery operations in retail logistics.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                process_id:
+                  type: integer
+                retail_domain_category:
+                  type: string
+                process_group:
+                  type: string
+                delivery_data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      order_id:
+                        type: string
+                      delivery_time_window:
+                        type: string
+                      optimization_recommendations:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '200':
+          description: 'Delivery time windows optimized successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  updated_delivery_data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        order_id:
+                          type: string
+                        delivery_time_window:
+                          type: string
+                        optimization_recommendations:
+                          type: array
+                          items:
+                            type: string
+  '/delivery/time-windows/search':
+    get:
+      summary: 'Search delivery time windows data'
+      description: 'Search for delivery time windows data based on order ID or delivery time window.'
+      parameters:
+        - name: 'order_id'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'ID of the order to search for'
+        - name: 'delivery_time_window'
+          in: query
+          schema:
+            type: string
+          required: false
+          description: 'Delivery time window to search for'
+      responses:
+        '200':
+          description: 'Delivery time windows data found'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    order_id:
+                      type: string
+                    delivery_time_window:
+                      type: string
+                    optimization_recommendations:
+                      type: array
+                      items:
+                        type: string
